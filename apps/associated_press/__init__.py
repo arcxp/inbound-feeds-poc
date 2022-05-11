@@ -1,12 +1,14 @@
 # http://api.ap.org/media/v/docs/Feed_Examples.htm
 # http://api.ap.org/media/v/docs/Getting_Content_Updates.htm
+import json
 from typing import Optional
 
 import requests
 from decouple import config
 from jmespath import search
+from xmltodict import parse
 
-from apps.associated_press.converter import APStoryConverter, APPhotoConverter
+from apps.associated_press.converter import APPhotoConverter, APStoryConverter
 from utils.logger import get_logger
 
 logger = get_logger()
@@ -26,12 +28,21 @@ def fetch_feed(next_page: Optional[str] = None):
         sequence = next_page.split("seq=")[-1]
 
         # log the sequence ids in the db. useful info when tracing back this task's runs.
-        logger.info(f"{res.status_code} {url}", extra={"previous_sequence": previous_sequence, "sequence": sequence, "next_page": next_page})
+        logger.info(
+            f"{res.status_code} {url}",
+            extra={
+                "previous_sequence": previous_sequence,
+                "sequence": sequence,
+                "next_page": next_page,
+            },
+        )
+
+        # choose the relevant items from the results
         items = search(
             'data.items[*].item.{"type": type, "source_id": renditions.main.contentid || renditions.nitf.contentid, '
             '"url": uri, "headline": headline, "firstcreated": firstcreated, '
             '"versioncreated": versioncreated, "originalfilename": renditions.main.originalfilename, '
-            '"description_caption": description_caption, "download_url": renditions.main.href}',
+            '"description_caption": description_caption, "download_url": renditions.main.href || renditions.nitf.href}',
             data,
         )
         logger.info(f"{len(items)} items returned from query")
@@ -48,26 +59,32 @@ def fetch_feed(next_page: Optional[str] = None):
     return items
 
 
-def fetch_story_item(url: str, item: Optional[dict] = None):
+def fetch_story_item(url: str, item: dict):
     params = {"apikey": config("AP_API_KEY")}
     res = requests.get(url, params=params)
+    if res.ok:
+        # AP stories are XML. Add the XML. The converter will use the XML to parse the story contents.
+        item["content_xml"] = res.content
+        # This shows converting the XML to JSON. Will use this to compute the shah1.
+        data = parse(res.content).get("nitf")
+        data = json.loads(json.dumps(data))
+        item["content_json"] = data
+        converter = APStoryConverter(item, org_name=config("ARC_ORG_ID"))
+        return converter
     print(res, "text", res.url)
 
 
-def fetch_photo_item(url: str, item: Optional[dict] = None):
-    params = {"apikey": config("AP_API_KEY")}
-    res = requests.get(url, params=params)
-    print(res, "photo", res.url)
+def fetch_photo_item(item: dict):
+    # AP Photos don't need more info to be parsed, so not bothering to query the url
+    converter = APPhotoConverter(item, org_name=config("ARC_ORG_ID"))
+    return converter
 
 
 if __name__ == "__main__":
     items = fetch_feed()
     if items:
         if items[0].get("type") == "picture":
-            fetch_photo_item(items[0].get("url"))
-            converter = APPhotoConverter(items[0], org_name=config("ARC_ORG_ID"))
+            converter = fetch_photo_item(items[0])
         else:
-            fetch_story_item(items[0].get("url"))
-            converter = APStoryConverter(items[0], org_name=config("ARC_ORG_ID"))
+            converter = fetch_story_item(items[0].get("download_url"), items[0])
         converter.convert_ans()
-
