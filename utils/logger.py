@@ -11,5 +11,5 @@ logger.addHandler(logHandler)
 logger.setLevel(logging.INFO)
 
 
-def get_logger():
+def get_logger():  # pragma: no cover
     return logger

@@ -23,9 +23,7 @@ class FixtureRetriever:
                 return get_file_fixture(os.path.join(FIXTURE_DIR, identifier))
 
             if ".json" in identifier:
-                return json.loads(
-                    get_file_fixture(os.path.join(FIXTURE_DIR, identifier))
-                )
+                return json.loads(get_file_fixture(os.path.join(FIXTURE_DIR, identifier)))
 
 
 # Set up ability to store sample test data and retrieve it for use in mocks
