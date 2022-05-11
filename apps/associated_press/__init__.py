@@ -63,15 +63,13 @@ def fetch_story_item(url: str, item: dict):
     params = {"apikey": config("AP_API_KEY")}
     res = requests.get(url, params=params)
     if res.ok:
-        # AP stories are XML. Add the XML. The converter will use the XML to parse the story contents.
-        item["content_xml"] = res.content
-        # This shows converting the XML to JSON. Will use this to compute the shah1.
-        data = parse(res.content).get("nitf")
+        # AP stories are XML. Add the XML. The converter will use the XML to parse the content elements.
+        # Convert the XML to JSON. Will use this to compute the shah1 and other ans fields.
+        data = parse(res.content).get("nitf", {})
         data = json.loads(json.dumps(data))
         item["content_json"] = data
-        converter = APStoryConverter(item, org_name=config("ARC_ORG_ID"))
+        converter = APStoryConverter(item, org_name=config("ARC_ORG_ID"), story_data=res.content)
         return converter
-    print(res, "text", res.url)
 
 
 def fetch_photo_item(item: dict):
@@ -80,7 +78,7 @@ def fetch_photo_item(item: dict):
     return converter
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     items = fetch_feed()
     if items:
         if items[0].get("type") == "picture":

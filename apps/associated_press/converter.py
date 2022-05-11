@@ -18,11 +18,12 @@ class MismatchedContentTypeException(Exception):
 
 
 class AssociatedPressBaseConverter:
-    def __init__(self, data: dict, *args, org_name: str = None, **kwargs):
+    def __init__(self, data: dict, *args, org_name: str = None, story_data: str = None, **kwargs):
         self.ans_version = "0.10.7"
         self.org_name = org_name
         self.converted_ans = {"version": self.ans_version}
         self.source_data = data
+        self.story_data = story_data
 
     def convert_ans(self):
         logger.info(
@@ -35,7 +36,7 @@ class AssociatedPressBaseConverter:
         )
         self.converted_ans.update(
             {
-                "arc_id": self.get_arc_id(self.source_data.get("source_id")),
+                "_id": self.get_arc_id(self.source_data.get("source_id")),
                 "type": self.get_type(self.source_data.get("type")),
                 "owner": {"id": self.org_name},
                 # trusting that the ap dates don't need to be converted to work in arc, so using as is
@@ -50,8 +51,8 @@ class AssociatedPressBaseConverter:
         return generate_arc_id(source_id)
 
     def get_type(self, type):
-        # trusting that am only importing images and stories, not galleries or videos
-        return "image" if type == "picture" else "story" if "text" else "unsupported"
+        # importing images and stories, not galleries or videos
+        return "image" if type == "picture" else "story" if type == "text" else "unsupported"
 
 
 class APStoryConverter(AssociatedPressBaseConverter):
@@ -81,7 +82,7 @@ class APStoryConverter(AssociatedPressBaseConverter):
         return self.converted_ans
 
     def get_sha1(self):
-        "create a sha1 that you can use to determnine later if this object has been updated since it was imported into arc"
+        """create a sha1 that you can use to determnine later if this object has been updated since it was imported into arc"""
         logger.info(
             "computing sha1 hash for story",
             extra={
@@ -91,10 +92,9 @@ class APStoryConverter(AssociatedPressBaseConverter):
             },
         )
         hash_source = copy.deepcopy(self.source_data)
-        # remove items from contributing to the hash that may change without signaling a substantive change to the underlying object
+        # remove items from contributing to the hash if they may change without signaling a substantive change to the actual content
         hash_source.pop("download_url", None)
         hash_source.pop("url", None)
-        hash_source.pop("content_xml")
         hash_source.get("content_json").pop("@version")
         hash_source.get("content_json").pop("@change.date")
         hash_source.get("content_json").pop("@change.time")
@@ -129,7 +129,8 @@ class APPhotoConverter(AssociatedPressBaseConverter):
         return self.converted_ans
 
     def get_sha1(self):
-        "create a sha1 that you can use to determnine later if this object has been updated since it was imported into arc"
+        """create a sha1 that you can use to determnine later if this object has been updated since it was imported into arc"""
+
         logger.info(
             "computing sha1 hash for photo",
             extra={
@@ -139,7 +140,7 @@ class APPhotoConverter(AssociatedPressBaseConverter):
             },
         )
         hash_source = copy.deepcopy(self.source_data)
-        # remove items from contributing to the hash that may change without signaling a substantive change to the underlying object
+        # remove items from contributing to the hash if they may change without signaling a substantive change to the actual content
         hash_source.pop("download_url", None)
         hash_source.pop("url", None)
         source_data_str = json.dumps(hash_source).encode("utf-8")
