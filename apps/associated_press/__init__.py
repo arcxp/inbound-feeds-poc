@@ -68,7 +68,9 @@ def fetch_story_item(url: str, item: dict):
         data = parse(res.content).get("nitf", {})
         data = json.loads(json.dumps(data))
         item["content_json"] = data
-        converter = APStoryConverter(item, org_name=config("ARC_ORG_ID"), story_data=res.content)
+        converter = APStoryConverter(
+            item, org_name=config("ARC_ORG_ID"), website=config("ARC_ORG_WEBSITE"), story_data=res.content
+        )
         return converter
 
 

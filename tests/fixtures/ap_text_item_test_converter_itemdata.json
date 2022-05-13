@@ -1,111 +1,117 @@
 {
-  "type": "text",
-  "source_id": "933046d59d58616e5f3e2b00cddfceae",
-  "url": "https://api.ap.org/media/v/content/d38703c060c6b066f2bd9012d147c6e1?qt=HNKVoTocLIF&et=17a1aza0c0",
-  "headline": "Ukraine to hold first war crimes trial of captured Russian",
-  "firstcreated": "2022-05-11T04:07:27Z",
-  "versioncreated": "2022-05-11T19:35:25Z",
-  "originalfilename": null,
-  "description_caption": null,
-  "download_url": "https://api.ap.org/media/v/content/d38703c060c6b066f2bd9012d147c6e1.17/download?type=text&format=NITF&rid=933046d59d58616e5f3e2b00cddfceae&cid=0&fid=2aa4f43cc76344c3a39f161ddcce2b29&trf=a1193&qt=HNKVoTocLIF&dt=rm_5VvM0EY&et=17a1aza0c0",
-  "content_json": {
-    "@version": "-//IPTC//DTD NITF 3.4//EN",
-    "@change.date": "October 18, 2006",
-    "@change.time": "19:30",
-    "head": {
-      "docdata": {
-        "doc-id": {
-          "@regsrc": "AP"
-        },
-        "date.issue": {
-          "@norm": "20220511T193525Z"
-        },
-        "ed-msg": {
-          "@info": "Eds: UPDATES: adds photos ; AP Video."
-        },
-        "doc.copyright": {
-          "@holder": "AP",
-          "@year": "2022"
-        },
-        "identified-content": {
-          "classifier": [
-            {
-              "@type": "apcategorycode",
-              "@value": "f"
-            },
-            {
-              "@type": "apcategorycode",
-              "@value": "i"
-            },
-            {
-              "@type": "apcategorycode",
-              "@value": "p"
+    "type": "text",
+    "source_id": "933046d59d58616e5f3e2b00cddfceae",
+    "url": "https://api.ap.org/media/v/content/d38703c060c6b066f2bd9012d147c6e1?qt=HNKVoTocLIF&et=17a1aza0c0",
+    "headline": "Ukraine to hold first war crimes trial of captured Russian",
+    "bylines": [
+        {
+            "by": "By ELENA BECATOROS and JON GAMBRELL",
+            "title": "Associated Press"
+        }
+    ],
+    "firstcreated": "2022-05-11T04:07:27Z",
+    "versioncreated": "2022-05-11T19:35:25Z",
+    "originalfilename": null,
+    "description_caption": null,
+    "download_url": "https://api.ap.org/media/v/content/d38703c060c6b066f2bd9012d147c6e1.17/download?type=text&format=NITF&rid=933046d59d58616e5f3e2b00cddfceae&cid=0&fid=2aa4f43cc76344c3a39f161ddcce2b29&trf=a1193&qt=HNKVoTocLIF&dt=rm_5VvM0EY&et=17a1aza0c0",
+    "content_json": {
+        "@version": "-//IPTC//DTD NITF 3.4//EN",
+        "@change.date": "October 18, 2006",
+        "@change.time": "19:30",
+        "head": {
+            "docdata": {
+                "doc-id": {
+                    "@regsrc": "AP"
+                },
+                "date.issue": {
+                    "@norm": "20220511T193525Z"
+                },
+                "ed-msg": {
+                    "@info": "Eds: UPDATES: adds photos ; AP Video."
+                },
+                "doc.copyright": {
+                    "@holder": "AP",
+                    "@year": "2022"
+                },
+                "identified-content": {
+                    "classifier": [
+                        {
+                            "@type": "apcategorycode",
+                            "@value": "f"
+                        },
+                        {
+                            "@type": "apcategorycode",
+                            "@value": "i"
+                        },
+                        {
+                            "@type": "apcategorycode",
+                            "@value": "p"
+                        }
+                    ]
+                }
             }
-          ]
-        }
-      }
-    },
-    "body": {
-      "body.head": {
-        "hedline": {
-          "hl1": {
-            "@id": "headline",
-            "#text": "Ukraine to hold first war crimes trial of captured Russian"
-          }
         },
-        "distributor": "The Associated Press",
-        "dateline": {
-          "location": "ZAPORIZHZHIA, Ukraine"
-        }
-      },
-      "body.content": {
-        "block": {
-          "p": [
-            "ZAPORIZHZHIA, Ukraine (AP) \u2014 Ukraine\u2019s top prosecutor disclosed plans Wednesday for the first war crimes trial of a captured Russian soldier, as fighting raged in the east and south and the Kremlin entertained the possibility of annexing a corner of the country it seized early in the invasion.",
-            "Prosecutor General Iryna Venediktova said her office charged Sgt. Vadin Shyshimarin, 21, in the killing of an unarmed 62-year-old civilian who was gunned down while riding a bicycle in February, four days into the war.",
-            "Shyshimarin, who served with a tank unit, was accused of firing through a car window on the man in the northeastern village of Chupakhivka. Venediktova said the soldier could get up to 15 years in prison. She did not say when the trial would start.",
-            "Venediktova\u2019s office has said it has been investigating over 10,700 alleged war crimes committed by Russian forces and has identified over 600 suspects.",
-            "Many of the alleged atrocities came to light last month after Moscow's forces aborted their bid to capture Kyiv and withdrew from around the capital, exposing mass graves and streets and yards strewn with bodies in towns such as Bucha. Residents told of killings, burnings, rape, torture and dismemberment.",
-            "On the economic front, Ukraine shut down one of the pipelines that carry Russian gas across the country to homes and industries in Western Europe, marking the first time since the start of the war that Kyiv disrupted the flow westward of one of Moscow\u2019s most lucrative exports.",
-            "But the immediate effect is likely to be limited, in part because Russia can divert the gas to another pipeline and because Europe relies on a variety of suppliers.",
-            "Meanwhile, a Kremlin-installed politician in the southern Kherson region, site of the first major Ukrainian city to fall in the war, said officials there want Russian President Vladimir Putin to make Kherson a \u201cproper region\u201d of Russia \u2014 that is, annex it.",
-            "\u201cThe city of Kherson is Russia,\u201d Kirill Stremousov, deputy head of the Kherson regional administration appointed by Moscow, told Russia\u2019s RIA Novosti news agency,",
-            {
-              "a": {
-                "@href": "https://apnews.com/hub/russia-ukraine",
-                "#text": "an invasion gone awry"
-              },
-              "#text": "That raised the possibility that the Kremlin would seek to break off another piece of Ukraine as it tries to salvage . Russia annexed Ukraine's Crimean Peninsula, which borders the Kherson region, in 2014, a move denounced as illegal and rejected by most of the international community."
+        "body": {
+            "body.head": {
+                "hedline": {
+                    "hl1": {
+                        "@id": "headline",
+                        "#text": "Ukraine to hold first war crimes trial of captured Russian"
+                    }
+                },
+                "distributor": "The Associated Press",
+                "dateline": {
+                    "location": "ZAPORIZHZHIA, Ukraine"
+                }
             },
-            "Kremlin spokesman Dmitry Peskov said it would be \u201cup to the residents of the Kherson region after all to decide whether such an appeal should be made or not.\u201d He said any move to annex territory would have to be closely evaluated by legal experts to make sure it is \u201cabsolutely legitimate, as it was with Crimea.\u201d",
-            "Russia annexed Crimea after holding a referendum there over whether it wanted to become part of Russia.",
-            "Ukrainian presidential adviser Mykhailo Podolyak mocked the notion of Kherson's annexation, tweeting: \u201cThe invaders may ask to join even Mars or Jupiter. The Ukrainian army will liberate Kherson, no matter what games with words they play.\u201d",
-            "Kherson, a Black Sea port of roughly 300,000, provides Crimea with access to fresh water and is seen as gateway to wider Russian control over southern Ukraine.",
-            "On the battlefield, Ukrainian officials said a Russian rocket attack targeted an area around Zaporizhzhia, destroying unspecified infrastructure. There were no immediate reports of casualties. The southeastern city has been a refuge for civilians fleeing the Russian siege in the devastated port city of Mariupol.",
-            "Russian forces continued to pound the steel plant that is the last bastion of Ukrainian resistance in Mariupol, its defenders said. The Azov Regiment said on social media that Russian forces carried out 38 airstrikes in the previous 24 hours on the grounds of the Azovstal steelworks.",
-            "The plant, with its network of tunnels and bunkers, has sheltered hundreds of Ukrainian troops and civilians during a months-long siege. Scores of civilians were evacuated in recent days, but Ukrainian officials said some may still be trapped there.",
-            "In his nightly address Tuesday, President Volodymyr Zelenskyy suggested Ukraine\u2019s military is gradually pushing Russian troops away from Kharkiv, the country\u2019s second-largest city and a key to Russia\u2019s offensive in the Donbas, the eastern industrial region whose capture the Kremlin says is its main objective.",
-            "Ukraine is also targeting Russian air defenses and resupply vessels on Snake Island in the Black Sea in an effort to disrupt Moscow\u2019s efforts to expand its control over the coastline, according to the British Ministry of Defense.",
-            "Separately, Ukraine said it shot down a cruise missile targeting the Black Sea port city of Odesa.",
-            "Ukraine\u2019s natural gas pipeline operator said it moved to stop the flow of Russian gas through a compressor station in part of eastern Ukraine controlled by Moscow-backed separatists because enemy forces were interfering with the station's operation and siphoning off gas.",
-            "The hub handles about one-third of Russian gas passing through Ukraine to Western Europe. But analysts said much of the gas can be redirected through another pipeline from Russia that crosses Ukraine, and there were indications that was happening. In any case, Europe also gets natural gas from other pipelines and other countries.",
-            "\u201cWe\u2019re losing a few percent in overall European gas supply, when you consider imports and domestic production as well,\u201d said Tom Marzec-Manser, an analyst at market intelligence firm ICIS. \u201cSo this is not a huge cutoff to gas supplies\" for Europe.",
-            "Nor was it clear whether Russia would take any immediate hit, since it has long-term contracts and other ways of transporting gas.",
-            "Still, the cutoff underscored the broader risk to gas supplies from the war.",
-            "\u201cYesterday\u2019s decision is a small preview of what might happen if gas installations are hit by live fire and face the risk of extended downtimes,\u201d said gas analyst Zongqiang Luo at Rystad Energy.",
-            "___",
-            "Gambrell reported from Lviv, Ukraine. Yesica Fisch in Bakhmut, David Keyton in Kyiv, Yuras Karmanau in Lviv, Mstyslav Chernov in Kharkiv, Lolita C. Baldor in Washington, Kelvin Chan in London and AP's worldwide staff contributed.",
-            "___",
-            {
-              "a": {
-                "@href": "https://apnews.com/hub/russia-ukraine",
-                "#text": "https://apnews.com/hub/russia-ukraine"
-              },
-              "#text": "Follow AP\u2019s coverage of the war in Ukraine:"
+            "body.content": {
+                "block": {
+                    "p": [
+                        "ZAPORIZHZHIA, Ukraine (AP) \u2014 Ukraine\u2019s top prosecutor disclosed plans Wednesday for the first war crimes trial of a captured Russian soldier, as fighting raged in the east and south and the Kremlin entertained the possibility of annexing a corner of the country it seized early in the invasion.",
+                        "Prosecutor General Iryna Venediktova said her office charged Sgt. Vadin Shyshimarin, 21, in the killing of an unarmed 62-year-old civilian who was gunned down while riding a bicycle in February, four days into the war.",
+                        "Shyshimarin, who served with a tank unit, was accused of firing through a car window on the man in the northeastern village of Chupakhivka. Venediktova said the soldier could get up to 15 years in prison. She did not say when the trial would start.",
+                        "Venediktova\u2019s office has said it has been investigating over 10,700 alleged war crimes committed by Russian forces and has identified over 600 suspects.",
+                        "Many of the alleged atrocities came to light last month after Moscow's forces aborted their bid to capture Kyiv and withdrew from around the capital, exposing mass graves and streets and yards strewn with bodies in towns such as Bucha. Residents told of killings, burnings, rape, torture and dismemberment.",
+                        "On the economic front, Ukraine shut down one of the pipelines that carry Russian gas across the country to homes and industries in Western Europe, marking the first time since the start of the war that Kyiv disrupted the flow westward of one of Moscow\u2019s most lucrative exports.",
+                        "But the immediate effect is likely to be limited, in part because Russia can divert the gas to another pipeline and because Europe relies on a variety of suppliers.",
+                        "Meanwhile, a Kremlin-installed politician in the southern Kherson region, site of the first major Ukrainian city to fall in the war, said officials there want Russian President Vladimir Putin to make Kherson a \u201cproper region\u201d of Russia \u2014 that is, annex it.",
+                        "\u201cThe city of Kherson is Russia,\u201d Kirill Stremousov, deputy head of the Kherson regional administration appointed by Moscow, told Russia\u2019s RIA Novosti news agency,",
+                        {
+                            "a": {
+                                "@href": "https://apnews.com/hub/russia-ukraine",
+                                "#text": "an invasion gone awry"
+                            },
+                            "#text": "That raised the possibility that the Kremlin would seek to break off another piece of Ukraine as it tries to salvage . Russia annexed Ukraine's Crimean Peninsula, which borders the Kherson region, in 2014, a move denounced as illegal and rejected by most of the international community."
+                        },
+                        "Kremlin spokesman Dmitry Peskov said it would be \u201cup to the residents of the Kherson region after all to decide whether such an appeal should be made or not.\u201d He said any move to annex territory would have to be closely evaluated by legal experts to make sure it is \u201cabsolutely legitimate, as it was with Crimea.\u201d",
+                        "Russia annexed Crimea after holding a referendum there over whether it wanted to become part of Russia.",
+                        "Ukrainian presidential adviser Mykhailo Podolyak mocked the notion of Kherson's annexation, tweeting: \u201cThe invaders may ask to join even Mars or Jupiter. The Ukrainian army will liberate Kherson, no matter what games with words they play.\u201d",
+                        "Kherson, a Black Sea port of roughly 300,000, provides Crimea with access to fresh water and is seen as gateway to wider Russian control over southern Ukraine.",
+                        "On the battlefield, Ukrainian officials said a Russian rocket attack targeted an area around Zaporizhzhia, destroying unspecified infrastructure. There were no immediate reports of casualties. The southeastern city has been a refuge for civilians fleeing the Russian siege in the devastated port city of Mariupol.",
+                        "Russian forces continued to pound the steel plant that is the last bastion of Ukrainian resistance in Mariupol, its defenders said. The Azov Regiment said on social media that Russian forces carried out 38 airstrikes in the previous 24 hours on the grounds of the Azovstal steelworks.",
+                        "The plant, with its network of tunnels and bunkers, has sheltered hundreds of Ukrainian troops and civilians during a months-long siege. Scores of civilians were evacuated in recent days, but Ukrainian officials said some may still be trapped there.",
+                        "In his nightly address Tuesday, President Volodymyr Zelenskyy suggested Ukraine\u2019s military is gradually pushing Russian troops away from Kharkiv, the country\u2019s second-largest city and a key to Russia\u2019s offensive in the Donbas, the eastern industrial region whose capture the Kremlin says is its main objective.",
+                        "Ukraine is also targeting Russian air defenses and resupply vessels on Snake Island in the Black Sea in an effort to disrupt Moscow\u2019s efforts to expand its control over the coastline, according to the British Ministry of Defense.",
+                        "Separately, Ukraine said it shot down a cruise missile targeting the Black Sea port city of Odesa.",
+                        "Ukraine\u2019s natural gas pipeline operator said it moved to stop the flow of Russian gas through a compressor station in part of eastern Ukraine controlled by Moscow-backed separatists because enemy forces were interfering with the station's operation and siphoning off gas.",
+                        "The hub handles about one-third of Russian gas passing through Ukraine to Western Europe. But analysts said much of the gas can be redirected through another pipeline from Russia that crosses Ukraine, and there were indications that was happening. In any case, Europe also gets natural gas from other pipelines and other countries.",
+                        "\u201cWe\u2019re losing a few percent in overall European gas supply, when you consider imports and domestic production as well,\u201d said Tom Marzec-Manser, an analyst at market intelligence firm ICIS. \u201cSo this is not a huge cutoff to gas supplies\" for Europe.",
+                        "Nor was it clear whether Russia would take any immediate hit, since it has long-term contracts and other ways of transporting gas.",
+                        "Still, the cutoff underscored the broader risk to gas supplies from the war.",
+                        "\u201cYesterday\u2019s decision is a small preview of what might happen if gas installations are hit by live fire and face the risk of extended downtimes,\u201d said gas analyst Zongqiang Luo at Rystad Energy.",
+                        "___",
+                        "Gambrell reported from Lviv, Ukraine. Yesica Fisch in Bakhmut, David Keyton in Kyiv, Yuras Karmanau in Lviv, Mstyslav Chernov in Kharkiv, Lolita C. Baldor in Washington, Kelvin Chan in London and AP's worldwide staff contributed.",
+                        "___",
+                        {
+                            "a": {
+                                "@href": "https://apnews.com/hub/russia-ukraine",
+                                "#text": "https://apnews.com/hub/russia-ukraine"
+                            },
+                            "#text": "Follow AP\u2019s coverage of the war in Ukraine:"
+                        }
+                    ]
+                }
             }
-          ]
         }
-      }
     }
-  }
 }

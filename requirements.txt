@@ -19,3 +19,5 @@ pytest==7.1.2
 pytest-cov==3.0.0
 coverage==6.3.2
 pytest-flask==1.2.0
+arrow==1.2.2
+freezegun==1.2.1
