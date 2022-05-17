@@ -99,7 +99,7 @@ def test_fetch_photo_item():
 def test_base_converter(ap_type, arc_type):
     converter = AssociatedPressBaseConverter({}, org_name="myorg")
     assert converter.get_arc_type(ap_type) == arc_type
-    assert converter.get_arc_id("abc123") == "K7MUMMS7VF7S24QQK6CBUHD274"
+    assert converter.get_arc_id("abc123") == "Y6LNM3BS6XOBZGSCZXJARW2HZM"
     assert converter.get_expiration_date() == "2022-03-02T00:00:00Z"
 
 
@@ -110,7 +110,7 @@ def test_photo_converter(test_content):
     assert ans.get("version") == "0.10.7"
     assert ans.get("type") == "image"
     assert ans.get("owner").get("id") == "myorg"
-    assert ans.get("_id") == "L5Q6DEVOVAC4AB5U3XIX6UFGNQ"
+    assert ans.get("_id") == "4SMRDV6XJETBEANTUQZEXHTJX4"
     assert ans.get("publish_date") == ans.get("display_date") == "2022-05-11T17:47:55Z"
     assert ans.get("distributor") == {"category": "wires", "name": "Associated Press", "mode": "custom"}
     assert ans.get("source") == {"name": "Associated Press", "id": "d718de68c8824b1ba8b8089bfbab5804"}
@@ -124,7 +124,7 @@ def test_photo_converter(test_content):
         ans.get("additional_properties").get("original_url")
         == "https://api.ap.org/media/v/content/6bb4a755875f44338d4a2b12bea5446d.0/download?role=main&qt=QlDpbGcIskF&cid=d718de68c8824b1ba8b8089bfbab5804&pt=NDUyNjd8OTkxMDd8NnwzNXxVU0Q"
     )
-    assert ans.get("additional_properties").get("originalName") == "d718de68c8824b1ba8b8089bfbab5804"
+    assert ans.get("additional_properties").get("originalName") == "Russia_Soccer_Cup_Spartak_-_Yenisey_17799.jpg"
     assert ans.get("additional_properties").get("expiration_date") == "2022-03-02T00:00:00Z"
 
 
@@ -140,10 +140,10 @@ def test_story_converter(test_content):
     assert ans.get("version") == "0.10.7"
     assert ans.get("owner").get("id") == "myorg"
     assert ans.get("type") == "story"
-    assert ans.get("_id") == "ZFCHSR4DKLMYSW3O3JC7NDCWMA"
+    assert ans.get("_id") == "WTMJO4FHXDCGIFKCYNKGZE3UKY"
     assert ans.get("source") == {"name": "Associated Press", "id": "933046d59d58616e5f3e2b00cddfceae"}
     assert ans.get("publish_date") == ans.get("display_date") == "2022-05-11T04:07:27Z"
-    assert ans.get("additional_properties").get("sha1") == "cd65a2998076fc46ba60545ccab84d03bf25b256"
+    assert ans.get("additional_properties").get("sha1") == "5fb395eeb761d3c337418bd52700128329047e34"
     assert ans.get("headlines").get("basic") == "Ukraine to hold first war crimes trial of captured Russian"
     assert ans.get("credits") == {
         "by": [{"type": "author", "name": "ELENA BECATOROS and JON GAMBRELL", "org": "Associated Press"}]
@@ -152,7 +152,7 @@ def test_story_converter(test_content):
     assert ans.get("workflow").get("status_code") == 1
 
     circulation = converter.get_circulation()
-    assert circulation.get("document_id") == "ZFCHSR4DKLMYSW3O3JC7NDCWMA"
+    assert circulation.get("document_id") == "WTMJO4FHXDCGIFKCYNKGZE3UKY"
     assert circulation.get("website_id") == "mywebsite"
     # website_url not used in this POC
     # assert circulation.get("website_url") == "/ukraine-to-hold-first-war-crimes-trial-of-captured-russian"
@@ -168,6 +168,21 @@ def test_story_converter(test_content):
 
     delete_operation = converter.get_scheduled_delete_operation()
     assert delete_operation.get("type") == "story_operation"
-    assert delete_operation.get("story_id") == "ZFCHSR4DKLMYSW3O3JC7NDCWMA"
+    assert delete_operation.get("story_id") == "WTMJO4FHXDCGIFKCYNKGZE3UKY"
     assert delete_operation.get("operation") == "delete"
     assert delete_operation.get("date") == "2022-03-02T00:00:00Z"
+
+    associations_urls = converter.get_photo_associations_urls()
+    assert associations_urls == [
+        "https://api.ap.org/media/v/content/d110254bbaf54b2098e36e3ced474862?qt=HNKVoTocLIF&et=1a1aza3c0&ai=d38703c060c6b066f2bd9012d147c6e1",
+        "https://api.ap.org/media/v/content/15667ba3019843fc89c922cc822ffb4b?qt=HNKVoTocLIF&et=0a1aza3c0&ai=d38703c060c6b066f2bd9012d147c6e1",
+        "https://api.ap.org/media/v/content/bf1096954ea44abdabcd1bd204991983?qt=HNKVoTocLIF&et=0a1aza3c0&ai=d38703c060c6b066f2bd9012d147c6e1",
+    ]
+
+    associations = converter.get_photo_associations()
+    assert associations == [
+        {"referent": {"id": "5WAHGB4GUQEDL5NXO2YQNKELZY", "type": "image"}, "type": "reference"},
+        {"referent": {"id": "ZL7AOJH4MLAS4AHT4K5RYU6Q3A", "type": "image"}, "type": "reference"},
+        {"referent": {"id": "YMWMWCQE47HXC5UDJKJEIWD3LY", "type": "image"}, "type": "reference"},
+    ]
+    assert ans.get("related_content").get("basic") == associations

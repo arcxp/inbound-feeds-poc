@@ -11,6 +11,7 @@ from slugify import slugify
 
 from utils.arc_id import generate_arc_id
 from utils.logger import get_logger
+from utils.constants import AP_RESULTS_JMESPATH_STR
 
 logger = get_logger()
 
@@ -55,9 +56,9 @@ class AssociatedPressBaseConverter:
         )
         return self.converted_ans
 
-    @staticmethod
-    def get_arc_id(source_id):
-        return generate_arc_id(source_id)
+    def get_arc_id(self, source_id):
+        """ arc ids should consist of the source id and also the arc org id """
+        return generate_arc_id(source_id, self.org_name)
 
     @staticmethod
     def get_arc_type(ap_type):
@@ -85,7 +86,8 @@ class APStoryConverter(AssociatedPressBaseConverter):
                 "workflow": {"status_code": 1},  # status_code 1 should be "Draft", but verify
                 "additional_properties": {
                     "sha1": self.get_sha1(),
-                }
+                },
+                "related_content": {"basic": self.get_photo_associations()},
             }
         )
 
@@ -106,7 +108,7 @@ class APStoryConverter(AssociatedPressBaseConverter):
         circulation = {
             "document_id": self.get_arc_id(self.source_data.get("source_id")),
             "website_id": self.website,
-            "website_url": self.get_website_url(self.source_data.get('headline')),
+            "website_url": self.get_website_url(self.source_data.get("headline")),
             "website_primary_section": {
                 "type": "reference",
                 "referent": {"id": "/wires/ap", "type": "section", "website": self.website},
@@ -161,6 +163,17 @@ class APStoryConverter(AssociatedPressBaseConverter):
     def get_website_url(self, headline):
         return "/" + slugify(headline)
 
+    def get_photo_associations_urls(self):
+        """return the urls of the photo associations so their full details can be requested"""
+        associations = self.source_data.get("associations", None)
+        return search("* | [?type == `picture`].uri", associations) or []
+
+    def get_photo_associations(self):
+        """write ans references for each of the pictures in a story's associations"""
+        ids = search("* | [?type == `picture`].altids.itemid", self.source_data.get("associations")) or []
+        ids = [{"referent": {"id": self.get_arc_id(id), "type": "image"}, "type": "reference"} for id in ids]
+        return ids
+
 
 class APPhotoConverter(AssociatedPressBaseConverter):
     def convert_ans(self):
@@ -172,7 +185,7 @@ class APPhotoConverter(AssociatedPressBaseConverter):
         self.converted_ans.update(
             {
                 "additional_properties": {
-                    "originalName": self.source_data.get("source_id"),
+                    "originalName": self.source_data.get("originalfilename"),
                     "original_url": self.source_data.get("download_url"),
                     "expiration_date": self.get_expiration_date(),
                     "sha1": self.get_sha1(),

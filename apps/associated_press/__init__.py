@@ -2,6 +2,7 @@
 # http://api.ap.org/media/v/docs/Getting_Content_Updates.htm
 import json
 from typing import Optional
+from pprint import pprint
 
 import requests
 from decouple import config
@@ -10,6 +11,7 @@ from xmltodict import parse
 
 from apps.associated_press.converter import APPhotoConverter, APStoryConverter
 from utils.logger import get_logger
+from utils.constants import AP_RESULTS_JMESPATH_STR, AP_ASSOCIATIONS_JMESPATH_STR
 
 logger = get_logger()
 
@@ -25,7 +27,7 @@ def fetch_feed(next_page: Optional[str] = None):
         data = res.json()
         next_page = search("data.next_page", data) or None
         previous_sequence = search("params.seq", data) or None
-        sequence = next_page.split("seq=")[-1]
+        sequence = next_page.split("seq=")[-1] if next_page else None
 
         # log the sequence ids in the db. useful info when tracing back this task's runs.
         logger.info(
@@ -37,15 +39,13 @@ def fetch_feed(next_page: Optional[str] = None):
             },
         )
 
-        # choose the relevant items from the results
-        items = search(
-            'data.items[*].item.{"type": type, "source_id": renditions.main.contentid || renditions.nitf.contentid, '
-            '"url": uri, "headline": headline, "firstcreated": firstcreated, '
-            '"versioncreated": versioncreated, "originalfilename": renditions.main.originalfilename, '
-            '"description_caption": description_caption, "download_url": renditions.main.href || renditions.nitf.href}',
-            data,
-        )
+        # build data from the relevant keys
+        items = search(AP_RESULTS_JMESPATH_STR, data) or []
         logger.info(f"{len(items)} items returned from query")
+        if not items:
+            # this may have been an associations dict from a story rather than one of the results of the og query
+            logger.info("fetching photo association from story")
+            items = search(AP_ASSOCIATIONS_JMESPATH_STR, data)
     else:
         # LOG Error
         logger.error(f"{res.status_code} {url}")
@@ -81,10 +81,28 @@ def fetch_photo_item(item: dict):
 
 
 if __name__ == "__main__":  # pragma: no cover
+    # # this is the uri of one of the photos from a story's associations
+    # test = fetch_feed(
+    #     "https://api.ap.org/media/v/content/28514e83e96c483f8cbac9b3aaabadc4?qt=_dSwUXC5aF&et=1a1aza4c0&ai=95b07bc3a92191b0abea66f851983c59"
+    # )
+
     items = fetch_feed()
-    if items:
-        if items[0].get("type") == "picture":
-            converter = fetch_photo_item(items[0])
+    wires = []
+    for item in items:
+        if item.get("type") == "picture":
+            converter = fetch_photo_item(item)
+            wires.append(converter)
+        elif item.get("type") == "text":
+            converter = fetch_story_item(item.get("download_url"), item)
+            wires.append(converter)
+
+            # if there are pictures associated with the story, add these converters to the wires array
+            urls = converter.get_photo_associations_urls()
+            for url in urls:
+                item = fetch_feed(url)
+                converter = fetch_photo_item(item)
+                wires.append(converter)
         else:
-            converter = fetch_story_item(items[0].get("download_url"), items[0])
-        converter.convert_ans()
+            logger.info(item.get("type"))
+
+    pprint(wires)

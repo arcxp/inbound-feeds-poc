@@ -1,0 +1,3 @@
+AP_RESULTS_JMESPATH_STR = 'data.items[*].item.{"type": type, "source_id": renditions.main.contentid || renditions.nitf.contentid, "url": uri, "headline": headline, "firstcreated": firstcreated, "versioncreated": versioncreated, "originalfilename": renditions.main.originalfilename, "description_caption": description_caption, "download_url": renditions.main.href || renditions.nitf.href, "associations": associations}'
+
+AP_ASSOCIATIONS_JMESPATH_STR = 'data.item.{"type": type, "source_id": renditions.main.contentid, "url": uri, "headline": headline, "firstcreated": firstcreated, "versioncreated": versioncreated, "originalfilename": renditions.main.originalfilename, "description_caption": description_caption, "download_url": renditions.main.href}'
