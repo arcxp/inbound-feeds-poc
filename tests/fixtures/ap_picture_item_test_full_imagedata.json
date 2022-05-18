@@ -1,0 +1,506 @@
+{
+	"api_version": "2.1",
+	"api_mode": "live",
+	"api_build": "2.1.7",
+	"id": "kj7ezKwV9F",
+	"method": "/content.GET",
+	"org_name": "ATLANTA JOURNAL-CONSTITUTION (Cox Group)",
+	"params": {
+		"ai": "39750e4e6514aa52162555ace6281a9e",
+		"et": "1a1aza3c0",
+		"qt": "kj7ezKwV9F"
+	},
+	"data": {
+		"meta": {
+			"products": [
+				{
+					"id": 1206,
+					"name": "APstrmPhotos"
+				},
+				{
+					"id": 10105,
+					"name": "USPhotos"
+				},
+				{
+					"id": 10108,
+					"name": "LATPhotos"
+				},
+				{
+					"id": 10109,
+					"name": "EuroPhotos"
+				},
+				{
+					"id": 10110,
+					"name": "AsiaPhotos"
+				},
+				{
+					"id": 10111,
+					"name": "GermanPhotos"
+				},
+				{
+					"id": 31522,
+					"name": "PHOTOSTREAM - AK (ALASKA)"
+				},
+				{
+					"id": 31523,
+					"name": "PHOTOSTREAM - AL (ALABAMA)"
+				},
+				{
+					"id": 31536,
+					"name": "PHOTOSTREAM - AR (ARKANSAS)"
+				},
+				{
+					"id": 31551,
+					"name": "PHOTOSTREAM - AZ (ARIZONA)"
+				},
+				{
+					"id": 31629,
+					"name": "PHOTOSTREAM - CA (CALIFORNIA)"
+				},
+				{
+					"id": 31640,
+					"name": "PHOTOSTREAM - CO (COLORADO)"
+				},
+				{
+					"id": 31643,
+					"name": "PHOTOSTREAM - CT (CONNECTICUT)"
+				},
+				{
+					"id": 31649,
+					"name": "PHOTOSTREAM - DC (DIST OF COLUMBIA)"
+				},
+				{
+					"id": 31652,
+					"name": "PHOTOSTREAM - DE (DELAWARE)"
+				},
+				{
+					"id": 31696,
+					"name": "PHOTOSTREAM - FL (FLORIDA)"
+				},
+				{
+					"id": 31702,
+					"name": "PHOTOSTREAM - GA (GEORGIA)"
+				},
+				{
+					"id": 31715,
+					"name": "PHOTOSTREAM - HI (HAWAII)"
+				},
+				{
+					"id": 31725,
+					"name": "PHOTOSTREAM - IA (IOWA)"
+				},
+				{
+					"id": 31728,
+					"name": "PHOTOSTREAM - ID (IDAHO)"
+				},
+				{
+					"id": 31732,
+					"name": "PHOTOSTREAM - IL (ILLINOIS)"
+				},
+				{
+					"id": 31734,
+					"name": "PHOTOSTREAM - IN (INDIANA)"
+				},
+				{
+					"id": 31761,
+					"name": "PHOTOSTREAM - KS (KANSAS)"
+				},
+				{
+					"id": 31763,
+					"name": "PHOTOSTREAM - KY (KENTUCKY)"
+				},
+				{
+					"id": 31765,
+					"name": "PHOTOSTREAM - LA (LOUISIANA)"
+				},
+				{
+					"id": 31774,
+					"name": "PHOTOSTREAM - MA (MASSACHUSETTS)"
+				},
+				{
+					"id": 31778,
+					"name": "PHOTOSTREAM - MD (MARYLAND)"
+				},
+				{
+					"id": 31780,
+					"name": "PHOTOSTREAM - ME (MAINE)"
+				},
+				{
+					"id": 31783,
+					"name": "PHOTOSTREAM - MI (MICHIGAN)"
+				},
+				{
+					"id": 31787,
+					"name": "PHOTOSTREAM - MN (MINNESOTA)"
+				},
+				{
+					"id": 31788,
+					"name": "PHOTOSTREAM - MO (MISSOURI)"
+				},
+				{
+					"id": 31790,
+					"name": "PHOTOSTREAM - MS (MISSISSIPPI)"
+				},
+				{
+					"id": 31791,
+					"name": "PHOTOSTREAM - MT (MONTANA)"
+				},
+				{
+					"id": 31801,
+					"name": "PHOTOSTREAM - NC (NORTH CAROLINA)"
+				},
+				{
+					"id": 31803,
+					"name": "PHOTOSTREAM - ND (NORTH DAKOTA)"
+				},
+				{
+					"id": 31804,
+					"name": "PHOTOSTREAM - NE (NEBRASKA)"
+				},
+				{
+					"id": 31811,
+					"name": "PHOTOSTREAM - NH (NEW HAMPSHIRE)"
+				},
+				{
+					"id": 31813,
+					"name": "PHOTOSTREAM - NJ (NEW JERSEY)"
+				},
+				{
+					"id": 31814,
+					"name": "PHOTOSTREAM - NM (NEW MEXICO)"
+				},
+				{
+					"id": 31822,
+					"name": "PHOTOSTREAM - NV (NEVADA)"
+				},
+				{
+					"id": 31824,
+					"name": "PHOTOSTREAM - NY (NEW YORK)"
+				},
+				{
+					"id": 31830,
+					"name": "PHOTOSTREAM - OH (OHIO)"
+				},
+				{
+					"id": 31831,
+					"name": "PHOTOSTREAM - OK (OKLAHOMA)"
+				},
+				{
+					"id": 31835,
+					"name": "PHOTOSTREAM - PA (PENNSYLVANIA)"
+				},
+				{
+					"id": 31855,
+					"name": "PHOTOSTREAM - RI (RHODE ISLAND)"
+				},
+				{
+					"id": 31866,
+					"name": "PHOTOSTREAM - SC (SOUTH CAROLINA)"
+				},
+				{
+					"id": 31868,
+					"name": "PHOTOSTREAM - SD (SOUTH DAKOTA)"
+				},
+				{
+					"id": 31897,
+					"name": "PHOTOSTREAM - TN (TENNESSEE)"
+				},
+				{
+					"id": 31904,
+					"name": "PHOTOSTREAM - TX (TEXAS)"
+				},
+				{
+					"id": 31911,
+					"name": "PHOTOSTREAM - UT (UTAH)"
+				},
+				{
+					"id": 31913,
+					"name": "PHOTOSTREAM - VA (VIRGINA)"
+				},
+				{
+					"id": 31917,
+					"name": "PHOTOSTREAM - VT (VERMONT)"
+				},
+				{
+					"id": 31918,
+					"name": "PHOTOSTREAM - WA (WASHINGTON)"
+				},
+				{
+					"id": 31924,
+					"name": "PHOTOSTREAM - WI (WISCONSIN)"
+				},
+				{
+					"id": 31933,
+					"name": "PHOTOSTREAM - WV (WEST VIRGINIA)"
+				},
+				{
+					"id": 31936,
+					"name": "PHOTOSTREAM - WY (WYOMING)"
+				},
+				{
+					"id": 31985,
+					"name": "PHOTOSTREAM - OR (OREGON)"
+				},
+				{
+					"id": 33440,
+					"name": "Photostream - TX Dateline Only"
+				},
+				{
+					"id": 41664,
+					"name": "AP Top News"
+				},
+				{
+					"id": 42438,
+					"name": "AP Top News - US Headlines - Stories"
+				},
+				{
+					"id": 45120,
+					"name": "AP US News"
+				},
+				{
+					"id": 100484,
+					"name": "MC - Photos"
+				},
+				{
+					"id": 100518,
+					"name": "AP Top News Package"
+				}
+			]
+		},
+		"item": {
+			"uri": "https://api.ap.org/media/v/content/0db25d0f46364202a61a92f04565a704?qt=kj7ezKwV9F&et=1a1aza3c0&ai=39750e4e6514aa52162555ace6281a9e",
+			"altids": {
+				"itemid": "0db25d0f46364202a61a92f04565a704",
+				"etag": "0db25d0f46364202a61a92f04565a704_1a1aza3c0",
+				"friendlykey": "22137775644563",
+				"referenceid": "22137775644563",
+				"transref": "TXMCA301"
+			},
+			"version": 1,
+			"type": "picture",
+			"urgency": 5,
+			"editorialpriority": "d",
+			"language": "en",
+			"versioncreated": "2022-05-17T21:41:52Z",
+			"firstcreated": "2022-05-17T12:09:29Z",
+			"pubstatus": "usable",
+			"ednote": "MANDATORY CREDIT. POOL PHOTO",
+			"signals": [
+				"newscontent"
+			],
+			"title": "Border-Asylum Limits",
+			"headline": "Border-Asylum Limits",
+			"slugline": "Border-Asylum Limits",
+			"photographer": {
+				"code": "pool",
+				"title": "POOL",
+				"name": "Joel Martinez"
+			},
+			"datelinelocation": {
+				"city": "Hidalgo",
+				"countryareacode": "TX",
+				"countryareaname": "TEXAS",
+				"countrycode": "USA",
+				"countryname": "UNITED STATES",
+				"geometry_geojson": {
+					"type": "Point",
+					"coordinates": [
+						-98.23001,
+						26.20341
+					]
+				}
+			},
+			"description_creditline": "ASSOCIATED PRESS",
+			"usageterms": [
+				"This content is intended for editorial use only. For other uses, additional clearances may be required."
+			],
+			"provider": "AP",
+			"infosource": [
+				{
+					"name": "Pool The Monitor",
+					"type": "Member"
+				}
+			],
+			"person": [
+				{
+					"code": "f29c69222c464b0b8ccc28ff04abb072",
+					"name": "Alejandro Mayorkas",
+					"rels": [
+						"direct"
+					],
+					"types": [
+						"GOVERNMENT_FIGURE",
+						"PERSON"
+					],
+					"scheme": "http://cv.ap.org/id/",
+					"creator": "Machine"
+				}
+			],
+			"subject": [
+				{
+					"rels": [
+						"category"
+					],
+					"creator": "Editorial",
+					"code": "a",
+					"name": "Domestic News"
+				},
+				{
+					"code": "86aad5207dac100488ecba7fa5283c3e",
+					"name": "Government and politics",
+					"rels": [
+						"inferred"
+					],
+					"scheme": "http://cv.ap.org/id/",
+					"creator": "Machine",
+					"topparent": true
+				},
+				{
+					"code": "3b7438807d7010048477ba7fa5283c3e",
+					"name": "Military and defense",
+					"rels": [
+						"inferred"
+					],
+					"scheme": "http://cv.ap.org/id/",
+					"creator": "Machine",
+					"parentids": [
+						"86aad5207dac100488ecba7fa5283c3e"
+					]
+				}
+			],
+			"organisation": [
+				{
+					"code": "898f52e08921100480efba0a2b2ca13e",
+					"name": "United States government",
+					"rels": [
+						"ancestor"
+					],
+					"scheme": "http://cv.ap.org/id/",
+					"creator": "Machine",
+					"topparent": true
+				},
+				{
+					"code": "e5c6a6c88bcc10048006eb438e258b03",
+					"name": "U.S. Department of Homeland Security",
+					"rels": [
+						"direct"
+					],
+					"scheme": "http://cv.ap.org/id/",
+					"creator": "Machine",
+					"parentids": [
+						"898f52e08921100480efba0a2b2ca13e"
+					]
+				}
+			],
+			"place": [
+				{
+					"code": "661850e07d5b100481f7c076b8e3055c",
+					"name": "North America",
+					"rels": [
+						"ancestor"
+					],
+					"scheme": "http://cv.ap.org/id/",
+					"creator": "Machine",
+					"topparent": true,
+					"locationtype": {
+						"code": "976d112cd5c3497ea180aeecab922c6b",
+						"name": "Continent"
+					},
+					"geometry_geojson": {
+						"type": "Point",
+						"coordinates": [
+							-100.54688,
+							46.07323
+						]
+					}
+				},
+				{
+					"code": "661e48387d5b10048291c076b8e3055c",
+					"name": "United States",
+					"rels": [
+						"direct"
+					],
+					"scheme": "http://cv.ap.org/id/",
+					"creator": "Machine",
+					"parentids": [
+						"661850e07d5b100481f7c076b8e3055c"
+					],
+					"locationtype": {
+						"code": "01f56e0e654841eca2e69bf2cbcc0526",
+						"name": "Nation"
+					},
+					"geometry_geojson": {
+						"type": "Point",
+						"coordinates": [
+							-98.5,
+							39.76
+						]
+					}
+				}
+			],
+			"description_caption": "Homeland Security Secretary Alejandro Mayorkas, left, listens to Deputy patrol agent in charge of the US Border Patrol Anthony Crane as he tours the section of the border wall Tuesday, May 17, 2022, in Hidalgo, Texas. (Joel Martinez/The Monitor via AP, Pool)",
+			"renditions": {
+				"main": {
+					"title": "Full Resolution (JPG)",
+					"rel": "Main",
+					"format": "JPEG Baseline",
+					"type": "picture",
+					"contentid": "e2f9e1f1540b4e4aa73ccbeb3f238d57",
+					"digest": "49ad400f6124bea7c50ca457cf1e796a",
+					"href": "https://api.ap.org/media/v/content/0db25d0f46364202a61a92f04565a704.1/download?role=main&qt=kj7ezKwV9F&cid=e2f9e1f1540b4e4aa73ccbeb3f238d57&ai=39750e4e6514aa52162555ace6281a9e",
+					"orientation": "Horizontal",
+					"sizeinbytes": 2836109,
+					"width": 4361,
+					"height": 3100,
+					"originalfilename": "Border-Asylum_Limits_44563.jpg",
+					"fileextension": "jpg",
+					"mimetype": "image/jpeg",
+					"pricetag": "Unlimited"
+				},
+				"preview": {
+					"title": "Preview (JPG)",
+					"rel": "Preview",
+					"format": "JPEG Baseline",
+					"type": "picture",
+					"contentid": "d9116c78a1de47309a34ec3e52d0602d",
+					"digest": "f96bd5051e219fd59f80fec491eddbed",
+					"href": "https://mapi.associatedpress.com/v1/items/0db25d0f46364202a61a92f04565a704.1/preview/preview.jpg?nfe=true&s=512&app=MPK&tag=iid~0db25d0f46364202a61a92f04565a704!rsn~1!cid~d9116c78a1de47309a34ec3e52d0602d!orgId~33098!qt~kj7ezKwV9F!orgNm~ATLANTA%20JOURNAL-CONSTITUTION%20(Cox%20Group)!role~Preview!mt~photo!fmt~JPEG%20Baseline",
+					"orientation": "Horizontal",
+					"sizeinbytes": 68762,
+					"width": 512,
+					"height": 364,
+					"originalfilename": "Border-Asylum_Limits_44563.jpg",
+					"fileextension": "jpg",
+					"mimetype": "image/jpeg"
+				},
+				"thumbnail": {
+					"title": "Thumbnail (JPG)",
+					"rel": "Thumbnail",
+					"format": "JPEG Baseline",
+					"type": "picture",
+					"contentid": "c1e7dc79243146dbb8cc03849aba8ab1",
+					"digest": "0f73c51b38adce090b4de2c1e072df9e",
+					"href": "https://mapi.associatedpress.com/v1/items/0db25d0f46364202a61a92f04565a704.1/thumbnail/thumbnail.jpg?nfe=true&app=MPK&tag=iid~0db25d0f46364202a61a92f04565a704!rsn~1!cid~c1e7dc79243146dbb8cc03849aba8ab1!orgId~33098!qt~kj7ezKwV9F!orgNm~ATLANTA%20JOURNAL-CONSTITUTION%20(Cox%20Group)!role~Thumbnail!mt~photo!fmt~JPEG%20Baseline",
+					"orientation": "Horizontal",
+					"sizeinbytes": 18681,
+					"width": 125,
+					"height": 89,
+					"originalfilename": "Border-Asylum_Limits_44563.jpg",
+					"fileextension": "jpg",
+					"mimetype": "image/jpeg"
+				},
+				"caption_nitf": {
+					"title": "NITF Caption Download",
+					"rel": "Caption",
+					"format": "IIM",
+					"type": "text",
+					"mimetype": "text/xml",
+					"fileextension": "xml",
+					"words": 42,
+					"contentid": "c63c020800b04784b27fb9fc96b3495e",
+					"href": "https://api.ap.org/media/v/content/0db25d0f46364202a61a92f04565a704.1/download?qt=kj7ezKwV9F&type=text&format=nitf&text=caption&et=1a1aza3c0&ai=39750e4e6514aa52162555ace6281a9e"
+				}
+			}
+		}
+	}
+}

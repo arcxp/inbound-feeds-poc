@@ -2,7 +2,6 @@ import copy
 import hashlib
 import json
 import re
-from datetime import datetime
 from typing import Optional, Union
 
 import arrow
@@ -10,14 +9,10 @@ from jmespath import search
 from slugify import slugify
 
 from utils.arc_id import generate_arc_id
+from utils.exceptions import MismatchedContentTypeException
 from utils.logger import get_logger
-from utils.constants import AP_RESULTS_JMESPATH_STR
 
 logger = get_logger()
-
-
-class MismatchedContentTypeException(Exception):
-    pass
 
 
 class AssociatedPressBaseConverter:
@@ -43,21 +38,21 @@ class AssociatedPressBaseConverter:
                 "_id": self.get_arc_id(self.source_data.get("source_id")),
                 "type": self.get_arc_type(self.source_data.get("type")),
                 "owner": {"id": self.org_name},
-                # trusting that the ap dates don't need to be converted to work in arc, so using as is
+                # the ap dates are already in proper format and don't need to be converted to work in arc
                 "publish_date": self.source_data.get("firstcreated"),
                 "display_date": self.source_data.get("firstcreated"),
                 # usually distributor field would reference an exact id value that is stored in the org's Global Settings.
-                # Doing so would change many things about the mapping of the distributor key below.
+                # Doing so would change the mapping of the distributor key below.
                 # Change to the proper ans format if using a distributor id.
                 "distributor": {"category": "wires", "name": "Associated Press", "mode": "custom"},
-                "source": {"name": "Associated Press", "id": self.source_data.get("source_id")},
+                "source": {"name": "Associated Press", "source_id": self.source_data.get("source_id")},
                 "additional_properties": {},
             }
         )
         return self.converted_ans
 
     def get_arc_id(self, source_id):
-        """ arc ids should consist of the source id and also the arc org id """
+        """arc ids should consist of the source id and also the arc org id"""
         return generate_arc_id(source_id, self.org_name)
 
     @staticmethod
@@ -68,7 +63,7 @@ class AssociatedPressBaseConverter:
     @staticmethod
     def get_expiration_date():
         return str(
-            arrow.utcnow().shift(days=60).replace(hour=0, minute=0, second=0, microsecond=0).format("YYYY-MM-DDTHH:mm:ss") + "Z"
+            arrow.utcnow().shift(days=3).replace(hour=0, minute=0, second=0, microsecond=0).format("YYYY-MM-DDTHH:mm:ss") + "Z"
         )
 
 
@@ -81,10 +76,12 @@ class APStoryConverter(AssociatedPressBaseConverter):
 
         self.converted_ans.update(
             {
+                "canonical_website": self.website,
                 "headlines": {"basic": self.source_data.get("headline", "")},
                 "credits": {"by": self.get_byline(self.source_data.get("bylines"))},
                 "workflow": {"status_code": 1},  # status_code 1 should be "Draft", but verify
                 "additional_properties": {
+                    "ap_item_url": self.source_data.get("url"),
                     "sha1": self.get_sha1(),
                 },
                 "related_content": {"basic": self.get_photo_associations()},
@@ -94,13 +91,18 @@ class APStoryConverter(AssociatedPressBaseConverter):
         logger.info(
             "text conversion",
             extra={
-                "arc_id": self.converted_ans.get("arc_id"),
+                "arc_id": self.converted_ans.get("_id"),
                 "source_id": self.source_data.get("source_id"),
                 "headline": self.source_data.get("headline"),
                 "firstcreated": self.source_data.get("firstcreated"),
                 "converted_ans": self.converted_ans,
             },
         )
+
+        # for empty_key in self.EMPTY_KEYS:
+        #     val = result.ans.get(empty_key)
+        #     if not val:
+        #         result.ans.pop(empty_key, None)
         return self.converted_ans
 
     def get_circulation(self):
@@ -111,12 +113,22 @@ class APStoryConverter(AssociatedPressBaseConverter):
             "website_url": self.get_website_url(self.source_data.get("headline")),
             "website_primary_section": {
                 "type": "reference",
-                "referent": {"id": "/wires/ap", "type": "section", "website": self.website},
+                "referent": {"id": "/sample/wires", "type": "section", "website": self.website},
             },
             "website_sections": [
-                {"type": "reference", "referent": {"id": "/wires/ap", "type": "section", "website": self.website}}
+                {"type": "reference", "referent": {"id": "/sample/wires", "type": "section", "website": self.website}}
             ],
         }
+        logger.info(
+            "story circulation",
+            extra={
+                "arc_id": circulation.get("document_id"),
+                "source_id": self.source_data.get("source_id"),
+                "headline": self.source_data.get("headline"),
+                "firstcreated": self.source_data.get("firstcreated"),
+                "circulation": circulation,
+            },
+        )
         return circulation
 
     def get_scheduled_delete_operation(self):
@@ -127,6 +139,16 @@ class APStoryConverter(AssociatedPressBaseConverter):
             "operation": "delete",
             "date": self.get_expiration_date(),
         }
+        logger.info(
+            "delete operation",
+            extra={
+                "arc_id": scheduled_delete.get("story_id"),
+                "source_id": self.source_data.get("source_id"),
+                "headline": self.source_data.get("headline"),
+                "firstcreated": self.source_data.get("firstcreated"),
+                "scheduled_delete": scheduled_delete,
+            },
+        )
         return scheduled_delete
 
     def get_sha1(self):
@@ -143,6 +165,8 @@ class APStoryConverter(AssociatedPressBaseConverter):
         # remove items from contributing to the hash if they may change without signaling a substantive change to the actual content
         hash_source.pop("download_url", None)
         hash_source.pop("url", None)
+        hash_source.pop("priced", None)
+        hash_source.pop("pricetag", None)
         hash_source.get("content_json").pop("@version", None)
         hash_source.get("content_json").pop("@change.date", None)
         hash_source.get("content_json").pop("@change.time", None)
@@ -150,7 +174,7 @@ class APStoryConverter(AssociatedPressBaseConverter):
         return hashlib.sha1(source_data_str).hexdigest()
 
     def get_byline(self, bylines):
-        authors = None
+        authors = []
         if bylines:
             # replace By in the author name
             for a in bylines:
@@ -186,7 +210,8 @@ class APPhotoConverter(AssociatedPressBaseConverter):
             {
                 "additional_properties": {
                     "originalName": self.source_data.get("originalfilename"),
-                    "original_url": self.source_data.get("download_url"),
+                    "originalUrl": self.source_data.get("download_url"),
+                    "ap_item_url": self.source_data.get("url"),
                     "expiration_date": self.get_expiration_date(),
                     "sha1": self.get_sha1(),
                 },
@@ -198,7 +223,7 @@ class APPhotoConverter(AssociatedPressBaseConverter):
         logger.info(
             "photo conversion",
             extra={
-                "arc_id": self.converted_ans.get("arc_id"),
+                "arc_id": self.converted_ans.get("_id"),
                 "source_id": self.source_data.get("source_id"),
                 "headline": self.source_data.get("headline"),
                 "firstcreated": self.source_data.get("firstcreated"),
@@ -222,6 +247,8 @@ class APPhotoConverter(AssociatedPressBaseConverter):
         # remove items from contributing to the hash if they may change without signaling a substantive change to the actual content
         hash_source.pop("download_url", None)
         hash_source.pop("url", None)
+        hash_source.pop("priced", None)
+        hash_source.pop("pricetag", None)
         source_data_str = json.dumps(hash_source).encode("utf-8")
         hash_object = hashlib.sha1(source_data_str).hexdigest()
         return hash_object
