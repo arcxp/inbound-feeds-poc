@@ -5,6 +5,9 @@ import re
 from typing import Optional, Union
 
 import arrow
+from bs4 import BeautifulSoup as bs
+from html2ans.base import BaseHtmlAnsParser
+from html2ans.default import Html2Ans
 from jmespath import search
 from slugify import slugify
 
@@ -86,6 +89,7 @@ class APStoryConverter(AssociatedPressBaseConverter):
                     "sha1": self.get_sha1(),
                 },
                 "related_content": {"basic": self.get_photo_associations()},
+                "content_elements": self.get_content_elements(self.story_data)
             }
         )
 
@@ -198,6 +202,13 @@ class APStoryConverter(AssociatedPressBaseConverter):
         ids = search("* | [?type == `picture`].altids.itemid", self.source_data.get("associations")) or []
         ids = [{"referent": {"id": self.get_arc_id(id), "type": "image"}, "type": "reference"} for id in ids]
         return ids
+
+    def get_content_elements(self, story_data: bytes):
+        parser = Html2Ans(ans_version=self.ans_version)
+        parser.WRAPPER_TAGS += ["block"]
+        parser.EMPTY_STRINGS += ["\\n"]
+        content_elements = parser.generate_ans(story_data, "body.content")
+        return content_elements
 
 
 class APPhotoConverter(AssociatedPressBaseConverter):

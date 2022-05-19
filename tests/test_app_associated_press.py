@@ -1,6 +1,7 @@
 import unittest.mock as mock
 from functools import wraps
 
+
 # To test any of the process_wire* functions, the @limits() decorator needs to be nullified
 def mock_decorator(*args, **kwargs):
     def decorator(f):
@@ -24,6 +25,7 @@ import requests
 
 from apps.associated_press import fetch_feed, fetch_photo_item, fetch_story_item, process_wire_photo, process_wire_story
 from apps.associated_press.converter import APPhotoConverter, APStoryConverter, AssociatedPressBaseConverter
+from tests.fixtures.content_elements import TEST_CASES as content_elements_tests
 
 
 class MockResponse:
@@ -174,6 +176,7 @@ def test_story_converter(test_content):
     }
     assert ans.get("distributor") == {"category": "wires", "name": "Associated Press", "mode": "custom"}
     assert ans.get("workflow").get("status_code") == 1
+    assert len(ans.get("content_elements")) == 30
 
     circulation = converter.get_circulation()
     assert circulation.get("document_id") == "WTMJO4FHXDCGIFKCYNKGZE3UKY"
@@ -209,6 +212,18 @@ def test_story_converter(test_content):
         {"referent": {"id": "YMWMWCQE47HXC5UDJKJEIWD3LY", "type": "image"}, "type": "reference"},
     ]
     assert ans.get("related_content").get("basic") == associations
+
+
+@pytest.mark.parametrize("source_id, content_elements", content_elements_tests.items())
+def test_story_content_elements(source_id, content_elements, test_content):
+    converter = APStoryConverter(
+        test_content.get_content("ap_text_item_test_converter_itemdata.json"),
+        org_name="myorg",
+        website="mywebsite",
+        story_data=test_content.get_content("ap_text_item_test_converter_storydata.xml"),
+    )
+
+    assert converter.get_content_elements(converter.story_data) == content_elements
 
 
 @mock.patch("apps.associated_press.converter.APStoryConverter")

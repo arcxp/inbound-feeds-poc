@@ -28,9 +28,12 @@ logger = get_logger()
 def fetch_feed(next_page: Optional[str] = None):
     url = "https://api.ap.org/media/v/content/feed"
     params = {"apikey": config("AP_API_KEY")}
+    q = config("AP_QUERY", None)
     items = None
     if next_page:
         url = next_page
+    elif q:
+        params["q"] = q
     res = requests.get(url, params=params)
     if res.ok:
         data = res.json()
@@ -51,7 +54,9 @@ def fetch_feed(next_page: Optional[str] = None):
         # build data from the relevant keys
         items = search(AP_RESULTS_JMESPATH_STR, data)
 
-        # this may have been an associations dict from a story rather than one of the results of the ap query, requires a different structure to the search string
+        # when using next_page variable, the request might bring back a single item rather than an array of items
+        # this kind of request happens when a story has associations and you're fetching the photo data from there
+        # requires a different structure to the jmespath search string
         if items is None:
             # do not process ap images that incur cost
             priced = search("data.item.renditions.main.priced || data.item.renditions.main.pricetag", data)
@@ -218,7 +223,7 @@ def process_wires(converters: list):
 
 
 if __name__ == "__main__":  # pragma: no cover
-    # # this is the uri of one of the photos from a story's associations
+    # this is the uri of one of the photos from a story's associations
     # test = fetch_feed(
     #     "https://api.ap.org/media/v/content/28514e83e96c483f8cbac9b3aaabadc4?qt=_dSwUXC5aF&et=1a1aza4c0&ai=95b07bc3a92191b0abea66f851983c59"
     # )
