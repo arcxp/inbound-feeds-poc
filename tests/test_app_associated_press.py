@@ -1,29 +1,41 @@
 import unittest.mock as mock
+from functools import wraps
+
+# To test any of the process_wire* functions, the @limits() decorator needs to be nullified
+def mock_decorator(*args, **kwargs):
+    def decorator(f):
+        @wraps(f)
+        def decorated_function(*args, **kwargs):
+            return f(*args, **kwargs)
+
+        return decorated_function
+
+    return decorator
+
+
+# nullify @limits() decorator used by process-wire* functions
+mock.patch("ratelimit.limits", mock_decorator).start()
+
+import http
 
 import freezegun
 import pytest
 import requests
 
-from apps.associated_press import fetch_feed, fetch_photo_item, fetch_story_item
+from apps.associated_press import fetch_feed, fetch_photo_item, fetch_story_item, process_wire_photo, process_wire_story
 from apps.associated_press.converter import APPhotoConverter, APStoryConverter, AssociatedPressBaseConverter
 
 
 class MockResponse:
-    def __init__(
-        self,
-        json_data={},
-        status_code=200,
-        ok=True,
-        reason="",
-        url="http://mockurl",
-        content="",
-    ):
+    def __init__(self, json_data={}, status_code=200, ok=True, reason="", url="http://mockurl", content="", raise_for_status=None):
         self.json_data = json_data
         self.status_code = status_code
         self.reason = reason
         self.ok = ok
         self.url = url
         self.content = content
+        if raise_for_status:
+            self.raise_for_status = mock.Mock(side_effect=raise_for_status)
 
     def json(self):
         return self.json_data
@@ -166,8 +178,7 @@ def test_story_converter(test_content):
     circulation = converter.get_circulation()
     assert circulation.get("document_id") == "WTMJO4FHXDCGIFKCYNKGZE3UKY"
     assert circulation.get("website_id") == "mywebsite"
-    # website_url not used in this POC
-    # assert circulation.get("website_url") == "/ukraine-to-hold-first-war-crimes-trial-of-captured-russian"
+    assert circulation.get("website_url") == "/ukraine-to-hold-first-war-crimes-trial-of-captured-russian"
     assert circulation.get("website_primary_section").get("type") == "reference"
     assert circulation.get("website_primary_section").get("referent") == {
         "id": "/sample/wires",
@@ -198,3 +209,124 @@ def test_story_converter(test_content):
         {"referent": {"id": "YMWMWCQE47HXC5UDJKJEIWD3LY", "type": "image"}, "type": "reference"},
     ]
     assert ans.get("related_content").get("basic") == associations
+
+
+@mock.patch("apps.associated_press.converter.APStoryConverter")
+def test_process_wire_story_incomplete(mock_converter):
+    # note: is affected by the mock_decorator function at top of test file.
+    mock_converter.get_circulation.return_value = None
+    assert (
+        process_wire_story(mock_converter, "0 of 0")
+        == "Wire story cannot be sent to Draft API without ans and circulation and operations data"
+    )
+
+    mock_converter.convert_ans.return_value = None
+    assert (
+        process_wire_story(mock_converter, "0 of 0")
+        == "Wire story cannot be sent to Draft API without ans and circulation and operations data"
+    )
+
+    mock_converter.get_scheduled_delete_operation.return_value = None
+    assert (
+        process_wire_story(mock_converter, "0 of 0")
+        == "Wire story cannot be sent to Draft API without ans and circulation and operations data"
+    )
+
+
+@mock.patch("apps.associated_press.converter.APStoryConverter")
+def test_process_wire_story_error_draftapi(mock_converter, monkeypatch):
+    # note: is affected by the mock_decorator function at top of test file.
+
+    def mock_post(*args, **kwargs):
+        return MockResponse(
+            json_data={"error_message": "it messed up"},
+            status_code=400,
+            ok=False,
+            raise_for_status=requests.exceptions.RequestException("Response not OK!"),
+        )
+
+    monkeypatch.setattr(requests, "post", mock_post)
+    mock_converter.get_circulation.return_value = {}
+    mock_converter.convert_ans.return_value = {"_id": "123", "source": {"source_id": "abc"}, "headlines": {"basic": "stuff"}}
+    mock_converter.get_scheduled_delete_operation.return_value = {}
+
+    assert process_wire_story(mock_converter, "0 of 0") == "Response not OK!"
+
+
+@mock.patch("requests.post")
+@mock.patch("apps.associated_press.converter.APStoryConverter")
+def test_process_wire_story_error_operationsapi(mock_converter, mock_post, monkeypatch):
+    # note: is affected by the mock_decorator function at top of test file.
+    def mock_put(*args, **kwargs):
+        return MockResponse(
+            json_data={"error_message": "it messed up"},
+            status_code=400,
+            ok=False,
+            raise_for_status=requests.exceptions.RequestException("Response not OK!"),
+        )
+
+    monkeypatch.setattr(requests, "put", mock_put)
+    mock_converter.get_circulation.return_value = {}
+    mock_converter.convert_ans.return_value = {"_id": "123", "source": {"source_id": "abc"}, "headlines": {"basic": "stuff"}}
+    mock_converter.get_scheduled_delete_operation.return_value = {}
+
+    assert process_wire_story(mock_converter, "0 of 0") == "Response not OK!"
+    assert mock_post.called == True
+
+
+@mock.patch("requests.put")
+@mock.patch("requests.post")
+@mock.patch("apps.associated_press.converter.APStoryConverter")
+def test_process_wire_story_error_circulationsapi(mock_converter, mock_post, mock_put):
+    # note: is affected by the mock_decorator function at top of test file.
+    mock_converter.get_circulation.return_value = {}
+    mock_converter.convert_ans.return_value = {"_id": "123", "source": {"source_id": "abc"}, "headlines": {"basic": "stuff"}}
+    mock_converter.get_scheduled_delete_operation.return_value = {}
+    mock_put.side_effect = [
+        MockResponse(raise_for_status=lambda: None),
+        MockResponse(
+            json_data={"error_message": "it messed up"},
+            status_code=400,
+            ok=False,
+            raise_for_status=requests.exceptions.RequestException("Response not OK!"),
+        ),
+    ]
+    assert process_wire_story(mock_converter, "0 of 0") == "Response not OK!"
+    assert mock_post.called == True
+    assert mock_put.call_count == 2
+
+
+@mock.patch("requests.put")
+@mock.patch("requests.post")
+@mock.patch("apps.associated_press.converter.APStoryConverter")
+def test_process_wire_story_happy_path(mock_converter, mock_post, mock_put):
+    # note: is affected by the mock_decorator function at top of test file.
+    mock_converter.get_circulation.return_value = {}
+    mock_converter.convert_ans.return_value = {"_id": "123", "source": {"source_id": "abc"}, "headlines": {"basic": "stuff"}}
+    mock_converter.get_scheduled_delete_operation.return_value = {}
+    assert process_wire_story(mock_converter, "0 of 0") == http.HTTPStatus.CREATED
+    assert mock_post.call_count == 1
+    assert mock_put.call_count == 2
+
+
+@mock.patch("apps.associated_press.converter.APPhotoConverter")
+def test_process_wire_photo_incomplete(mock_converter):
+    # note: is affected by the mock_decorator function at top of test file.
+    mock_converter.convert_ans.return_value = None
+    assert process_wire_photo(mock_converter, "0 of 0") == "Wire photo cannot be sent to Draft API without ans data"
+
+
+@mock.patch("requests.post")
+@mock.patch("apps.associated_press.converter.APPhotoConverter")
+def test_process_wire_photo_error_photoapi(mock_converter, mock_post):
+    # note: is affected by the mock_decorator function at top of test file.
+    mock_converter.convert_ans.return_value = {
+        "_id": "123",
+        "source": {"source_id": "abc"},
+        "headlines": {"basic": "stuff"},
+        "additional_properties": {"sha1": "1a2b3c", "originalUrl": "http://stuff"},
+        "caption": "a caption",
+    }
+    mock_post.side_effect = [MockResponse(raise_for_status=requests.exceptions.RequestException("Response not OK!"))]
+    assert process_wire_photo(mock_converter, "0 of 0") == "Response not OK!"
+    assert mock_post.called == True

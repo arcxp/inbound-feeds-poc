@@ -16,7 +16,7 @@ logger = get_logger()
 
 
 class AssociatedPressBaseConverter:
-    def __init__(self, data: dict, *args, org_name: str = None, website: str = None, story_data: str = None, **kwargs):
+    def __init__(self, data: dict, *args, org_name: str = None, website: str = None, story_data: bytes = None, **kwargs):
         self.ans_version = "0.10.7"
         self.org_name = org_name
         self.website = website
@@ -51,17 +51,18 @@ class AssociatedPressBaseConverter:
         )
         return self.converted_ans
 
-    def get_arc_id(self, source_id):
+    def get_arc_id(self, source_id: str):
         """arc ids should consist of the source id and also the arc org id"""
         return generate_arc_id(source_id, self.org_name)
 
     @staticmethod
-    def get_arc_type(ap_type):
-        # importing images and stories, not galleries or videos
+    def get_arc_type(ap_type: str):
+        """importing images and stories, not galleries or videos"""
         return "image" if ap_type == "picture" else "story" if ap_type == "text" else "unsupported"
 
     @staticmethod
     def get_expiration_date():
+        """generate a date 3 days from today. could be enhanced to have the number of days be an env variable"""
         return str(
             arrow.utcnow().shift(days=3).replace(hour=0, minute=0, second=0, microsecond=0).format("YYYY-MM-DDTHH:mm:ss") + "Z"
         )
@@ -69,7 +70,7 @@ class AssociatedPressBaseConverter:
 
 class APStoryConverter(AssociatedPressBaseConverter):
     def convert_ans(self):
-        """Transform AP Story into Arc ANS"""
+        """transform AP Story into Arc ANS"""
         self.converted_ans = super().convert_ans()
         if self.converted_ans["type"] != "story":
             raise MismatchedContentTypeException
@@ -132,7 +133,7 @@ class APStoryConverter(AssociatedPressBaseConverter):
         return circulation
 
     def get_scheduled_delete_operation(self):
-        """The payload needed to post to the Content Operations API to delete this item 60 days in future"""
+        """The payload needed to post to the Content Operations API to delete this item x days in future"""
         scheduled_delete = {
             "type": "story_operation",
             "story_id": self.get_arc_id(self.source_data.get("source_id")),
@@ -173,7 +174,7 @@ class APStoryConverter(AssociatedPressBaseConverter):
         source_data_str = json.dumps(hash_source).encode("utf-8")
         return hashlib.sha1(source_data_str).hexdigest()
 
-    def get_byline(self, bylines):
+    def get_byline(self, bylines: list):
         authors = []
         if bylines:
             # replace By in the author name
@@ -184,7 +185,7 @@ class APStoryConverter(AssociatedPressBaseConverter):
             authors = [{"type": "author", "name": author.get("by"), "org": author.get("title")} for author in bylines]
         return authors
 
-    def get_website_url(self, headline):
+    def get_website_url(self, headline: str):
         return "/" + slugify(headline)
 
     def get_photo_associations_urls(self):

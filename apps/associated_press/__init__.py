@@ -1,6 +1,7 @@
 # http://api.ap.org/media/v/docs/Feed_Examples.htm
 # http://api.ap.org/media/v/docs/Getting_Content_Updates.htm
 import json
+from http import HTTPStatus
 from typing import Optional
 
 import requests
@@ -116,7 +117,7 @@ def process_wire_story(converter: APStoryConverter, count: str):
             raise IncompleteWireStoryException
     except Exception as e:
         logger.error(e, extra={"ans": ans is not None, "circulation": circulation is not None, "operation": operation is not None})
-        return
+        return str(e)
 
     logger.info("SEND ANS TO DRAFT API")
     extra = {
@@ -130,7 +131,7 @@ def process_wire_story(converter: APStoryConverter, count: str):
     except Exception as e:
         logger.error(e, extra=extra)
         logger.error(res.json().get("error_message"), extra=extra)
-        return
+        return str(e)
 
     logger.info("SEND OPERATION")
     try:
@@ -139,7 +140,7 @@ def process_wire_story(converter: APStoryConverter, count: str):
     except Exception as e:
         logger.error(e, extra=extra)
         logger.error(res.json().get("error"), extra=extra)
-        return
+        return str(e)
 
     logger.info("SEND CIRCULATION")
     try:
@@ -152,9 +153,10 @@ def process_wire_story(converter: APStoryConverter, count: str):
     except Exception as e:
         logger.error(e, extra=extra)
         logger.error(res.json().get("error_message"), extra=extra)
-        return
+        return str(e)
 
     logger.info("SAVE INVENTORY")
+    return HTTPStatus.CREATED
 
 
 @sleep_and_retry
@@ -170,13 +172,14 @@ def process_wire_photo(converter: APPhotoConverter, count: str):
             raise IncompleteWirePhotoException
 
         logger.info("CHECK INVENTORY - SHA1 EXISTS & IS SAME")
+        # TODO this may need to be a function so it can be testing mockable
         inventory_sha1 = 1
-
         if inventory_sha1 == ans.get("additional_properties").get("sha1"):
             raise WirePhotoExistsInArcException
+
     except Exception as e:
         logger.error(e, extra={"ans": ans is not None, "sha1": sha1})
-        return
+        return str(e)
 
     logger.info("SEND ANS TO PHOTO API")
     try:
@@ -194,7 +197,7 @@ def process_wire_photo(converter: APPhotoConverter, count: str):
         }
         logger.error(e, extra=extra)
         logger.error(res.json().get("message"), extra=extra)
-        return
+        return str(e)
 
     logger.info("SAVE INVENTORY")
 
