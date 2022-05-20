@@ -233,7 +233,6 @@ if __name__ == "__main__":  # pragma: no cover
     for item in items:
         if item.get("type") == "picture":
             # do not process ap images that incur cost
-            if not item.get("priced", False) and item.get("pricetag") in ["Unlimited", None]:
                 converter = fetch_photo_item(item)
                 wires.append(converter)
         elif item.get("type") == "text":
