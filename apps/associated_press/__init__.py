@@ -1,8 +1,10 @@
 # http://api.ap.org/media/v/docs/Feed_Examples.htm
 # http://api.ap.org/media/v/docs/Getting_Content_Updates.htm
 import json
+import arrow
 from http import HTTPStatus
 from typing import Optional
+from sqlite3 import connect
 
 import requests
 from decouple import config
@@ -11,6 +13,7 @@ from ratelimit import limits, sleep_and_retry
 from xmltodict import parse
 
 from apps.associated_press.converter import APPhotoConverter, APStoryConverter
+from utils import inventory
 from utils.constants import (
     AP_ASSOCIATIONS_JMESPATH_STR,
     AP_RESULTS_JMESPATH_STR,
@@ -42,7 +45,7 @@ def fetch_feed(next_page: Optional[str] = None):
         previous_sequence = search("params.seq", data) or None
         sequence = next_page.split("seq=")[-1] if next_page else None
 
-        # log the sequence ids in the db. useful info when tracing back this task's runs.
+        # initial intent was to log the sequence ids in the db in case was  useful info when tracing back this task's runs. decided not to log in db.
         logger.info(
             f"{res.status_code} {url}",
             extra={
@@ -52,11 +55,11 @@ def fetch_feed(next_page: Optional[str] = None):
             },
         )
 
-        # build data from the relevant keys
+        # select relevant data from the results
         items = search(AP_RESULTS_JMESPATH_STR, data)
 
         # when using next_page variable, the request might bring back a single item rather than an array of items
-        # this kind of request happens when a story has associations and you're fetching the photo data from there
+        # single item result happens when a story has photo "associations" and you're fetching an item of photo data
         # requires a different structure to the jmespath search string
         if items is None:
             # do not process ap images that incur cost
@@ -77,23 +80,27 @@ def fetch_feed(next_page: Optional[str] = None):
 
 
 def fetch_story_item(url: str, item: dict):
+    # AP story text is in XML. The converter will parse the XML to into Ans content elements.
+    # Also Convert the XML to JSON and add to source data. Will use this to compute the sha1.
     params = {"apikey": config("AP_API_KEY")}
     res = requests.get(url, params=params)
     if res.ok:
-        # AP stories are XML. Add the XML. The converter will use the XML to parse the content elements.
-        # Convert the XML to JSON. Will use this to compute the sha1 and other ans fields.
         data = parse(res.content).get("nitf", {})
         data = json.loads(json.dumps(data))
         item["content_json"] = data
         converter = APStoryConverter(
-            item, org_name=config("ARC_ORG_ID"), website=config("ARC_ORG_WEBSITE"), story_data=res.content
+            item,
+            org_name=config("ARC_ORG_ID"),
+            website=config("ARC_ORG_WEBSITE"),
+            section=config("ARC_WEBSITE_SECTION"),
+            story_data=res.content,
         )
         return converter
 
 
 def fetch_photo_item(item: dict):
     # AP Photos don't need more info than what comes via the feed/query initial request
-    # to be parsed, so not bothering to query the full photo url for additional data
+    # to be parsed, so not querying the full photo url for additional data
     converter = APPhotoConverter(item, org_name=config("ARC_ORG_ID"))
     return converter
 
@@ -108,7 +115,8 @@ def bearer_token():
 
 @sleep_and_retry
 @limits(calls=2, period=60)
-def process_wire_story(converter: APStoryConverter, count: str):
+def process_wire_story(converter: APStoryConverter, count: str, conn: connect):
+    # apply converter to transform source into ans, send ans into draft api/content api/composer inventory on success
     logger.info(f"{count} {converter}")
     ans = None
     circulation = None
@@ -135,9 +143,36 @@ def process_wire_story(converter: APStoryConverter, count: str):
         res = requests.post(DRAFT_API_URL.format(org=org), json=ans, headers=bearer_token())
         res.raise_for_status()
     except Exception as e:
-        logger.error(e, extra=extra)
-        logger.error(res.json().get("error_message"), extra=extra)
-        return str(e)
+        # POSTing to an existing arc id in Draft API causes an error. Branch logic to update a story that needs updating.
+        res_error_msg = res.json().get("error_message")
+        logger.warning(res_error_msg, extra=extra)
+
+        # Rather than use sha1 to determine if a story is a duplicate, allow DRAFT api's behavior to drive process
+        # Draft API throws specific exception if you POST to a story that already exists: "{Arc Id} is already in-use"
+        if "is already in-use" in res_error_msg:
+
+            try:
+                logger.info("UPDATE DRAFT API")
+                # GET current revision of the ans id
+                url = DRAFT_API_URL.format(org=org) + f"/{ans.get('_id')}"
+                res = requests.get(url, headers=bearer_token())
+                res.raise_for_status()
+                data = res.json()
+                revision_id = data.get("draft_revision_id")
+                # PUT ans to the revision ID
+                params = {"id": revision_id, "document_id": ans.get("_id"), "ans": ans}
+                res = requests.put(f"{url}/revision/draft", json=params, headers=bearer_token())
+                res.raise_for_status()
+            except Exception as ex:
+                # If still errors, report on the error
+                logger.error(ex, extra=extra)
+                logger.error(res.json().get("error_message"), extra=extra)
+                return str(ex)
+
+        else:
+            logger.error(e, extra=extra)
+            logger.error(res.json().get("error_message"), extra=extra)
+            return str(e)
 
     logger.info("SEND OPERATION")
     try:
@@ -162,12 +197,22 @@ def process_wire_story(converter: APStoryConverter, count: str):
         return str(e)
 
     logger.info("SAVE INVENTORY")
+    inv_item = (
+        ans.get("source").get("source_id"),
+        ans.get("_id"),
+        ans.get("additional_properties").get("ap_item_url"),
+        ans.get("type"),
+        ans.get("additional_properties").get("sha1"),
+        arrow.utcnow().format("YYYY-MM-DD HH:MM:SS.SSS"),
+    )
+    inventory.create_inventory(conn, inv_item)
     return HTTPStatus.CREATED
 
 
 @sleep_and_retry
 @limits(calls=5, period=60)
-def process_wire_photo(converter: APPhotoConverter, count: str):
+def process_wire_photo(converter: APPhotoConverter, count: str, conn: connect):
+    # apply converter to transform source into ans, send ans into photo center api/photo center, inventory on success
     logger.info(f"{count} {converter}")
     ans = None
     sha1 = None
@@ -177,10 +222,9 @@ def process_wire_photo(converter: APPhotoConverter, count: str):
         if ans is None:
             raise IncompleteWirePhotoException
 
-        logger.info("CHECK INVENTORY - SHA1 EXISTS & IS SAME")
-        # TODO this may need to be a function so it can be testing mockable
-        inventory_sha1 = 1
-        if inventory_sha1 == ans.get("additional_properties").get("sha1"):
+        logger.info("CHECK INVENTORY - DOES SAME SHA1 EXIST?")
+        sha1 = inventory.select_inventory_by_sha1(conn, ans.get("additional_properties").get("sha1"))
+        if sha1:
             raise WirePhotoExistsInArcException
 
     except Exception as e:
@@ -198,7 +242,6 @@ def process_wire_photo(converter: APPhotoConverter, count: str):
         extra = {
             "arc_id": ans.get("_id"),
             "source_id": ans.get("source").get("source_id"),
-            "sha1": sha1,
             "caption": ans.get("caption"),
         }
         logger.error(e, extra=extra)
@@ -206,26 +249,42 @@ def process_wire_photo(converter: APPhotoConverter, count: str):
         return str(e)
 
     logger.info("SAVE INVENTORY")
+    inv_item = (
+        ans.get("source").get("source_id"),
+        ans.get("_id"),
+        ans.get("additional_properties").get("ap_item_url"),
+        ans.get("type"),
+        ans.get("additional_properties").get("sha1"),
+        arrow.utcnow().format("YYYY-MM-DD HH:MM:SS.SSS"),
+    )
+    inventory.create_inventory(conn, inv_item)
+    return HTTPStatus.CREATED
 
 
 def process_wires(converters: list):
     """This will send each wire item into the correct downstream system.
-    There is no automatic retry or backoff, except if caused by the rate limiting applied.
-    If one step errors, the error will be logged and the item's progress will be halted.
+    There is no automatic retry or backoff, except if caused by the rate limiting.
+    If one step errors, the error will be logged and the individual item's progress will be halted.
+    The next item in the list will still process.
     Only fully successful items are inventoried.
     """
     converters = list(filter(None, converters))
+    conn = inventory.create_connection(config("SQLDB_LOCATION", ":memory:"))
+    inventory.create_table(conn)
     for index, converter in enumerate(converters):
         count = f"{index + 1} of {len(converters)}"
         if isinstance(converter, APStoryConverter):
-            process_wire_story(converter, count)
+            process_wire_story(converter, count, conn)
         elif isinstance(converter, APPhotoConverter):
-            process_wire_photo(converter, count)
+            process_wire_photo(converter, count, conn)
+    conn.close()
 
 
 def run_ap_ingest_wires():
+    # fetch items in ap feed
     items = fetch_feed()
     wires = []
+    # initialize converters for each item in the feed
     for item in items:
         if item.get("type") == "picture":
             # do not process ap images that incur cost
@@ -242,11 +301,23 @@ def run_ap_ingest_wires():
                 converter = fetch_photo_item(item)
                 wires.append(converter)
         else:
-            logger.info(item.get("type"))
+            # only process text and story wires. videos incur too much cost.
+            logger.error(f"Unprocessable wire type: {item.get('type')}")
 
+    process_wires(wires)
     return wires
 
 
 if __name__ == "__main__":  # pragma: no cover
-    wires = run_ap_ingest_wires()
-    process_wires(wires)
+    # will run the ap feed and ingest content... this is the same as running from the api endpoint
+    run_ap_ingest_wires()
+
+    # # Will test sending one story to Draft API twice, triggering the POST -> PUT behavior
+    # from tests.conftest import get_file_fixture
+    #
+    # item = json.loads(
+    #     get_file_fixture("{path here}/inbound-feeds-poc/tests/fixtures/ap_text_item_test_converter_itemdata.json")
+    # )
+    # wires = [fetch_story_item(item.get("download_url"), item)]
+    # process_wires(wires) # 1st time through (unless this has been run before)
+    # process_wires(wires) # 2nd+ time through

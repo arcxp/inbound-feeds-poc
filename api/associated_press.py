@@ -1,4 +1,5 @@
 from flask import Flask, make_response
+
 from apps import associated_press as ap
 from utils.logger import get_logger
 
@@ -32,5 +33,5 @@ def handle_ap_wire():
     return res
 
 
-if __name__ == "__main__":  # pragma: no cover
+if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8080, debug=True, threaded=True)

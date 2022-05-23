@@ -166,6 +166,7 @@ def test_story_converter(test_content):
         test_content.get_content("ap_text_item_test_converter_itemdata.json"),
         org_name="myorg",
         website="mywebsite",
+        section="/sample/wires",
         story_data=test_content.get_content("ap_text_item_test_converter_storydata.xml"),
     )
     ans = converter.convert_ans()
@@ -196,7 +197,7 @@ def test_story_converter(test_content):
     circulation = converter.get_circulation()
     assert circulation.get("document_id") == "WTMJO4FHXDCGIFKCYNKGZE3UKY"
     assert circulation.get("website_id") == "mywebsite"
-    assert circulation.get("website_url") == "/ukraine-to-hold-first-war-crimes-trial-of-captured-russian"
+    assert circulation.get("website_url") == "/sample/wires/ukraine-to-hold-first-war-crimes-trial-of-captured-russian"
     assert circulation.get("website_primary_section").get("type") == "reference"
     assert circulation.get("website_primary_section").get("referent") == {
         "id": "/sample/wires",
@@ -235,36 +236,40 @@ def test_story_content_elements(source_id, content_elements, test_content):
         test_content.get_content("ap_text_item_test_converter_itemdata.json"),
         org_name="myorg",
         website="mywebsite",
+        section="/sample/wires",
         story_data=test_content.get_content("ap_text_item_test_converter_storydata.xml"),
     )
 
     assert converter.get_content_elements(converter.story_data) == content_elements
 
 
+@mock.patch("sqlite3.connect")
 @mock.patch("apps.associated_press.converter.APStoryConverter")
-def test_process_wire_story_incomplete(mock_converter):
+def test_process_wire_story_incomplete(mock_converter, mock_connect):
     # note: is affected by the mock_decorator function at top of test file.
     mock_converter.get_circulation.return_value = None
     assert (
-        process_wire_story(mock_converter, "0 of 0")
+        process_wire_story(mock_converter, "0 of 0", mock_connect)
         == "Wire story cannot be sent to Draft API without ans and circulation and operations data"
     )
 
     mock_converter.convert_ans.return_value = None
     assert (
-        process_wire_story(mock_converter, "0 of 0")
+        process_wire_story(mock_converter, "0 of 0", mock_connect)
         == "Wire story cannot be sent to Draft API without ans and circulation and operations data"
     )
 
     mock_converter.get_scheduled_delete_operation.return_value = None
     assert (
-        process_wire_story(mock_converter, "0 of 0")
+        process_wire_story(mock_converter, "0 of 0", mock_connect)
         == "Wire story cannot be sent to Draft API without ans and circulation and operations data"
     )
+    assert mock_connect.called == False
 
 
+@mock.patch("sqlite3.connect")
 @mock.patch("apps.associated_press.converter.APStoryConverter")
-def test_process_wire_story_error_draftapi(mock_converter, monkeypatch):
+def test_process_wire_story_error_draftapi(mock_converter, mock_connect, monkeypatch):
     # note: is affected by the mock_decorator function at top of test file.
 
     def mock_post(*args, **kwargs):
@@ -280,12 +285,14 @@ def test_process_wire_story_error_draftapi(mock_converter, monkeypatch):
     mock_converter.convert_ans.return_value = {"_id": "123", "source": {"source_id": "abc"}, "headlines": {"basic": "stuff"}}
     mock_converter.get_scheduled_delete_operation.return_value = {}
 
-    assert process_wire_story(mock_converter, "0 of 0") == "Response not OK!"
+    assert process_wire_story(mock_converter, "0 of 0", mock_connect) == "Response not OK!"
+    assert mock_connect.called == False
 
 
+@mock.patch("sqlite3.connect")
 @mock.patch("requests.post")
 @mock.patch("apps.associated_press.converter.APStoryConverter")
-def test_process_wire_story_error_operationsapi(mock_converter, mock_post, monkeypatch):
+def test_process_wire_story_error_operationsapi(mock_converter, mock_post, mock_connect, monkeypatch):
     # note: is affected by the mock_decorator function at top of test file.
     def mock_put(*args, **kwargs):
         return MockResponse(
@@ -300,14 +307,16 @@ def test_process_wire_story_error_operationsapi(mock_converter, mock_post, monke
     mock_converter.convert_ans.return_value = {"_id": "123", "source": {"source_id": "abc"}, "headlines": {"basic": "stuff"}}
     mock_converter.get_scheduled_delete_operation.return_value = {}
 
-    assert process_wire_story(mock_converter, "0 of 0") == "Response not OK!"
+    assert process_wire_story(mock_converter, "0 of 0", mock_connect) == "Response not OK!"
     assert mock_post.called == True
+    assert mock_connect.called == False
 
 
+@mock.patch("sqlite3.connect")
 @mock.patch("requests.put")
 @mock.patch("requests.post")
 @mock.patch("apps.associated_press.converter.APStoryConverter")
-def test_process_wire_story_error_circulationsapi(mock_converter, mock_post, mock_put):
+def test_process_wire_story_error_circulationsapi(mock_converter, mock_post, mock_put, mock_connect):
     # note: is affected by the mock_decorator function at top of test file.
     mock_converter.get_circulation.return_value = {}
     mock_converter.convert_ans.return_value = {"_id": "123", "source": {"source_id": "abc"}, "headlines": {"basic": "stuff"}}
@@ -321,34 +330,47 @@ def test_process_wire_story_error_circulationsapi(mock_converter, mock_post, moc
             raise_for_status=requests.exceptions.RequestException("Response not OK!"),
         ),
     ]
-    assert process_wire_story(mock_converter, "0 of 0") == "Response not OK!"
+    assert process_wire_story(mock_converter, "0 of 0", mock_connect) == "Response not OK!"
     assert mock_post.called == True
     assert mock_put.call_count == 2
+    assert mock_connect.called == False
 
 
+@mock.patch("utils.inventory.create_inventory")
+@mock.patch("sqlite3.connect")
 @mock.patch("requests.put")
 @mock.patch("requests.post")
 @mock.patch("apps.associated_press.converter.APStoryConverter")
-def test_process_wire_story_happy_path(mock_converter, mock_post, mock_put):
+def test_process_wire_story_happy_path(mock_converter, mock_post, mock_put, mock_connect, mock_inventory):
     # note: is affected by the mock_decorator function at top of test file.
     mock_converter.get_circulation.return_value = {}
-    mock_converter.convert_ans.return_value = {"_id": "123", "source": {"source_id": "abc"}, "headlines": {"basic": "stuff"}}
+    mock_converter.convert_ans.return_value = {
+        "_id": "123",
+        "source": {"source_id": "abc"},
+        "headlines": {"basic": "stuff"},
+        "additional_properties": {"sha1": "abc123ghi", "ap_item_url": "https://aurlhere"},
+        "type": "story",
+    }
     mock_converter.get_scheduled_delete_operation.return_value = {}
-    assert process_wire_story(mock_converter, "0 of 0") == http.HTTPStatus.CREATED
+    assert process_wire_story(mock_converter, "0 of 0", mock_connect) == http.HTTPStatus.CREATED
     assert mock_post.call_count == 1
     assert mock_put.call_count == 2
+    assert mock_inventory.call_count == 1
 
 
+@mock.patch("sqlite3.connect")
 @mock.patch("apps.associated_press.converter.APPhotoConverter")
-def test_process_wire_photo_incomplete(mock_converter):
+def test_process_wire_photo_incomplete(mock_converter, mock_connect):
     # note: is affected by the mock_decorator function at top of test file.
     mock_converter.convert_ans.return_value = None
-    assert process_wire_photo(mock_converter, "0 of 0") == "Wire photo cannot be sent to Draft API without ans data"
+    assert process_wire_photo(mock_converter, "0 of 0", mock_connect) == "Wire photo cannot be sent to Draft API without ans data"
 
 
+@mock.patch("utils.inventory.select_inventory_by_sha1")
+@mock.patch("sqlite3.connect")
 @mock.patch("requests.post")
 @mock.patch("apps.associated_press.converter.APPhotoConverter")
-def test_process_wire_photo_error_photoapi(mock_converter, mock_post):
+def test_process_wire_photo_error_photoapi(mock_converter, mock_post, mock_connect, mock_inventory):
     # note: is affected by the mock_decorator function at top of test file.
     mock_converter.convert_ans.return_value = {
         "_id": "123",
@@ -358,14 +380,26 @@ def test_process_wire_photo_error_photoapi(mock_converter, mock_post):
         "caption": "a caption",
     }
     mock_post.side_effect = [MockResponse(raise_for_status=requests.exceptions.RequestException("Response not OK!"))]
-    assert process_wire_photo(mock_converter, "0 of 0") == "Response not OK!"
+    mock_inventory.return_value = False
+    assert process_wire_photo(mock_converter, "0 of 0", mock_connect) == "Response not OK!"
     assert mock_post.called == True
+    assert mock_inventory.call_count == 1
+
+    mock_inventory.return_value = True
+    assert (
+        process_wire_photo(mock_converter, "0 of 0", mock_connect)
+        == "Wire photo sha1 exists in inventory and is the same as the sha1 generated from the ap photo data. Wire photo has no changes in its source properties, so ans will not be generated."
+    )
+    assert mock_inventory.call_count == 2
+    assert mock_post.call_count == 1
 
 
+@mock.patch("apps.associated_press.process_wires")
 @mock.patch("apps.associated_press.fetch_feed")
-def test_run_ap_ingest_wires(mock_fetch_feed, test_content):
+def test_run_ap_ingest_wires(mock_fetch_feed, mock_process_wires, test_content):
     mock_fetch_feed.return_value = test_content.get_content("ap_feed_items.json")
     wires = run_ap_ingest_wires()
     assert len(wires) == 27
     for wire in wires:
         assert isinstance(wire, AssociatedPressBaseConverter)
+    assert mock_process_wires.called == True

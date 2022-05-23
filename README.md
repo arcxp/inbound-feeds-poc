@@ -15,6 +15,8 @@ This POC is not meant to be copied and used directly in a production environment
 
 ## Installation
 
+> WARNING: This is a proof-of-concept application. Do not use it in a production deployment. Develop a production application instead
+
 Create a virtual environment, activate it and install the adapter requirements.
 
 ``$ pip3 install -r requirements.txt``
@@ -77,4 +79,13 @@ Or you can run the api endpoint.
 
 Once the api is running in the terminal, open an api browser and navigate to the localhost api url `http://127.0.0.1:8080/api/ap/`
 
-The best way to view logs in the terminal is either to run the app via the PyCharm configuration or directly from the terminal at `apps/associated_press/__init__.py`
+## Errata
+
+Other terminal commands
+```shell
+$ isort . # reorders and formats imports
+$ black . # reformats code, including imports
+
+```
+
+Terminal logs will pause when the rate limits enforced by the `@limits()` and `@sleep_and_retry` decorators are hit.  After a couple of minutes, the logs will unpause and pick back up where they left off until the rate limits run out again, causing another pause, or the script finishes.

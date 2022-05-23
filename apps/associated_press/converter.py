@@ -17,10 +17,13 @@ logger = get_logger()
 
 
 class AssociatedPressBaseConverter:
-    def __init__(self, data: dict, *args, org_name: str = None, website: str = None, story_data: bytes = None, **kwargs):
+    def __init__(
+        self, data: dict, *args, org_name: str = None, website: str = None, section: str = None, story_data: bytes = None, **kwargs
+    ):
         self.ans_version = "0.10.7"
         self.org_name = org_name
         self.website = website
+        self.section = section
         self.converted_ans = {"version": self.ans_version}
         self.source_data = data
         self.story_data = story_data
@@ -57,7 +60,7 @@ class AssociatedPressBaseConverter:
         return self.converted_ans
 
     def get_arc_id(self, source_id: str):
-        """arc ids should consist of the source id and also the arc org id"""
+        """arc ids should consist of the content source id and also the arc org id"""
         return generate_arc_id(source_id, self.org_name)
 
     @staticmethod
@@ -120,10 +123,10 @@ class APStoryConverter(AssociatedPressBaseConverter):
             "website_url": self.get_website_url(self.source_data.get("headline")),
             "website_primary_section": {
                 "type": "reference",
-                "referent": {"id": "/sample/wires", "type": "section", "website": self.website},
+                "referent": {"id": self.section, "type": "section", "website": self.website},
             },
             "website_sections": [
-                {"type": "reference", "referent": {"id": "/sample/wires", "type": "section", "website": self.website}}
+                {"type": "reference", "referent": {"id": self.section, "type": "section", "website": self.website}}
             ],
         }
         logger.info(
@@ -192,7 +195,7 @@ class APStoryConverter(AssociatedPressBaseConverter):
         return authors
 
     def get_website_url(self, headline: str):
-        return "/" + slugify(headline)
+        return self.section + "/" + slugify(headline)
 
     def get_photo_associations_urls(self):
         """return the urls of the photo associations so their full details can be requested"""
