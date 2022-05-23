@@ -23,7 +23,14 @@ import freezegun
 import pytest
 import requests
 
-from apps.associated_press import fetch_feed, fetch_photo_item, fetch_story_item, process_wire_photo, process_wire_story
+from apps.associated_press import (
+    fetch_feed,
+    fetch_photo_item,
+    fetch_story_item,
+    process_wire_photo,
+    process_wire_story,
+    run_ap_ingest_wires,
+)
 from apps.associated_press.converter import APPhotoConverter, APStoryConverter, AssociatedPressBaseConverter
 from tests.fixtures.content_elements import TEST_CASES as content_elements_tests
 
@@ -130,7 +137,11 @@ def test_photo_converter(test_content):
     assert ans.get("_id") == "4SMRDV6XJETBEANTUQZEXHTJX4"
     assert ans.get("publish_date") == ans.get("display_date") == "2022-05-11T17:47:55Z"
     assert ans.get("distributor") == {"category": "wires", "name": "Associated Press", "mode": "custom"}
-    assert ans.get("source") == {"name": "Associated Press", "source_id": "d718de68c8824b1ba8b8089bfbab5804"}
+    assert ans.get("source") == {
+        "name": "Associated Press",
+        "system": "Associated Press",
+        "source_id": "d718de68c8824b1ba8b8089bfbab5804",
+    }
     assert (
         ans.get("caption")
         == "8189587 11.05.2022 Yenisey's goalkeeper Mikhail Oparin pours water in his face during the Russian Cup semifinal soccer match between Spartak Moscow and Yenisey Krasnoyarsk, in Moscow, Russia. Alexey Filippov / Sputnik  via AP"
@@ -163,7 +174,11 @@ def test_story_converter(test_content):
     assert ans.get("type") == "story"
     assert ans.get("_id") == "WTMJO4FHXDCGIFKCYNKGZE3UKY"
     assert ans.get("canonical_website") == "mywebsite"
-    assert ans.get("source") == {"name": "Associated Press", "source_id": "933046d59d58616e5f3e2b00cddfceae"}
+    assert ans.get("source") == {
+        "name": "Associated Press",
+        "system": "Associated Press",
+        "source_id": "933046d59d58616e5f3e2b00cddfceae",
+    }
     assert ans.get("publish_date") == ans.get("display_date") == "2022-05-11T04:07:27Z"
     assert ans.get("additional_properties").get("sha1") == "5fb395eeb761d3c337418bd52700128329047e34"
     assert (
@@ -345,3 +360,12 @@ def test_process_wire_photo_error_photoapi(mock_converter, mock_post):
     mock_post.side_effect = [MockResponse(raise_for_status=requests.exceptions.RequestException("Response not OK!"))]
     assert process_wire_photo(mock_converter, "0 of 0") == "Response not OK!"
     assert mock_post.called == True
+
+
+@mock.patch("apps.associated_press.fetch_feed")
+def test_run_ap_ingest_wires(mock_fetch_feed, test_content):
+    mock_fetch_feed.return_value = test_content.get_content("ap_feed_items.json")
+    wires = run_ap_ingest_wires()
+    assert len(wires) == 27
+    for wire in wires:
+        assert isinstance(wire, AssociatedPressBaseConverter)

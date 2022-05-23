@@ -48,7 +48,11 @@ class AssociatedPressBaseConverter:
                 # Doing so would change the mapping of the distributor key below.
                 # Change to the proper ans format if using a distributor id.
                 "distributor": {"category": "wires", "name": "Associated Press", "mode": "custom"},
-                "source": {"name": "Associated Press", "source_id": self.source_data.get("source_id")},
+                "source": {
+                    "name": "Associated Press",
+                    "system": "Associated Press",
+                    "source_id": self.source_data.get("source_id"),
+                },
                 "additional_properties": {},
             }
         )
@@ -89,7 +93,7 @@ class APStoryConverter(AssociatedPressBaseConverter):
                     "sha1": self.get_sha1(),
                 },
                 "related_content": {"basic": self.get_photo_associations()},
-                "content_elements": self.get_content_elements(self.story_data)
+                "content_elements": self.get_content_elements(self.story_data),
             }
         )
 
@@ -145,7 +149,7 @@ class APStoryConverter(AssociatedPressBaseConverter):
             "date": self.get_expiration_date(),
         }
         logger.info(
-            "delete operation",
+            "story delete operation",
             extra={
                 "arc_id": scheduled_delete.get("story_id"),
                 "source_id": self.source_data.get("source_id"),

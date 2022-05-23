@@ -1,16 +1,29 @@
 # inbound-feeds-poc
 
+This is a proof of concept application, pulling wire content from an Associated Press feed and transforming the ap content into ANS format, then sending the transformed ANS into Arc. Read on ALC about the process of pulling external content into Arc via building an [Inbound Feeds Adapter](https://redirector.arcpublishing.com/alc/arc-products/arcwide/user-docs/self-onboarding-inbound-wires-adapter/).
+
+This POC is not meant to be copied and used directly in a production environment.  It is provided as a simple example of the general concepts and suggestions described in the ALC article:
+
+- connecting to the associated press feed
+- pulling wire content out of the feed
+- transforming wire content into ans
+- creating a hash value from the wire content
+- sending converted ans into arc
+- logging transformation, errors and successes
+- adding to an inventory database
+- some unit tests, with room for improvement
+
 ## Installation
 
 Create a virtual environment, activate it and install the adapter requirements.
 
 ``$ pip3 install -r requirements.txt``
 
-Set up the environment variables in the .env file.  Copy and rename `.env.example` to `.env.`  Fill in the variable values.
+Set up the application's environment variables in a .env file.  To create a .env with fill-in-the-blank named variables, copy and rename `.env.example` from the repo to `.env.`
 
 ``$ cp .env.example .env``
 
-Run tests to see all pass and verify successfull installation.
+Run tests to see all pass and verify successful installation.
 
 ``$ pytest ``
 
@@ -52,12 +65,16 @@ Now either the green arrow icon or the green bug icon next to the configurations
 
 ## Run application from terminal
 
-If you do not want to run the app from a Pycharm cofiguration, run it with the terminal.
+You may run the application directly from the terminal.
 
 ``$ PYTHONPATH=.  python apps/associated_press/__init__.py ``
 
 An example of the log file generated at this endpoint is in the fixtures directory `apps_associated_press_init_main_log.json`
 
-Run the app api endpoint.
+Or you can run the api endpoint. 
 
-`` ... fill this in ... ``
+`` $ PYTHONPATH=. python api/associated_press.py ``
+
+Once the api is running in the terminal, open an api browser and navigate to the localhost api url `http://127.0.0.1:8080/api/ap/`
+
+The best way to view logs in the terminal is either to run the app via the PyCharm configuration or directly from the terminal at `apps/associated_press/__init__.py`

@@ -34,6 +34,7 @@ def fetch_feed(next_page: Optional[str] = None):
         url = next_page
     elif q:
         params["q"] = q
+        logger.info("Associated Press Query Param", extra={"q": q})
     res = requests.get(url, params=params)
     if res.ok:
         data = res.json()
@@ -222,19 +223,14 @@ def process_wires(converters: list):
             process_wire_photo(converter, count)
 
 
-if __name__ == "__main__":  # pragma: no cover
-    # this is the uri of one of the photos from a story's associations
-    # test = fetch_feed(
-    #     "https://api.ap.org/media/v/content/28514e83e96c483f8cbac9b3aaabadc4?qt=_dSwUXC5aF&et=1a1aza4c0&ai=95b07bc3a92191b0abea66f851983c59"
-    # )
-
+def run_ap_ingest_wires():
     items = fetch_feed()
     wires = []
     for item in items:
         if item.get("type") == "picture":
             # do not process ap images that incur cost
-                converter = fetch_photo_item(item)
-                wires.append(converter)
+            converter = fetch_photo_item(item)
+            wires.append(converter)
         elif item.get("type") == "text":
             converter = fetch_story_item(item.get("download_url"), item)
             wires.append(converter)
@@ -248,4 +244,9 @@ if __name__ == "__main__":  # pragma: no cover
         else:
             logger.info(item.get("type"))
 
+    return wires
+
+
+if __name__ == "__main__":  # pragma: no cover
+    wires = run_ap_ingest_wires()
     process_wires(wires)
