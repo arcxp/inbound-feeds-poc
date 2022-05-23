@@ -14,7 +14,7 @@ def mock_decorator(*args, **kwargs):
     return decorator
 
 
-# nullify @limits() decorator used by process-wire* functions
+# used to nullify @limits() decorator used by process-wire* functions
 mock.patch("ratelimit.limits", mock_decorator).start()
 
 import http

@@ -216,7 +216,7 @@ def process_wires(converters: list):
     """
     converters = list(filter(None, converters))
     for index, converter in enumerate(converters):
-        count = f"{index} of {len(converters)}"
+        count = f"{index + 1} of {len(converters)}"
         if isinstance(converter, APStoryConverter):
             process_wire_story(converter, count)
         elif isinstance(converter, APPhotoConverter):

@@ -1,0 +1,260 @@
+{
+  "version": "0.10.7",
+  "_id": "EHF4OGP4AIZ36VIYPNJKDBS2OU",
+  "type": "story",
+  "owner": {
+    "id": "sandbox.stagingmultisitelarge"
+  },
+  "publish_date": "2022-05-19T05:08:45Z",
+  "display_date": "2022-05-19T05:08:45Z",
+  "distributor": {
+    "category": "wires",
+    "name": "Associated Press",
+    "mode": "custom"
+  },
+  "source": {
+    "name": "Associated Press",
+    "system": "Associated Press",
+    "source_id": "8ada4c17c356a1f66a2a16bc973490b7"
+  },
+  "additional_properties": {
+    "ap_item_url": "https://api.ap.org/media/v/content/110ac168991e68673adb34fe5e1499ff?qt=6iq47IwquF&et=17a1aza0c0",
+    "sha1": "7b2f1cee70e9d3e0909d7cb0d61e512c50dd252f"
+  },
+  "canonical_website": "sample",
+  "headlines": {
+    "basic": "'How dare you!': Grief, anger from Buffalo victims' kin"
+  },
+  "credits": {
+    "by": [
+      {
+        "type": "author",
+        "name": "AARON MORRISON and CAROLYN THOMPSON",
+        "org": "Associated Press"
+      }
+    ]
+  },
+  "workflow": {
+    "status_code": 1
+  },
+  "related_content": {
+    "basic": [
+      {
+        "referent": {
+          "id": "QS3MLAPKCY5HLUJU5PFVLQZGNM",
+          "type": "image"
+        },
+        "type": "reference"
+      },
+      {
+        "referent": {
+          "id": "2KAA6Q7BUZ2JV45WILBQIURPPQ",
+          "type": "image"
+        },
+        "type": "reference"
+      },
+      {
+        "referent": {
+          "id": "35CO2HM3BBJD3DERXWXCYIKOBY",
+          "type": "image"
+        },
+        "type": "reference"
+      },
+      {
+        "referent": {
+          "id": "CPXFWN3VEMYQANNT3BWOZJ3YCU",
+          "type": "image"
+        },
+        "type": "reference"
+      },
+      {
+        "referent": {
+          "id": "XQP6PVDPXQRCJDWJGZNPD4R3QM",
+          "type": "image"
+        },
+        "type": "reference"
+      },
+      {
+        "referent": {
+          "id": "XIXV5WWIQWEVTWJRG72U3QBV7I",
+          "type": "image"
+        },
+        "type": "reference"
+      },
+      {
+        "referent": {
+          "id": "NLGR7I5T2IPI76VN634OHBSY4I",
+          "type": "image"
+        },
+        "type": "reference"
+      },
+      {
+        "referent": {
+          "id": "NQ4XQELZ5P2TCHMMB4BSCSNFD4",
+          "type": "image"
+        },
+        "type": "reference"
+      },
+      {
+        "referent": {
+          "id": "MR2WKFDKEPAQGWZ5WM3CPI7DQU",
+          "type": "image"
+        },
+        "type": "reference"
+      },
+      {
+        "referent": {
+          "id": "XEELNC7DBFF3MM6XHF7ZDN45EU",
+          "type": "image"
+        },
+        "type": "reference"
+      },
+      {
+        "referent": {
+          "id": "XSTHV7Z6UO3KMXZGDIW7KNAPY4",
+          "type": "image"
+        },
+        "type": "reference"
+      },
+      {
+        "referent": {
+          "id": "Y6TLDKKLCLJOD57GUADXUQRWEA",
+          "type": "image"
+        },
+        "type": "reference"
+      },
+      {
+        "referent": {
+          "id": "MKVROJSWWDR4U5CAZ2UQGND4F4",
+          "type": "image"
+        },
+        "type": "reference"
+      },
+      {
+        "referent": {
+          "id": "UNJZB2S2FWOQ65XWVM36LAL6YI",
+          "type": "image"
+        },
+        "type": "reference"
+      }
+    ]
+  },
+  "content_elements": [
+    {
+      "type": "text",
+      "content": "BUFFALO, N.Y. (AP) \u2014 Relatives of the 10 Black people massacred in a Buffalo supermarket pleaded with the nation Thursday to confront and stop racist violence, their agony pouring out in the tears of a 12-year-old child, hours after the white man accused in the killings silently faced a murder indictment in court."
+    },
+    {
+      "type": "text",
+      "content": "Jaques \u201cJake\u201d Patterson, who lost his father, covered his face with his hands as his mother spoke at a news conference. Once she finished, Jake collapsed into the arms of Rev. Al Sharpton, the veteran civil rights activist, and cried silently, using his T-shirt to wipe his tears."
+    },
+    {
+      "type": "text",
+      "content": "\u201cHis heart is broken,\u201d said his mother, Tirzah Patterson, adding that her son was having trouble sleeping and eating."
+    },
+    {
+      "type": "text",
+      "content": "\u201cAs a mother, what am I supposed to do to help him get through this?\" she said."
+    },
+    {
+      "type": "text",
+      "content": "Her ex-husband, Heyward Patterson, a 67-year-old church deacon, was gunned down Saturday at Tops Friendly Market. So was Robin Harris's 86-year-old mother and best friend, Ruth Whitfield, on a day when they were supposed to go see the touring Broadway show \u201cAin\u2019t Too Proud.\u201d"
+    },
+    {
+      "type": "text",
+      "content": "\u201cThat racist young man took my mother away,\u201d Harris said, trembling and stomping her feet as she spoke."
+    },
+    {
+      "type": "text",
+      "content": "\u201cHow dare you!\u201d Harris shouted viscerally."
+    },
+    {
+      "type": "text",
+      "content": "\u201cI need this violence to stop,\u201d she added. \u201cWe need to fix this, and we need to fix it now.\u201d"
+    },
+    {
+      "type": "text",
+      "content": "Earlier in the day in another part of town, accused gunman Payton Gendron, 18, appeared briefly in court to hear that he was indicted in the killings."
+    },
+    {
+      "type": "text",
+      "content": "\u201cPayton, you\u2019re a coward!\u201d someone shouted the courtroom gallery as he was led away."
+    },
+    {
+      "type": "text",
+      "content": "Gendron, whose lawyer entered a not guilty plea for him at an earlier court appearance, didn't speak. His attorneys later declined to comment. He is being held without bail and is due back in court June 9."
+    },
+    {
+      "type": "text",
+      "content": "Authorities are investigating the possibility of hate crime and terrorism charges against Gendron, who apparently detailed his plans for the assault and his racist motivation in <a href=\"https://apnews.com/article/buffalo-supermarket-shooting-covid-health-shootings-new-york-8da5e408485e9699f866a89da7ac6067\">hundreds of pages of writings</a> he posted online shortly before the shooting. It was livestreamed from a helmet-mounted camera."
+    },
+    {
+      "type": "text",
+      "content": "\"We need to hold all that have aided and abetted the hate in this country accountable,\u201d Sharpton said at the news conference outside Buffalo\u2019s Antioch Baptist Church. The civil rights activist's group, the National Action Network, plans to cover funeral expenses for those killed."
+    },
+    {
+      "type": "text",
+      "content": "The carnage at the Tops supermarket was unsettling even in a nation that has become almost <a href=\"https://apnews.com/article/buffalo-shooting-targeted-racial-violence-ad45b4c56e74a4ec606c0a7e44694a19\">numb to mass shootings</a>. Thirteen people were shot in total, all but two of them Black. Gendron's online writings said he planned the assault after becoming infatuated with white supremacist ideology he encountered online."
+    },
+    {
+      "type": "text",
+      "content": "\u201cI constantly think about what could have been done,\u201d Mark Talley said at the families' news conference, holding a photo of his slain mother, Geraldine Talley, 62. Her fiance, who survived the shooting, saw her get shot to death, her son said."
+    },
+    {
+      "type": "text",
+      "content": "Inaction on the threat of white supremacist violence, Talley said, led to last weekend\u2019s bloodshed."
+    },
+    {
+      "type": "text",
+      "content": "\u201cIt\u2019s like Groundhog\u2019s Day. We\u2019ve seen this over and over again,\u201d he said."
+    },
+    {
+      "type": "text",
+      "content": "Stephen Belongia, the FBI's lead agent in Buffalo, said at a news briefing that agents were still working to piece together Gendron's motives and how he came to his extremist views. Investigators have been examining the online documents, which included <a href=\"https://apnews.com/article/buffalo-supermarket-shooting-19514b0c6524bd428f4167ad9b490a12\">a private diary</a> on the chat platform Discord."
+    },
+    {
+      "type": "text",
+      "content": "The diary said Gendron planned his attack in secret, with no outside help. A half-hour before opening fire, he <a href=\"https://apnews.com/article/buffalo-supermarket-shooting-covid-health-shootings-new-york-8da5e408485e9699f866a89da7ac6067\">invited a small group of people to see his writings,</a> Discord said."
+    },
+    {
+      "type": "text",
+      "content": "Fifteen Discord users accepted, according to a person familiar with the investigation who was not authorized to speak about it publicly."
+    },
+    {
+      "type": "text",
+      "content": "It wasn\u2019t clear how quickly those people saw what he\u2019d written or whether any tried to alert law enforcement."
+    },
+    {
+      "type": "text",
+      "content": "New York Gov. Kathy Hochul has authorized the state\u2019s attorney general, Letitia James, to investigate whether social media companies that Gendron used were liable for \u201cproviding a platform to plan and promote violence.\u201d"
+    },
+    {
+      "type": "text",
+      "content": "Buffalo Police Commissioner Joseph Gramaglia said Thursday that social media users can also play a role by speaking up when they see people posting violent or threatening content."
+    },
+    {
+      "type": "text",
+      "content": "\u201cYou need to out these people,\u201d he said at a briefing. \u201cExpose those that are putting out those types of extreme views, and let us root them out.\u201d"
+    },
+    {
+      "type": "text",
+      "content": "At the families' news conference, Tirzah Patterson had another request."
+    },
+    {
+      "type": "text",
+      "content": "\u201cI need the village to help me raise and be here for my son,\u201d she said, asking people to pray \"that God gives us strength to go through this.\u201d"
+    },
+    {
+      "type": "text",
+      "content": "\u201cWe are the village,\u201d civil rights attorney Ben Crump chanted, encouraging the other victims\u2019 family members to join in."
+    },
+    {
+      "type": "text",
+      "content": "___"
+    },
+    {
+      "type": "text",
+      "content": "Associated Press writers Michael Hill in Albany, Matt O'Brien in Providence, Rhode Island, and Jennifer Peltz in New York contributed."
+    }
+  ]
+}

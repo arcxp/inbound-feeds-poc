@@ -5,8 +5,6 @@ import re
 from typing import Optional, Union
 
 import arrow
-from bs4 import BeautifulSoup as bs
-from html2ans.base import BaseHtmlAnsParser
 from html2ans.default import Html2Ans
 from jmespath import search
 from slugify import slugify
