@@ -66,16 +66,14 @@ def fetch_feed(next_page: Optional[str] = None):
             priced = search("data.item.renditions.main.priced || data.item.renditions.main.pricetag", data)
             if priced in ["Unlimited", False, None, "false"]:
                 items = search(AP_ASSOCIATIONS_JMESPATH_STR, data)
+            else:
+                logger.warning(
+                    "Picture excluded because it would incur cost",
+                    extra={"source_id": data["data"]["item"]["altids"]["itemid"], "priced": priced},
+                )
     else:
         logger.error(f"{res.status_code} {url}")
         next_page = sequence = previous_sequence = None
-
-    # # recurse -- POC, recursion is out of scope
-    # Recursion of the AP wire like this might be problematic.  Testing suggests this could go on forever.
-    # if next_page and sequence:
-    #     fetch_feed(next_page)
-    # else:
-    #     print("ENDING recursion")
     return items
 
 
@@ -288,8 +286,14 @@ def run_ap_ingest_wires():
     for item in items:
         if item.get("type") == "picture":
             # do not process ap images that incur cost
-            converter = fetch_photo_item(item)
-            wires.append(converter)
+            if item.get("pricetag") in ["Unlimited", "", None]:
+                converter = fetch_photo_item(item)
+                wires.append(converter)
+            else:
+                logger.warning(
+                    "Picture excluded because it would incur cost",
+                    extra={"source_id": item.get("source_id"), "priced": item.get("priced"), "pricetag": item.get("pricetag")},
+                )
         elif item.get("type") == "text":
             converter = fetch_story_item(item.get("download_url"), item)
             wires.append(converter)

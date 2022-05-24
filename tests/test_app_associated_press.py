@@ -399,7 +399,7 @@ def test_process_wire_photo_error_photoapi(mock_converter, mock_post, mock_conne
 def test_run_ap_ingest_wires(mock_fetch_feed, mock_process_wires, test_content):
     mock_fetch_feed.return_value = test_content.get_content("ap_feed_items.json")
     wires = run_ap_ingest_wires()
-    assert len(wires) == 27
+    assert len(wires) == 20
     for wire in wires:
         assert isinstance(wire, AssociatedPressBaseConverter)
     assert mock_process_wires.called == True

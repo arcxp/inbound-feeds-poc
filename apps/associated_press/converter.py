@@ -109,10 +109,6 @@ class APStoryConverter(AssociatedPressBaseConverter):
             },
         )
 
-        # for empty_key in self.EMPTY_KEYS:
-        #     val = result.ans.get(empty_key)
-        #     if not val:
-        #         result.ans.pop(empty_key, None)
         return self.converted_ans
 
     def get_circulation(self):
