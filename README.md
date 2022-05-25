@@ -40,10 +40,11 @@ Using the PyCharm IDE you can run this code locally and will have the ability to
 
 Once the repo is installed locally and the virtual environment is created -- lets assume the virtual env is named `inbound-feeds-poc` -- open the location of the repo in Pycharm as a project.
 
-``Pycharm menu > File > Open > {navigate to repository root} > Open > {choose to open in new window}``
+``Pycharm menu > File > Open > {navigate to repository root} > click Open button > {choose to open repository project in new window}``
 
 Create a PyCharm configuration and point it to the virtual environment that has already been set up.
-Pycharm menu > Pycharm > Preferences > Project: inbound-feeds-poc > Python Interpreter
+
+```Pycharm menu > PyCharm > Preferences > Project: inbound-feeds-poc > Python Interpreter```
 
 If the virtual environment is not already listed in the drop down: 
 
