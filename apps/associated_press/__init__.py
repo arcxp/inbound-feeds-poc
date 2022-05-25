@@ -114,7 +114,7 @@ def bearer_token():
 @sleep_and_retry
 @limits(calls=2, period=60)
 def process_wire_story(converter: APStoryConverter, count: str, conn: connect):
-    # apply converter to transform source into ans, send ans into draft api/content api/composer inventory on success
+    # apply converter to transform source into ans, send ans into draft api/content api/composer, inventory on success
     logger.info(f"{count} {converter}")
     ans = None
     circulation = None
@@ -147,7 +147,7 @@ def process_wire_story(converter: APStoryConverter, count: str, conn: connect):
         res = requests.post(DRAFT_API_URL.format(org=org), json=ans, headers=bearer_token())
         res.raise_for_status()
     except Exception as e:
-        # POSTing to an existing arc id in Draft API causes an error. Branch logic to update a story that needs updating.
+        # POSTing to an existing arc id in Draft API causes an error, you have to PUT instead.
         res_error_msg = res.json().get("error_message")
         logger.warning(res_error_msg, extra=extra)
 
@@ -249,6 +249,7 @@ def process_wire_photo(converter: APPhotoConverter, count: str, conn: connect):
         res.raise_for_status()
 
     except Exception as e:
+        # POSTing to an existing arc id in Photo Center causes an error, you have to PUT instead.
         logger.warning(e, extra=extra)
 
         if "409 Client Error: Conflict" in str(e):
