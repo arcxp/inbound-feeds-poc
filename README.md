@@ -1,8 +1,8 @@
 # inbound-feeds-poc
 
-This is a proof of concept application, of pulling wire content from an Associated Press feed and transforming the ap content into ANS format, then sending the transformed ANS into Arc. Read on ALC about the process of pulling external content into Arc via building an [Inbound Feeds Adapter](https://redirector.arcpublishing.com/alc/arc-products/arcwide/user-docs/self-onboarding-inbound-wires-adapter/).
+inbound-feeds-poc is a proof of concept application demonstration a way of pulling wire content from an Associated Press feed, transforming the ap content into ANS format, then sending the transformed ANS into Arc. Read on ALC about the process of pulling external content into Arc via building an [Inbound Feeds Adapter](https://redirector.arcpublishing.com/alc/arc-products/arcwide/user-docs/self-onboarding-inbound-wires-adapter/).
 
-This POC is not meant to be copied and used directly in a production environment.  It is provided as a simple example of the general concepts and suggestions described in the ALC article:
+This POC is not designed for use in a production environment.  It is provided as a simple example of the general concepts and suggestions described in the ALC article:
 
 - connecting to the associated press feed
 - pulling wire content out of the feed
@@ -11,11 +11,13 @@ This POC is not meant to be copied and used directly in a production environment
 - sending converted ans into arc
 - logging transformation, errors and successes
 - adding to an inventory database
-- some unit tests, with room for improvement
+- some unit tests
+
+This application does not model scheduling itself to run repeatedly on a timed cycle.
 
 ## Installation
 
-> WARNING: This is a proof-of-concept application. Do not use it in a production deployment. Develop a production application instead
+> WARNING: This is a proof-of-concept application. Do not use it in a production deployment. Develop a production application instead.
 
 Create a virtual environment, activate it and install the adapter requirements.
 
