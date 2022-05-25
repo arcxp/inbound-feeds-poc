@@ -181,7 +181,7 @@ def test_story_converter(test_content):
         "source_id": "933046d59d58616e5f3e2b00cddfceae",
     }
     assert ans.get("publish_date") == ans.get("display_date") == "2022-05-11T04:07:27Z"
-    assert ans.get("additional_properties").get("sha1") == "5fb395eeb761d3c337418bd52700128329047e34"
+    assert ans.get("additional_properties").get("sha1") == "54931dfea540edfc3b3873b1f6c557b2bf0086d6"
     assert (
         ans.get("additional_properties").get("ap_item_url")
         == "https://api.ap.org/media/v/content/d38703c060c6b066f2bd9012d147c6e1?qt=HNKVoTocLIF&et=17a1aza0c0"
@@ -223,9 +223,30 @@ def test_story_converter(test_content):
 
     associations = converter.get_photo_associations()
     assert associations == [
-        {"referent": {"id": "5WAHGB4GUQEDL5NXO2YQNKELZY", "type": "image"}, "type": "reference"},
-        {"referent": {"id": "ZL7AOJH4MLAS4AHT4K5RYU6Q3A", "type": "image"}, "type": "reference"},
-        {"referent": {"id": "YMWMWCQE47HXC5UDJKJEIWD3LY", "type": "image"}, "type": "reference"},
+        {
+            "referent": {
+                "id": "5WAHGB4GUQEDL5NXO2YQNKELZY",
+                "type": "image",
+                "referent_properties": {"additional_properties": {"original": {"source_id": "d110254bbaf54b2098e36e3ced474862"}}},
+            },
+            "type": "reference",
+        },
+        {
+            "referent": {
+                "id": "ZL7AOJH4MLAS4AHT4K5RYU6Q3A",
+                "type": "image",
+                "referent_properties": {"additional_properties": {"original": {"source_id": "15667ba3019843fc89c922cc822ffb4b"}}},
+            },
+            "type": "reference",
+        },
+        {
+            "referent": {
+                "id": "YMWMWCQE47HXC5UDJKJEIWD3LY",
+                "type": "image",
+                "referent_properties": {"additional_properties": {"original": {"source_id": "bf1096954ea44abdabcd1bd204991983"}}},
+            },
+            "type": "reference",
+        },
     ]
     assert ans.get("related_content").get("basic") == associations
 
@@ -241,6 +262,36 @@ def test_story_content_elements(source_id, content_elements, test_content):
     )
 
     assert converter.get_content_elements(converter.story_data) == content_elements
+
+
+def test_story_related_content_arc_id(test_content):
+    """make sure the ans ids generated when writing related content references are the same as
+    when the photos in the references generate their ans ids.  if these are not the same values,
+    the photos will not render in Composer"""
+
+    story_converter = APStoryConverter(
+        test_content.get_content("ap_text_item_test_converter_itemdata.json"),
+        org_name="myorg",
+        website="mywebsite",
+        section="/sample/wires",
+        story_data=test_content.get_content("ap_text_item_test_converter_storydata.xml"),
+    )
+    photo_converter = APPhotoConverter(
+        test_content.get_content("ap_text_item_test_photo_association_01_data.json"), org_name="myorg"
+    )
+    related_content = story_converter.get_photo_associations()
+    photo_ans = photo_converter.convert_ans()
+
+    related_item = None
+    for item in related_content:
+        if item["referent"]["id"] == photo_ans["_id"]:
+            related_item = item
+
+    assert related_item
+    assert (
+        related_item["referent"]["referent_properties"]["additional_properties"]["original"]["source_id"]
+        == photo_ans["source"]["source_id"]
+    )
 
 
 @mock.patch("sqlite3.connect")
@@ -267,9 +318,25 @@ def test_process_wire_story_incomplete(mock_converter, mock_connect):
     assert mock_connect.called == False
 
 
+@mock.patch("utils.inventory.select_inventory_by_sha1")
 @mock.patch("sqlite3.connect")
 @mock.patch("apps.associated_press.converter.APStoryConverter")
-def test_process_wire_story_error_draftapi(mock_converter, mock_connect, monkeypatch):
+def test_process_wire_story_sha1_exists(mock_converter, mock_connect, mock_select):
+    # note: is affected by the mock_decorator function at top of test file.
+    mock_converter.convert_ans.return_value = {"additional_properties": {"sha1": "123"}}
+    mock_converter.get_circulation.return_value = {}
+    mock_converter.get_scheduled_delete_operation.return_value = {}
+    mock_select.return_value = True
+    assert (
+        process_wire_photo(mock_converter, "0 of 0", mock_connect)
+        == "Wire's sha1 exists in inventory and is the same as the sha1 generated from the ap data. Wire has no changes in its source, so ans will not be generated."
+    )
+
+
+@mock.patch("utils.inventory.select_inventory_by_sha1")
+@mock.patch("sqlite3.connect")
+@mock.patch("apps.associated_press.converter.APStoryConverter")
+def test_process_wire_story_error_draftapi(mock_converter, mock_connect, mock_select, monkeypatch):
     # note: is affected by the mock_decorator function at top of test file.
 
     def mock_post(*args, **kwargs):
@@ -282,17 +349,24 @@ def test_process_wire_story_error_draftapi(mock_converter, mock_connect, monkeyp
 
     monkeypatch.setattr(requests, "post", mock_post)
     mock_converter.get_circulation.return_value = {}
-    mock_converter.convert_ans.return_value = {"_id": "123", "source": {"source_id": "abc"}, "headlines": {"basic": "stuff"}}
+    mock_converter.convert_ans.return_value = {
+        "_id": "123",
+        "source": {"source_id": "abc"},
+        "headlines": {"basic": "stuff"},
+        "additional_properties": {"sha1": "123"},
+    }
     mock_converter.get_scheduled_delete_operation.return_value = {}
+    mock_select.return_value = False
 
     assert process_wire_story(mock_converter, "0 of 0", mock_connect) == "Response not OK!"
     assert mock_connect.called == False
 
 
+@mock.patch("utils.inventory.select_inventory_by_sha1")
 @mock.patch("sqlite3.connect")
 @mock.patch("requests.post")
 @mock.patch("apps.associated_press.converter.APStoryConverter")
-def test_process_wire_story_error_operationsapi(mock_converter, mock_post, mock_connect, monkeypatch):
+def test_process_wire_story_error_operationsapi(mock_converter, mock_post, mock_connect, mock_select, monkeypatch):
     # note: is affected by the mock_decorator function at top of test file.
     def mock_put(*args, **kwargs):
         return MockResponse(
@@ -304,23 +378,36 @@ def test_process_wire_story_error_operationsapi(mock_converter, mock_post, mock_
 
     monkeypatch.setattr(requests, "put", mock_put)
     mock_converter.get_circulation.return_value = {}
-    mock_converter.convert_ans.return_value = {"_id": "123", "source": {"source_id": "abc"}, "headlines": {"basic": "stuff"}}
+    mock_converter.convert_ans.return_value = {
+        "_id": "123",
+        "source": {"source_id": "abc"},
+        "headlines": {"basic": "stuff"},
+        "additional_properties": {"sha1": "123"},
+    }
     mock_converter.get_scheduled_delete_operation.return_value = {}
+    mock_select.return_value = False
 
     assert process_wire_story(mock_converter, "0 of 0", mock_connect) == "Response not OK!"
     assert mock_post.called == True
     assert mock_connect.called == False
 
 
+@mock.patch("utils.inventory.select_inventory_by_sha1")
 @mock.patch("sqlite3.connect")
 @mock.patch("requests.put")
 @mock.patch("requests.post")
 @mock.patch("apps.associated_press.converter.APStoryConverter")
-def test_process_wire_story_error_circulationsapi(mock_converter, mock_post, mock_put, mock_connect):
+def test_process_wire_story_error_circulationsapi(mock_converter, mock_post, mock_put, mock_connect, mock_select):
     # note: is affected by the mock_decorator function at top of test file.
     mock_converter.get_circulation.return_value = {}
-    mock_converter.convert_ans.return_value = {"_id": "123", "source": {"source_id": "abc"}, "headlines": {"basic": "stuff"}}
+    mock_converter.convert_ans.return_value = {
+        "_id": "123",
+        "source": {"source_id": "abc"},
+        "headlines": {"basic": "stuff"},
+        "additional_properties": {"sha1": "123"},
+    }
     mock_converter.get_scheduled_delete_operation.return_value = {}
+    mock_select.return_value = False
     mock_put.side_effect = [
         MockResponse(raise_for_status=lambda: None),
         MockResponse(
@@ -336,12 +423,13 @@ def test_process_wire_story_error_circulationsapi(mock_converter, mock_post, moc
     assert mock_connect.called == False
 
 
+@mock.patch("utils.inventory.select_inventory_by_sha1")
 @mock.patch("utils.inventory.create_inventory")
 @mock.patch("sqlite3.connect")
 @mock.patch("requests.put")
 @mock.patch("requests.post")
 @mock.patch("apps.associated_press.converter.APStoryConverter")
-def test_process_wire_story_happy_path(mock_converter, mock_post, mock_put, mock_connect, mock_inventory):
+def test_process_wire_story_happy_path(mock_converter, mock_post, mock_put, mock_connect, mock_create, mock_select):
     # note: is affected by the mock_decorator function at top of test file.
     mock_converter.get_circulation.return_value = {}
     mock_converter.convert_ans.return_value = {
@@ -351,11 +439,14 @@ def test_process_wire_story_happy_path(mock_converter, mock_post, mock_put, mock
         "additional_properties": {"sha1": "abc123ghi", "ap_item_url": "https://aurlhere"},
         "type": "story",
     }
+
     mock_converter.get_scheduled_delete_operation.return_value = {}
+    mock_select.return_value = False
     assert process_wire_story(mock_converter, "0 of 0", mock_connect) == http.HTTPStatus.CREATED
     assert mock_post.call_count == 1
     assert mock_put.call_count == 2
-    assert mock_inventory.call_count == 1
+    assert mock_create.call_count == 1
+    assert mock_select.call_count == 1
 
 
 @mock.patch("sqlite3.connect")
@@ -388,7 +479,7 @@ def test_process_wire_photo_error_photoapi(mock_converter, mock_post, mock_conne
     mock_inventory.return_value = True
     assert (
         process_wire_photo(mock_converter, "0 of 0", mock_connect)
-        == "Wire photo sha1 exists in inventory and is the same as the sha1 generated from the ap photo data. Wire photo has no changes in its source properties, so ans will not be generated."
+        == "Wire's sha1 exists in inventory and is the same as the sha1 generated from the ap data. Wire has no changes in its source, so ans will not be generated."
     )
     assert mock_inventory.call_count == 2
     assert mock_post.call_count == 1

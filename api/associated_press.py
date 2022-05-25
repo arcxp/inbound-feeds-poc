@@ -13,12 +13,19 @@ def health():
     return res
 
 
-@app.route("/api/ap/test", methods=["GET"])
+@app.route("/api/ap/test/photo", methods=["GET"])
 def handle_ap_test():
     # this is the uri of one of the photos from a story's associations
     test = ap.fetch_feed(
-        "https://api.ap.org/media/v/content/28514e83e96c483f8cbac9b3aaabadc4?qt=_dSwUXC5aF&et=1a1aza4c0&ai=95b07bc3a92191b0abea66f851983c59"
+        "https://api.ap.org/media/v/content/d110254bbaf54b2098e36e3ced474862?qt=HNKVoTocLIF&et=1a1aza3c0&ai=d38703c060c6b066f2bd9012d147c6e1"
     )
+    return test
+
+
+@app.route("/api/ap/test/story", methods=["GET"])
+def handle_ap_test_story():
+    # this is the uri of a story
+    test = ap.fetch_feed("https://api.ap.org/media/v/content/110ac168991e68673adb34fe5e1499ff?qt=6iq47IwquF&et=17a1aza0c0")
     return test
 
 

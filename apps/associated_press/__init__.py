@@ -22,7 +22,7 @@ from utils.constants import (
     OPERATIONS_URL,
     PHOTO_API_URL,
 )
-from utils.exceptions import IncompleteWirePhotoException, IncompleteWireStoryException, WirePhotoExistsInArcException
+from utils.exceptions import IncompleteWirePhotoException, IncompleteWireStoryException, WireExistsInArcException
 from utils.logger import get_logger
 
 logger = get_logger()
@@ -127,6 +127,12 @@ def process_wire_story(converter: APStoryConverter, count: str, conn: connect):
         operation = converter.get_scheduled_delete_operation()
         if ans is None or circulation is None or operation is None:
             raise IncompleteWireStoryException
+
+        logger.info("CHECK INVENTORY - DOES SAME SHA1 EXIST?")
+        sha1 = inventory.select_inventory_by_sha1(conn, ans.get("additional_properties").get("sha1"))
+        if sha1:
+            raise WireExistsInArcException
+
     except Exception as e:
         logger.error(e, extra={"ans": ans is not None, "circulation": circulation is not None, "operation": operation is not None})
         return str(e)
@@ -145,13 +151,12 @@ def process_wire_story(converter: APStoryConverter, count: str, conn: connect):
         res_error_msg = res.json().get("error_message")
         logger.warning(res_error_msg, extra=extra)
 
-        # Rather than use sha1 to determine if a story is a duplicate, allow DRAFT api's behavior to drive process
         # Draft API throws specific exception if you POST to a story that already exists: "{Arc Id} is already in-use"
         if "is already in-use" in res_error_msg:
 
             try:
                 logger.info("UPDATE DRAFT API")
-                # GET current revision of the ans id
+                # GET current revision of the ans
                 url = DRAFT_API_URL.format(org=org) + f"/{ans.get('_id')}"
                 res = requests.get(url, headers=bearer_token())
                 res.raise_for_status()
@@ -223,28 +228,58 @@ def process_wire_photo(converter: APPhotoConverter, count: str, conn: connect):
         logger.info("CHECK INVENTORY - DOES SAME SHA1 EXIST?")
         sha1 = inventory.select_inventory_by_sha1(conn, ans.get("additional_properties").get("sha1"))
         if sha1:
-            raise WirePhotoExistsInArcException
+            raise WireExistsInArcException
 
     except Exception as e:
         logger.error(e, extra={"ans": ans is not None, "sha1": sha1})
         return str(e)
 
     logger.info("SEND ANS TO PHOTO API")
+    extra = {
+        "arc_id": ans.get("_id"),
+        "source_id": ans.get("source").get("source_id"),
+        "caption": ans.get("caption"),
+    }
+
     try:
         ans["additional_properties"]["originalUrl"] += f"&apikey={config('AP_API_KEY')}"
         res = requests.post(
             PHOTO_API_URL.format(org=config("ARC_ORG_ID"), arc_id=ans.get("_id")), json=ans, headers=bearer_token()
         )
         res.raise_for_status()
+
     except Exception as e:
-        extra = {
-            "arc_id": ans.get("_id"),
-            "source_id": ans.get("source").get("source_id"),
-            "caption": ans.get("caption"),
-        }
-        logger.error(e, extra=extra)
-        logger.error(res.json().get("message"), extra=extra)
-        return str(e)
+        logger.warning(e, extra=extra)
+
+        if "409 Client Error: Conflict" in str(e):
+            try:
+                logger.info("UPDATE PHOTO API")
+                url = PHOTO_API_URL.format(org=config("ARC_ORG_ID"), arc_id=ans.get("_id"))
+                # GET current revision of the ans from photo center
+                res = requests.get(url, headers=bearer_token())
+                res.raise_for_status()
+                data = res.json()
+                # update the photo center ans with local changes to avoid 500 errors from the PUT
+                # this is a peculiarity of photo center's api when doing a PUT
+                # do not update additional_properties.original_url; the image binary cannot be updated once imported
+                data["additional_properties"]["expiration_date"] = ans["additional_properties"]["expiration_date"]
+                data["additional_properties"]["ap_item_url"] = ans["additional_properties"]["ap_item_url"]
+                data["additional_properties"]["sha1"] = ans["additional_properties"]["sha1"]
+                data["caption"] = ans["caption"]
+                data["subtitle"] = ans["subtitle"]
+                res = requests.put(url, json=data, headers=bearer_token())
+                res.raise_for_status()
+
+            except Exception as ex:
+                # If still errors, report on the error
+                logger.error(ex, extra=extra)
+                logger.error(res.json().get("error_message"), extra=extra)
+                return str(ex)
+
+        else:
+            logger.error(e, extra=extra)
+            logger.error(res.json().get("message"), extra=extra)
+            return str(e)
 
     logger.info("SAVE INVENTORY")
     inv_item = (
@@ -318,10 +353,21 @@ if __name__ == "__main__":  # pragma: no cover
 
     # # Will test sending one story to Draft API twice, triggering the POST -> PUT behavior
     # from tests.conftest import get_file_fixture
-    #
     # item = json.loads(
-    #     get_file_fixture("{path here}/inbound-feeds-poc/tests/fixtures/ap_text_item_test_converter_itemdata.json")
+    #     get_file_fixture("/Users/leep2/Repositories/inbound-feeds-poc/tests/fixtures/ap_text_item_test_converter_itemdata.json")
     # )
     # wires = [fetch_story_item(item.get("download_url"), item)]
     # process_wires(wires) # 1st time through (unless this has been run before)
     # process_wires(wires) # 2nd+ time through
+
+    # # will test sending one photo to Photo Center API twice, triggering the POST -> PUT behavior
+    # photo_item = fetch_feed(
+    #     "https://api.ap.org/media/v/content/8c3f1bee0c95476aa0efcf39ff28b5d2?qt=7j6M__KC0pF&et=0a1aza3c0&ai=6abc8a67a708c9c90d32022eb08fe544"
+    # )
+    # photo_converter = fetch_photo_item(photo_item)
+    # conn = inventory.create_connection(config("SQLDB_LOCATION", ":memory:"))
+    # inventory.create_table(conn)
+    # process_wire_photo(photo_converter, "0", conn)
+    # process_wire_photo(photo_converter, "1", conn)
+    # print(photo_converter)
+    # conn.close()

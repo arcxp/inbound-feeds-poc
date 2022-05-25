@@ -14,10 +14,10 @@ class IncompleteWirePhotoException(Exception):
         super().__init__(self.message)
 
 
-class WirePhotoExistsInArcException(Exception):
+class WireExistsInArcException(Exception):
     def __init__(
         self,
-        message="Wire photo sha1 exists in inventory and is the same as the sha1 generated from the ap photo data. Wire photo has no changes in its source properties, so ans will not be generated.",
+        message="Wire's sha1 exists in inventory and is the same as the sha1 generated from the ap data. Wire has no changes in its source, so ans will not be generated.",
     ):
         self.message = message
         super().__init__(self.message)

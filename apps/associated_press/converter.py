@@ -159,24 +159,27 @@ class APStoryConverter(AssociatedPressBaseConverter):
 
     def get_sha1(self):
         """create a hash value that you can use to determnine later if this object has been updated since it was imported into arc"""
-        logger.info(
-            "computing sha1 hash for story",
-            extra={
-                "source_id": self.source_data.get("source_id"),
-                "headline": self.source_data.get("headline"),
-                "firstcreated": self.source_data.get("firstcreated"),
-            },
-        )
         hash_source = copy.deepcopy(self.source_data)
         # remove items from contributing to the hash if they may change without signaling a substantive change to the actual content
         hash_source.pop("download_url", None)
         hash_source.pop("url", None)
         hash_source.pop("priced", None)
         hash_source.pop("pricetag", None)
+        photos = search("associations.*.altids.itemid", hash_source)
+        hash_source["associations"] = photos
         hash_source.get("content_json").pop("@version", None)
         hash_source.get("content_json").pop("@change.date", None)
         hash_source.get("content_json").pop("@change.time", None)
         source_data_str = json.dumps(hash_source).encode("utf-8")
+        logger.info(
+            "computing sha1 hash for story",
+            extra={
+                "source_id": self.source_data.get("source_id"),
+                "headline": self.source_data.get("headline"),
+                "firstcreated": self.source_data.get("firstcreated"),
+                "hash_str": source_data_str
+            },
+        )
         return hashlib.sha1(source_data_str).hexdigest()
 
     def get_byline(self, bylines: list):
@@ -199,9 +202,20 @@ class APStoryConverter(AssociatedPressBaseConverter):
         return search("* | [?type == `picture`].uri", associations) or []
 
     def get_photo_associations(self):
-        """write ans references for each of the pictures in a story's associations"""
+        """write ans references for each of the pictures in a story's associations.
+        save original source id in case you need to research in the logs why this image did not import."""
         ids = search("* | [?type == `picture`].altids.itemid", self.source_data.get("associations")) or []
-        ids = [{"referent": {"id": self.get_arc_id(id), "type": "image"}, "type": "reference"} for id in ids]
+        ids = [
+            {
+                "referent": {
+                    "id": self.get_arc_id(id),
+                    "type": "image",
+                    "referent_properties": {"additional_properties": {"original": {"source_id": id}}},
+                },
+                "type": "reference",
+            }
+            for id in ids
+        ]
         return ids
 
     def get_content_elements(self, story_data: bytes):
@@ -248,14 +262,6 @@ class APPhotoConverter(AssociatedPressBaseConverter):
     def get_sha1(self):
         """create a hash value that you can use to determnine later if this object has been updated since it was imported into arc"""
 
-        logger.info(
-            "computing sha1 hash for photo",
-            extra={
-                "source_id": self.source_data.get("source_id"),
-                "headline": self.source_data.get("headline"),
-                "firstcreated": self.source_data.get("firstcreated"),
-            },
-        )
         hash_source = copy.deepcopy(self.source_data)
         # remove items from contributing to the hash if they may change without signaling a substantive change to the actual content
         hash_source.pop("download_url", None)
@@ -263,5 +269,14 @@ class APPhotoConverter(AssociatedPressBaseConverter):
         hash_source.pop("priced", None)
         hash_source.pop("pricetag", None)
         source_data_str = json.dumps(hash_source).encode("utf-8")
+        logger.info(
+            "computing sha1 hash for photo",
+            extra={
+                "source_id": self.source_data.get("source_id"),
+                "headline": self.source_data.get("headline"),
+                "firstcreated": self.source_data.get("firstcreated"),
+                "hash_str": source_data_str
+            },
+        )
         hash_object = hashlib.sha1(source_data_str).hexdigest()
         return hash_object
