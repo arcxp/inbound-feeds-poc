@@ -117,7 +117,12 @@ def process_wire_story(converter: APStoryConverter, count: str, conn: connect):
     # apply converter to transform source into ans, send ans into draft api/content api/composer, inventory on success
     logger.info(f"{count} {converter}")
     ans = None
+    # a circulation is not required, but circulating wires to a section makes it easier to filter for wires in composer
+    # without circulating to a section, you can still filter in Composer for the only stories belonging to the wire
+    # by using the distributor values. this POC will demonstrate sending a simple circulation to a single section.
     circulation = None
+    # an operation is not required, but this POC will demonstrate how to send a future publishing operation,
+    # in this case the future publishing operation we are sending will delete the wire content once it has aged and become stale
     operation = None
     org = config("ARC_ORG_ID")
     logger.info("GENERATE ANS & CIRCULATION & OPERATION")
@@ -125,6 +130,7 @@ def process_wire_story(converter: APStoryConverter, count: str, conn: connect):
         ans = converter.convert_ans()
         circulation = converter.get_circulation()
         operation = converter.get_scheduled_delete_operation()
+        # this POC will enforce circulations and operations data in addition to the ans
         if ans is None or circulation is None or operation is None:
             raise IncompleteWireStoryException
 
