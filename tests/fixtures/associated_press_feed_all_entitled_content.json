@@ -1,0 +1,1024 @@
+{
+	"api_version": "2.1",
+	"api_mode": "live",
+	"api_build": "2.1.7",
+	"id": "KYjOxhQFyIF",
+	"method": "/content/feed.GET",
+	"org_name": "ATLANTA JOURNAL-CONSTITUTION (Cox Group)",
+	"params": {
+		"exclude": [
+			"versioncreated",
+			"datelinelocation"
+		],
+		"qt": "KYjOxhQFyIF",
+		"seq": "145007845"
+	},
+	"data": {
+		"query": "",
+		"updated": "2022-05-04T15:55:03.220Z",
+		"current_item_count": 10,
+		"next_page": "https://api.ap.org/media/v/content/feed?qt=KYjOxhQFyIF&seq=145007857",
+		"items": [
+			{
+				"meta": {},
+				"item": {
+					"uri": "https://api.ap.org/media/v/content/52d6cec954bd4011bda51c79cea87199?qt=KYjOxhQFyIF&et=0a1aza3c0",
+					"altids": {
+						"itemid": "52d6cec954bd4011bda51c79cea87199",
+						"etag": "52d6cec954bd4011bda51c79cea87199_0a1aza3c0",
+						"friendlykey": "22124572443952"
+					},
+					"version": 0,
+					"type": "picture",
+					"firstcreated": "2022-05-04T15:54:04Z",
+					"pubstatus": "usable",
+					"ednote": "*** France, Germany, Japan, and Spain OUT *** *** May not be licensed in Europe *** Minimum Rate Applies *** For editorial use only. Please contact your AP representative for commercial use. 39085592",
+					"signals": [
+						"newscontent"
+					],
+					"headline": "Spain: Madrid Open Tennis 2022 - Tiafoe vs Garin",
+					"description_creditline": "Sipa USA via AP",
+					"copyrightnotice": "Sipa USA",
+					"usageterms": [
+						"This content is intended for editorial use only. For other uses, additional clearances may be required.",
+						"No Use In Europe",
+						"No Use in France",
+						"No Use in Japan",
+						"No Use in Germany"
+					],
+					"provider": "AP",
+					"infosource": [
+						{
+							"name": "SIPAPRE",
+							"type": "ThirdParty"
+						}
+					],
+					"description_caption": "Cristian Garin, Chile, during Madrid Open Tennis 2022 match. in Madrid, Spain on May 3, 2022.(Photo by Acero/Alter Photos/Sipa USA)(Sipa via AP Images)",
+					"renditions": {
+						"main": {
+							"title": "Full Resolution (JPG)",
+							"rel": "Main",
+							"format": "JPEG Baseline",
+							"type": "picture",
+							"contentid": "dbc7c593750942f9a696cbd9c9a6c88d",
+							"digest": "48a5645cc2a81c5314b91429a52cb7fc",
+							"href": "https://api.ap.org/media/v/content/52d6cec954bd4011bda51c79cea87199.0/download?role=main&qt=KYjOxhQFyIF&cid=dbc7c593750942f9a696cbd9c9a6c88d&pt=NDU2NTZ8OTkxMDR8NnwzNXxVU0Q",
+							"orientation": "Horizontal",
+							"sizeinbytes": 904622,
+							"width": 3000,
+							"height": 2000,
+							"originalfilename": "Spain__Madrid_Open_Tennis_2022_-_Tiafoe_vs_Garin_43952.jpg",
+							"fileextension": "jpg",
+							"mimetype": "image/jpeg",
+							"priced": true,
+							"pricetag": "USD:35.00"
+						},
+						"preview": {
+							"title": "Preview (JPG)",
+							"rel": "Preview",
+							"format": "JPEG Baseline",
+							"type": "picture",
+							"contentid": "a764c8e80c844d90b5b262ac0299d826",
+							"digest": "cdd23d4bbc64ee5462644e212bb6d3b6",
+							"href": "https://mapi.associatedpress.com/v1/items/52d6cec954bd4011bda51c79cea87199.0/preview/preview.jpg?nfe=true&s=512&app=MPK&tag=iid~52d6cec954bd4011bda51c79cea87199!rsn~0!cid~a764c8e80c844d90b5b262ac0299d826!orgId~33098!qt~KYjOxhQFyIF!orgNm~ATLANTA%20JOURNAL-CONSTITUTION%20(Cox%20Group)!role~Preview!mt~photo!fmt~JPEG%20Baseline",
+							"orientation": "Horizontal",
+							"sizeinbytes": 40461,
+							"width": 512,
+							"height": 341,
+							"originalfilename": "Spain__Madrid_Open_Tennis_2022_-_Tiafoe_vs_Garin_43952.jpg",
+							"fileextension": "jpg",
+							"mimetype": "image/jpeg"
+						},
+						"thumbnail": {
+							"title": "Thumbnail (JPG)",
+							"rel": "Thumbnail",
+							"format": "JPEG Baseline",
+							"type": "picture",
+							"contentid": "ecfefd3168da4852bcf9d2211d59e4a6",
+							"digest": "551ab0f826dc491edef069678fb4f8f7",
+							"href": "https://mapi.associatedpress.com/v1/items/52d6cec954bd4011bda51c79cea87199.0/thumbnail/thumbnail.jpg?nfe=true&app=MPK&tag=iid~52d6cec954bd4011bda51c79cea87199!rsn~0!cid~ecfefd3168da4852bcf9d2211d59e4a6!orgId~33098!qt~KYjOxhQFyIF!orgNm~ATLANTA%20JOURNAL-CONSTITUTION%20(Cox%20Group)!role~Thumbnail!mt~photo!fmt~JPEG%20Baseline",
+							"orientation": "Horizontal",
+							"sizeinbytes": 10276,
+							"width": 125,
+							"height": 83,
+							"originalfilename": "Spain__Madrid_Open_Tennis_2022_-_Tiafoe_vs_Garin_43952.jpg",
+							"fileextension": "jpg",
+							"mimetype": "image/jpeg"
+						},
+						"caption_nitf": {
+							"title": "NITF Caption Download",
+							"rel": "Caption",
+							"format": "IIM",
+							"type": "text",
+							"mimetype": "text/xml",
+							"fileextension": "xml",
+							"words": 23,
+							"contentid": "52d6cec954bd4011bda51c79cea87199",
+							"href": "https://api.ap.org/media/v/content/52d6cec954bd4011bda51c79cea87199.0/download?qt=KYjOxhQFyIF&type=text&format=nitf&text=caption&et=0a1aza3c0"
+						}
+					}
+				}
+			},
+			{
+				"meta": {},
+				"item": {
+					"uri": "https://api.ap.org/media/v/content/69224c6c5c3842f4936fd5831ebd324e?qt=KYjOxhQFyIF&et=0a1aza3c0",
+					"altids": {
+						"itemid": "69224c6c5c3842f4936fd5831ebd324e",
+						"etag": "69224c6c5c3842f4936fd5831ebd324e_0a1aza3c0",
+						"friendlykey": "22124572404586"
+					},
+					"version": 0,
+					"type": "picture",
+					"firstcreated": "2022-05-04T15:54:01Z",
+					"pubstatus": "usable",
+					"ednote": "*** France, Germany, Japan, and Spain OUT *** *** May not be licensed in Europe *** Minimum Rate Applies *** For editorial use only. Please contact your AP representative for commercial use. 39085601",
+					"signals": [
+						"newscontent"
+					],
+					"headline": "Spain: Madrid Open Tennis 2022 - Tiafoe vs Garin",
+					"description_creditline": "Sipa USA via AP",
+					"copyrightnotice": "Sipa USA",
+					"usageterms": [
+						"This content is intended for editorial use only. For other uses, additional clearances may be required.",
+						"No Use In Europe",
+						"No Use in France",
+						"No Use in Japan",
+						"No Use in Germany"
+					],
+					"provider": "AP",
+					"infosource": [
+						{
+							"name": "SIPAPRE",
+							"type": "ThirdParty"
+						}
+					],
+					"description_caption": "Cristian Garin, Chile, during Madrid Open Tennis 2022 match. in Madrid, Spain on May 3, 2022.(Photo by Acero/Alter Photos/Sipa USA)(Sipa via AP Images)",
+					"renditions": {
+						"main": {
+							"title": "Full Resolution (JPG)",
+							"rel": "Main",
+							"format": "JPEG Baseline",
+							"type": "picture",
+							"contentid": "2c953b29b71249d2bb6bf26c1a25b445",
+							"digest": "a584ed67aed9347b9e60ebca5aa09a74",
+							"href": "https://api.ap.org/media/v/content/69224c6c5c3842f4936fd5831ebd324e.0/download?role=main&qt=KYjOxhQFyIF&cid=2c953b29b71249d2bb6bf26c1a25b445&pt=NDU2NTZ8OTkxMDR8NnwzNXxVU0Q",
+							"orientation": "Vertical",
+							"sizeinbytes": 830975,
+							"width": 2000,
+							"height": 3000,
+							"originalfilename": "Spain__Madrid_Open_Tennis_2022_-_Tiafoe_vs_Garin_04586.jpg",
+							"fileextension": "jpg",
+							"mimetype": "image/jpeg",
+							"priced": true,
+							"pricetag": "USD:35.00"
+						},
+						"preview": {
+							"title": "Preview (JPG)",
+							"rel": "Preview",
+							"format": "JPEG Baseline",
+							"type": "picture",
+							"contentid": "f13ce6d3f1964aaa8f29ed84d1608254",
+							"digest": "62cd822c272cfabc24ac84198cc5a146",
+							"href": "https://mapi.associatedpress.com/v1/items/69224c6c5c3842f4936fd5831ebd324e.0/preview/preview.jpg?nfe=true&s=512&app=MPK&tag=iid~69224c6c5c3842f4936fd5831ebd324e!rsn~0!cid~f13ce6d3f1964aaa8f29ed84d1608254!orgId~33098!qt~KYjOxhQFyIF!orgNm~ATLANTA%20JOURNAL-CONSTITUTION%20(Cox%20Group)!role~Preview!mt~photo!fmt~JPEG%20Baseline",
+							"orientation": "Vertical",
+							"sizeinbytes": 39976,
+							"width": 341,
+							"height": 512,
+							"originalfilename": "Spain__Madrid_Open_Tennis_2022_-_Tiafoe_vs_Garin_04586.jpg",
+							"fileextension": "jpg",
+							"mimetype": "image/jpeg"
+						},
+						"thumbnail": {
+							"title": "Thumbnail (JPG)",
+							"rel": "Thumbnail",
+							"format": "JPEG Baseline",
+							"type": "picture",
+							"contentid": "b9946a936a484c3bbf1e241037453b4c",
+							"digest": "1ca4bfb6cd2875da7d3666471a39be19",
+							"href": "https://mapi.associatedpress.com/v1/items/69224c6c5c3842f4936fd5831ebd324e.0/thumbnail/thumbnail.jpg?nfe=true&app=MPK&tag=iid~69224c6c5c3842f4936fd5831ebd324e!rsn~0!cid~b9946a936a484c3bbf1e241037453b4c!orgId~33098!qt~KYjOxhQFyIF!orgNm~ATLANTA%20JOURNAL-CONSTITUTION%20(Cox%20Group)!role~Thumbnail!mt~photo!fmt~JPEG%20Baseline",
+							"orientation": "Vertical",
+							"sizeinbytes": 9844,
+							"width": 83,
+							"height": 125,
+							"originalfilename": "Spain__Madrid_Open_Tennis_2022_-_Tiafoe_vs_Garin_04586.jpg",
+							"fileextension": "jpg",
+							"mimetype": "image/jpeg"
+						},
+						"caption_nitf": {
+							"title": "NITF Caption Download",
+							"rel": "Caption",
+							"format": "IIM",
+							"type": "text",
+							"mimetype": "text/xml",
+							"fileextension": "xml",
+							"words": 23,
+							"contentid": "69224c6c5c3842f4936fd5831ebd324e",
+							"href": "https://api.ap.org/media/v/content/69224c6c5c3842f4936fd5831ebd324e.0/download?qt=KYjOxhQFyIF&type=text&format=nitf&text=caption&et=0a1aza3c0"
+						}
+					}
+				}
+			},
+			{
+				"meta": {},
+				"item": {
+					"uri": "https://api.ap.org/media/v/content/0ec67c8c0da64242abe4d02a660221b8?qt=KYjOxhQFyIF&et=0a1aza3c0",
+					"altids": {
+						"itemid": "0ec67c8c0da64242abe4d02a660221b8",
+						"etag": "0ec67c8c0da64242abe4d02a660221b8_0a1aza3c0",
+						"friendlykey": "22124572520821"
+					},
+					"version": 0,
+					"type": "picture",
+					"firstcreated": "2022-05-04T15:54:12Z",
+					"pubstatus": "usable",
+					"ednote": "*** France, Germany, Japan, and Spain OUT *** *** May not be licensed in Europe *** Minimum Rate Applies *** For editorial use only. Please contact your AP representative for commercial use. 39085596",
+					"signals": [
+						"newscontent"
+					],
+					"headline": "Spain: Madrid Open Tennis 2022 - Tiafoe vs Garin",
+					"description_creditline": "Sipa USA via AP",
+					"copyrightnotice": "Sipa USA",
+					"usageterms": [
+						"This content is intended for editorial use only. For other uses, additional clearances may be required.",
+						"No Use In Europe",
+						"No Use in France",
+						"No Use in Japan",
+						"No Use in Germany"
+					],
+					"provider": "AP",
+					"infosource": [
+						{
+							"name": "SIPAPRE",
+							"type": "ThirdParty"
+						}
+					],
+					"description_caption": "Frances Tiafoe, USA, during Madrid Open Tennis 2022 match. in Madrid, Spain on May 3, 2022.(Photo by Acero/Alter Photos/Sipa USA)(Sipa via AP Images)",
+					"renditions": {
+						"main": {
+							"title": "Full Resolution (JPG)",
+							"rel": "Main",
+							"format": "JPEG Baseline",
+							"type": "picture",
+							"contentid": "23b5e269528f45b6a1739fea7f96aa05",
+							"digest": "68870b0c485027cdf89d1ea02a841999",
+							"href": "https://api.ap.org/media/v/content/0ec67c8c0da64242abe4d02a660221b8.0/download?role=main&qt=KYjOxhQFyIF&cid=23b5e269528f45b6a1739fea7f96aa05&pt=NDU2NTZ8OTkxMDR8NnwzNXxVU0Q",
+							"orientation": "Horizontal",
+							"sizeinbytes": 950612,
+							"width": 3000,
+							"height": 1999,
+							"originalfilename": "Spain__Madrid_Open_Tennis_2022_-_Tiafoe_vs_Garin_20821.jpg",
+							"fileextension": "jpg",
+							"mimetype": "image/jpeg",
+							"priced": true,
+							"pricetag": "USD:35.00"
+						},
+						"preview": {
+							"title": "Preview (JPG)",
+							"rel": "Preview",
+							"format": "JPEG Baseline",
+							"type": "picture",
+							"contentid": "b1459b1332f24dad903254f24788d2a7",
+							"digest": "afde268318d203d3ed5cb3bb6f00a7c1",
+							"href": "https://mapi.associatedpress.com/v1/items/0ec67c8c0da64242abe4d02a660221b8.0/preview/preview.jpg?nfe=true&s=512&app=MPK&tag=iid~0ec67c8c0da64242abe4d02a660221b8!rsn~0!cid~b1459b1332f24dad903254f24788d2a7!orgId~33098!qt~KYjOxhQFyIF!orgNm~ATLANTA%20JOURNAL-CONSTITUTION%20(Cox%20Group)!role~Preview!mt~photo!fmt~JPEG%20Baseline",
+							"orientation": "Horizontal",
+							"sizeinbytes": 33101,
+							"width": 512,
+							"height": 341,
+							"originalfilename": "Spain__Madrid_Open_Tennis_2022_-_Tiafoe_vs_Garin_20821.jpg",
+							"fileextension": "jpg",
+							"mimetype": "image/jpeg"
+						},
+						"thumbnail": {
+							"title": "Thumbnail (JPG)",
+							"rel": "Thumbnail",
+							"format": "JPEG Baseline",
+							"type": "picture",
+							"contentid": "a15593e26c0d40b5876c034f886e7e3f",
+							"digest": "16f703fc46706b3c22a8b8e55e02ff1c",
+							"href": "https://mapi.associatedpress.com/v1/items/0ec67c8c0da64242abe4d02a660221b8.0/thumbnail/thumbnail.jpg?nfe=true&app=MPK&tag=iid~0ec67c8c0da64242abe4d02a660221b8!rsn~0!cid~a15593e26c0d40b5876c034f886e7e3f!orgId~33098!qt~KYjOxhQFyIF!orgNm~ATLANTA%20JOURNAL-CONSTITUTION%20(Cox%20Group)!role~Thumbnail!mt~photo!fmt~JPEG%20Baseline",
+							"orientation": "Horizontal",
+							"sizeinbytes": 9038,
+							"width": 125,
+							"height": 83,
+							"originalfilename": "Spain__Madrid_Open_Tennis_2022_-_Tiafoe_vs_Garin_20821.jpg",
+							"fileextension": "jpg",
+							"mimetype": "image/jpeg"
+						},
+						"caption_nitf": {
+							"title": "NITF Caption Download",
+							"rel": "Caption",
+							"format": "IIM",
+							"type": "text",
+							"mimetype": "text/xml",
+							"fileextension": "xml",
+							"words": 23,
+							"contentid": "0ec67c8c0da64242abe4d02a660221b8",
+							"href": "https://api.ap.org/media/v/content/0ec67c8c0da64242abe4d02a660221b8.0/download?qt=KYjOxhQFyIF&type=text&format=nitf&text=caption&et=0a1aza3c0"
+						}
+					}
+				}
+			},
+			{
+				"meta": {},
+				"item": {
+					"uri": "https://api.ap.org/media/v/content/baa7606e556f4508be051bd9541aae88?qt=KYjOxhQFyIF&et=0a1aza3c0",
+					"altids": {
+						"itemid": "baa7606e556f4508be051bd9541aae88",
+						"etag": "baa7606e556f4508be051bd9541aae88_0a1aza3c0",
+						"friendlykey": "22124572393940"
+					},
+					"version": 0,
+					"type": "picture",
+					"firstcreated": "2022-05-04T15:53:59Z",
+					"pubstatus": "usable",
+					"ednote": "*** France, Germany, Japan, and Spain OUT *** *** May not be licensed in Europe *** Minimum Rate Applies *** For editorial use only. Please contact your AP representative for commercial use. 39085202",
+					"signals": [
+						"newscontent"
+					],
+					"headline": "Spain: Madrid Open Tennis 2022 - Djokovic vs Monfils",
+					"description_creditline": "Sipa USA via AP",
+					"copyrightnotice": "Sipa USA",
+					"usageterms": [
+						"This content is intended for editorial use only. For other uses, additional clearances may be required.",
+						"No Use In Europe",
+						"No Use in France",
+						"No Use in Japan",
+						"No Use in Germany"
+					],
+					"provider": "AP",
+					"infosource": [
+						{
+							"name": "SIPAPRE",
+							"type": "ThirdParty"
+						}
+					],
+					"description_caption": "Swedish tennis umpire, Mohamed Lahyani during Madrid Open Tennis 2022 match. in Madrid, Spain on May 3, 2022.(Photo by Acero/Alter Photos/Sipa USA)(Sipa via AP Images)",
+					"renditions": {
+						"main": {
+							"title": "Full Resolution (JPG)",
+							"rel": "Main",
+							"format": "JPEG Baseline",
+							"type": "picture",
+							"contentid": "77e4fe9751304814bf576fce3f3b513e",
+							"digest": "9b02d6e10bc047ab6a04e9e1c38553ef",
+							"href": "https://api.ap.org/media/v/content/baa7606e556f4508be051bd9541aae88.0/download?role=main&qt=KYjOxhQFyIF&cid=77e4fe9751304814bf576fce3f3b513e&pt=NDU2NTZ8OTkxMDR8NnwzNXxVU0Q",
+							"orientation": "Horizontal",
+							"sizeinbytes": 1215183,
+							"width": 3000,
+							"height": 2000,
+							"originalfilename": "Spain__Madrid_Open_Tennis_2022_-_Djokovic_vs_Monfils_93940.jpg",
+							"fileextension": "jpg",
+							"mimetype": "image/jpeg",
+							"priced": true,
+							"pricetag": "USD:35.00"
+						},
+						"preview": {
+							"title": "Preview (JPG)",
+							"rel": "Preview",
+							"format": "JPEG Baseline",
+							"type": "picture",
+							"contentid": "5429067956c2471fab15d25e69ae5fe4",
+							"digest": "e0f638d503f49879c466c1a1199a622f",
+							"href": "https://mapi.associatedpress.com/v1/items/baa7606e556f4508be051bd9541aae88.0/preview/preview.jpg?nfe=true&s=512&app=MPK&tag=iid~baa7606e556f4508be051bd9541aae88!rsn~0!cid~5429067956c2471fab15d25e69ae5fe4!orgId~33098!qt~KYjOxhQFyIF!orgNm~ATLANTA%20JOURNAL-CONSTITUTION%20(Cox%20Group)!role~Preview!mt~photo!fmt~JPEG%20Baseline",
+							"orientation": "Horizontal",
+							"sizeinbytes": 47142,
+							"width": 512,
+							"height": 341,
+							"originalfilename": "Spain__Madrid_Open_Tennis_2022_-_Djokovic_vs_Monfils_93940.jpg",
+							"fileextension": "jpg",
+							"mimetype": "image/jpeg"
+						},
+						"thumbnail": {
+							"title": "Thumbnail (JPG)",
+							"rel": "Thumbnail",
+							"format": "JPEG Baseline",
+							"type": "picture",
+							"contentid": "df9a778eaac84f03ae01d1567d1e9088",
+							"digest": "dcc7a99bd0100cd91700a9d833711b01",
+							"href": "https://mapi.associatedpress.com/v1/items/baa7606e556f4508be051bd9541aae88.0/thumbnail/thumbnail.jpg?nfe=true&app=MPK&tag=iid~baa7606e556f4508be051bd9541aae88!rsn~0!cid~df9a778eaac84f03ae01d1567d1e9088!orgId~33098!qt~KYjOxhQFyIF!orgNm~ATLANTA%20JOURNAL-CONSTITUTION%20(Cox%20Group)!role~Thumbnail!mt~photo!fmt~JPEG%20Baseline",
+							"orientation": "Horizontal",
+							"sizeinbytes": 10438,
+							"width": 125,
+							"height": 83,
+							"originalfilename": "Spain__Madrid_Open_Tennis_2022_-_Djokovic_vs_Monfils_93940.jpg",
+							"fileextension": "jpg",
+							"mimetype": "image/jpeg"
+						},
+						"caption_nitf": {
+							"title": "NITF Caption Download",
+							"rel": "Caption",
+							"format": "IIM",
+							"type": "text",
+							"mimetype": "text/xml",
+							"fileextension": "xml",
+							"words": 25,
+							"contentid": "baa7606e556f4508be051bd9541aae88",
+							"href": "https://api.ap.org/media/v/content/baa7606e556f4508be051bd9541aae88.0/download?qt=KYjOxhQFyIF&type=text&format=nitf&text=caption&et=0a1aza3c0"
+						}
+					}
+				}
+			},
+			{
+				"meta": {},
+				"item": {
+					"uri": "https://api.ap.org/media/v/content/8c23c9e03ca54ebf842c215863201642?qt=KYjOxhQFyIF&et=0a1aza3c0",
+					"altids": {
+						"itemid": "8c23c9e03ca54ebf842c215863201642",
+						"etag": "8c23c9e03ca54ebf842c215863201642_0a1aza3c0",
+						"friendlykey": "22124572400200"
+					},
+					"version": 0,
+					"type": "picture",
+					"firstcreated": "2022-05-04T15:54:01Z",
+					"pubstatus": "usable",
+					"ednote": "*** France, Germany, Japan, and Spain OUT *** *** May not be licensed in Europe *** Minimum Rate Applies *** For editorial use only. Please contact your AP representative for commercial use. 39085239",
+					"signals": [
+						"newscontent"
+					],
+					"headline": "Spain: Madrid Open Tennis 2022 - Djokovic vs Monfils",
+					"description_creditline": "Sipa USA via AP",
+					"copyrightnotice": "Sipa USA",
+					"usageterms": [
+						"This content is intended for editorial use only. For other uses, additional clearances may be required.",
+						"No Use In Europe",
+						"No Use in France",
+						"No Use in Japan",
+						"No Use in Germany"
+					],
+					"provider": "AP",
+					"infosource": [
+						{
+							"name": "SIPAPRE",
+							"type": "ThirdParty"
+						}
+					],
+					"description_caption": "Gael Monfils, France, during Madrid Open Tennis 2022 match. in Madrid, Spain on May 3, 2022.(Photo by Acero/Alter Photos/Sipa USA)(Sipa via AP Images)",
+					"renditions": {
+						"main": {
+							"title": "Full Resolution (JPG)",
+							"rel": "Main",
+							"format": "JPEG Baseline",
+							"type": "picture",
+							"contentid": "b3c41a7cc84c4a0483d98f746038af4e",
+							"digest": "ff0485916973a4f6fa97cc68f5d6ab4d",
+							"href": "https://api.ap.org/media/v/content/8c23c9e03ca54ebf842c215863201642.0/download?role=main&qt=KYjOxhQFyIF&cid=b3c41a7cc84c4a0483d98f746038af4e&pt=NDU2NTZ8OTkxMDR8NnwzNXxVU0Q",
+							"orientation": "Horizontal",
+							"sizeinbytes": 1195725,
+							"width": 3000,
+							"height": 2000,
+							"originalfilename": "Spain__Madrid_Open_Tennis_2022_-_Djokovic_vs_Monfils_00200.jpg",
+							"fileextension": "jpg",
+							"mimetype": "image/jpeg",
+							"priced": true,
+							"pricetag": "USD:35.00"
+						},
+						"preview": {
+							"title": "Preview (JPG)",
+							"rel": "Preview",
+							"format": "JPEG Baseline",
+							"type": "picture",
+							"contentid": "9b951fcedde74104b89a97cda5ad501a",
+							"digest": "c3479fdeec29e2ef36da4d6f8cd9cbc7",
+							"href": "https://mapi.associatedpress.com/v1/items/8c23c9e03ca54ebf842c215863201642.0/preview/preview.jpg?nfe=true&s=512&app=MPK&tag=iid~8c23c9e03ca54ebf842c215863201642!rsn~0!cid~9b951fcedde74104b89a97cda5ad501a!orgId~33098!qt~KYjOxhQFyIF!orgNm~ATLANTA%20JOURNAL-CONSTITUTION%20(Cox%20Group)!role~Preview!mt~photo!fmt~JPEG%20Baseline",
+							"orientation": "Horizontal",
+							"sizeinbytes": 30114,
+							"width": 512,
+							"height": 341,
+							"originalfilename": "Spain__Madrid_Open_Tennis_2022_-_Djokovic_vs_Monfils_00200.jpg",
+							"fileextension": "jpg",
+							"mimetype": "image/jpeg"
+						},
+						"thumbnail": {
+							"title": "Thumbnail (JPG)",
+							"rel": "Thumbnail",
+							"format": "JPEG Baseline",
+							"type": "picture",
+							"contentid": "fb3801dfee4740a18711ed8abf444c7c",
+							"digest": "5640e39345b8a353fc3ae25613d4a26f",
+							"href": "https://mapi.associatedpress.com/v1/items/8c23c9e03ca54ebf842c215863201642.0/thumbnail/thumbnail.jpg?nfe=true&app=MPK&tag=iid~8c23c9e03ca54ebf842c215863201642!rsn~0!cid~fb3801dfee4740a18711ed8abf444c7c!orgId~33098!qt~KYjOxhQFyIF!orgNm~ATLANTA%20JOURNAL-CONSTITUTION%20(Cox%20Group)!role~Thumbnail!mt~photo!fmt~JPEG%20Baseline",
+							"orientation": "Horizontal",
+							"sizeinbytes": 8491,
+							"width": 125,
+							"height": 83,
+							"originalfilename": "Spain__Madrid_Open_Tennis_2022_-_Djokovic_vs_Monfils_00200.jpg",
+							"fileextension": "jpg",
+							"mimetype": "image/jpeg"
+						},
+						"caption_nitf": {
+							"title": "NITF Caption Download",
+							"rel": "Caption",
+							"format": "IIM",
+							"type": "text",
+							"mimetype": "text/xml",
+							"fileextension": "xml",
+							"words": 23,
+							"contentid": "8c23c9e03ca54ebf842c215863201642",
+							"href": "https://api.ap.org/media/v/content/8c23c9e03ca54ebf842c215863201642.0/download?qt=KYjOxhQFyIF&type=text&format=nitf&text=caption&et=0a1aza3c0"
+						}
+					}
+				}
+			},
+			{
+				"meta": {},
+				"item": {
+					"uri": "https://api.ap.org/media/v/content/59f8b8f2292d451bb7d67f1a8d2459df?qt=KYjOxhQFyIF&et=0a1aza3c0",
+					"altids": {
+						"itemid": "59f8b8f2292d451bb7d67f1a8d2459df",
+						"etag": "59f8b8f2292d451bb7d67f1a8d2459df_0a1aza3c0",
+						"friendlykey": "22124572618871"
+					},
+					"version": 0,
+					"type": "picture",
+					"firstcreated": "2022-05-04T15:54:21Z",
+					"pubstatus": "usable",
+					"ednote": "*** France, Germany, Japan, and Spain OUT *** *** May not be licensed in Europe *** Minimum Rate Applies *** For editorial use only. Please contact your AP representative for commercial use. 39085589",
+					"signals": [
+						"newscontent"
+					],
+					"headline": "Spain: Madrid Open Tennis 2022 - Tiafoe vs Garin",
+					"description_creditline": "Sipa USA via AP",
+					"copyrightnotice": "Sipa USA",
+					"usageterms": [
+						"This content is intended for editorial use only. For other uses, additional clearances may be required.",
+						"No Use In Europe",
+						"No Use in France",
+						"No Use in Japan",
+						"No Use in Germany"
+					],
+					"provider": "AP",
+					"infosource": [
+						{
+							"name": "SIPAPRE",
+							"type": "ThirdParty"
+						}
+					],
+					"description_caption": "Frances Tiafoe, USA, during Madrid Open Tennis 2022 match. in Madrid, Spain on May 3, 2022.(Photo by Acero/Alter Photos/Sipa USA)(Sipa via AP Images)",
+					"renditions": {
+						"main": {
+							"title": "Full Resolution (JPG)",
+							"rel": "Main",
+							"format": "JPEG Baseline",
+							"type": "picture",
+							"contentid": "c17823818bdf41f9a2cf736c58972e20",
+							"digest": "307d0b7f2251f75ae38cbe57846d7fec",
+							"href": "https://api.ap.org/media/v/content/59f8b8f2292d451bb7d67f1a8d2459df.0/download?role=main&qt=KYjOxhQFyIF&cid=c17823818bdf41f9a2cf736c58972e20&pt=NDU2NTZ8OTkxMDR8NnwzNXxVU0Q",
+							"orientation": "Horizontal",
+							"sizeinbytes": 972517,
+							"width": 3000,
+							"height": 2000,
+							"originalfilename": "Spain__Madrid_Open_Tennis_2022_-_Tiafoe_vs_Garin_18871.jpg",
+							"fileextension": "jpg",
+							"mimetype": "image/jpeg",
+							"priced": true,
+							"pricetag": "USD:35.00"
+						},
+						"preview": {
+							"title": "Preview (JPG)",
+							"rel": "Preview",
+							"format": "JPEG Baseline",
+							"type": "picture",
+							"contentid": "42040faaeddb4c5a94a792f19bea2828",
+							"digest": "6565e76290ae77473d4d9caaf38bd089",
+							"href": "https://mapi.associatedpress.com/v1/items/59f8b8f2292d451bb7d67f1a8d2459df.0/preview/preview.jpg?nfe=true&s=512&app=MPK&tag=iid~59f8b8f2292d451bb7d67f1a8d2459df!rsn~0!cid~42040faaeddb4c5a94a792f19bea2828!orgId~33098!qt~KYjOxhQFyIF!orgNm~ATLANTA%20JOURNAL-CONSTITUTION%20(Cox%20Group)!role~Preview!mt~photo!fmt~JPEG%20Baseline",
+							"orientation": "Horizontal",
+							"sizeinbytes": 42045,
+							"width": 512,
+							"height": 341,
+							"originalfilename": "Spain__Madrid_Open_Tennis_2022_-_Tiafoe_vs_Garin_18871.jpg",
+							"fileextension": "jpg",
+							"mimetype": "image/jpeg"
+						},
+						"thumbnail": {
+							"title": "Thumbnail (JPG)",
+							"rel": "Thumbnail",
+							"format": "JPEG Baseline",
+							"type": "picture",
+							"contentid": "280ae519dbce434ab1ab74abe953b72e",
+							"digest": "a0b6524ad84cc000e2447ee6375affd7",
+							"href": "https://mapi.associatedpress.com/v1/items/59f8b8f2292d451bb7d67f1a8d2459df.0/thumbnail/thumbnail.jpg?nfe=true&app=MPK&tag=iid~59f8b8f2292d451bb7d67f1a8d2459df!rsn~0!cid~280ae519dbce434ab1ab74abe953b72e!orgId~33098!qt~KYjOxhQFyIF!orgNm~ATLANTA%20JOURNAL-CONSTITUTION%20(Cox%20Group)!role~Thumbnail!mt~photo!fmt~JPEG%20Baseline",
+							"orientation": "Horizontal",
+							"sizeinbytes": 10502,
+							"width": 125,
+							"height": 83,
+							"originalfilename": "Spain__Madrid_Open_Tennis_2022_-_Tiafoe_vs_Garin_18871.jpg",
+							"fileextension": "jpg",
+							"mimetype": "image/jpeg"
+						},
+						"caption_nitf": {
+							"title": "NITF Caption Download",
+							"rel": "Caption",
+							"format": "IIM",
+							"type": "text",
+							"mimetype": "text/xml",
+							"fileextension": "xml",
+							"words": 23,
+							"contentid": "59f8b8f2292d451bb7d67f1a8d2459df",
+							"href": "https://api.ap.org/media/v/content/59f8b8f2292d451bb7d67f1a8d2459df.0/download?qt=KYjOxhQFyIF&type=text&format=nitf&text=caption&et=0a1aza3c0"
+						}
+					}
+				}
+			},
+			{
+				"meta": {},
+				"item": {
+					"uri": "https://api.ap.org/media/v/content/ed094ebcaab3432481938470d042f4d6?qt=KYjOxhQFyIF&et=0a1aza3c0",
+					"altids": {
+						"itemid": "ed094ebcaab3432481938470d042f4d6",
+						"etag": "ed094ebcaab3432481938470d042f4d6_0a1aza3c0",
+						"friendlykey": "22124572546811"
+					},
+					"version": 0,
+					"type": "picture",
+					"firstcreated": "2022-05-04T15:54:14Z",
+					"pubstatus": "usable",
+					"ednote": "*** France, Germany, Japan, and Spain OUT *** *** May not be licensed in Europe *** Minimum Rate Applies *** For editorial use only. Please contact your AP representative for commercial use. 39085599",
+					"signals": [
+						"newscontent"
+					],
+					"headline": "Spain: Madrid Open Tennis 2022 - Tiafoe vs Garin",
+					"description_creditline": "Sipa USA via AP",
+					"copyrightnotice": "Sipa USA",
+					"usageterms": [
+						"This content is intended for editorial use only. For other uses, additional clearances may be required.",
+						"No Use In Europe",
+						"No Use in France",
+						"No Use in Japan",
+						"No Use in Germany"
+					],
+					"provider": "AP",
+					"infosource": [
+						{
+							"name": "SIPAPRE",
+							"type": "ThirdParty"
+						}
+					],
+					"description_caption": "Cristian Garin, Chile, during Madrid Open Tennis 2022 match. in Madrid, Spain on May 3, 2022.(Photo by Acero/Alter Photos/Sipa USA)(Sipa via AP Images)",
+					"renditions": {
+						"main": {
+							"title": "Full Resolution (JPG)",
+							"rel": "Main",
+							"format": "JPEG Baseline",
+							"type": "picture",
+							"contentid": "a13d03c47395434382c9ea33f8f85f16",
+							"digest": "aa45fc3b0d31633398268df3019e301d",
+							"href": "https://api.ap.org/media/v/content/ed094ebcaab3432481938470d042f4d6.0/download?role=main&qt=KYjOxhQFyIF&cid=a13d03c47395434382c9ea33f8f85f16&pt=NDU2NTZ8OTkxMDR8NnwzNXxVU0Q",
+							"orientation": "Vertical",
+							"sizeinbytes": 1141449,
+							"width": 2213,
+							"height": 3000,
+							"originalfilename": "Spain__Madrid_Open_Tennis_2022_-_Tiafoe_vs_Garin_46811.jpg",
+							"fileextension": "jpg",
+							"mimetype": "image/jpeg",
+							"priced": true,
+							"pricetag": "USD:35.00"
+						},
+						"preview": {
+							"title": "Preview (JPG)",
+							"rel": "Preview",
+							"format": "JPEG Baseline",
+							"type": "picture",
+							"contentid": "c9848ec82bb34c24a567495a9d8125f6",
+							"digest": "f3907517676db091cb33b3f63e8a1e46",
+							"href": "https://mapi.associatedpress.com/v1/items/ed094ebcaab3432481938470d042f4d6.0/preview/preview.jpg?nfe=true&s=512&app=MPK&tag=iid~ed094ebcaab3432481938470d042f4d6!rsn~0!cid~c9848ec82bb34c24a567495a9d8125f6!orgId~33098!qt~KYjOxhQFyIF!orgNm~ATLANTA%20JOURNAL-CONSTITUTION%20(Cox%20Group)!role~Preview!mt~photo!fmt~JPEG%20Baseline",
+							"orientation": "Vertical",
+							"sizeinbytes": 51630,
+							"width": 378,
+							"height": 512,
+							"originalfilename": "Spain__Madrid_Open_Tennis_2022_-_Tiafoe_vs_Garin_46811.jpg",
+							"fileextension": "jpg",
+							"mimetype": "image/jpeg"
+						},
+						"thumbnail": {
+							"title": "Thumbnail (JPG)",
+							"rel": "Thumbnail",
+							"format": "JPEG Baseline",
+							"type": "picture",
+							"contentid": "1f4b0c698a1243faa8aec3bfd9f160c0",
+							"digest": "46304b4b774e2be095e53eac088bdf86",
+							"href": "https://mapi.associatedpress.com/v1/items/ed094ebcaab3432481938470d042f4d6.0/thumbnail/thumbnail.jpg?nfe=true&app=MPK&tag=iid~ed094ebcaab3432481938470d042f4d6!rsn~0!cid~1f4b0c698a1243faa8aec3bfd9f160c0!orgId~33098!qt~KYjOxhQFyIF!orgNm~ATLANTA%20JOURNAL-CONSTITUTION%20(Cox%20Group)!role~Thumbnail!mt~photo!fmt~JPEG%20Baseline",
+							"orientation": "Vertical",
+							"sizeinbytes": 11074,
+							"width": 92,
+							"height": 125,
+							"originalfilename": "Spain__Madrid_Open_Tennis_2022_-_Tiafoe_vs_Garin_46811.jpg",
+							"fileextension": "jpg",
+							"mimetype": "image/jpeg"
+						},
+						"caption_nitf": {
+							"title": "NITF Caption Download",
+							"rel": "Caption",
+							"format": "IIM",
+							"type": "text",
+							"mimetype": "text/xml",
+							"fileextension": "xml",
+							"words": 23,
+							"contentid": "ed094ebcaab3432481938470d042f4d6",
+							"href": "https://api.ap.org/media/v/content/ed094ebcaab3432481938470d042f4d6.0/download?qt=KYjOxhQFyIF&type=text&format=nitf&text=caption&et=0a1aza3c0"
+						}
+					}
+				}
+			},
+			{
+				"meta": {},
+				"item": {
+					"uri": "https://api.ap.org/media/v/content/29fc77498e93404e89d0e20f54438283?qt=KYjOxhQFyIF&et=0a1aza3c0",
+					"altids": {
+						"itemid": "29fc77498e93404e89d0e20f54438283",
+						"etag": "29fc77498e93404e89d0e20f54438283_0a1aza3c0",
+						"friendlykey": "22124572521006"
+					},
+					"version": 0,
+					"type": "picture",
+					"firstcreated": "2022-05-04T15:54:13Z",
+					"pubstatus": "usable",
+					"ednote": "*** France, Germany, Japan, and Spain OUT *** *** May not be licensed in Europe *** Minimum Rate Applies *** For editorial use only. Please contact your AP representative for commercial use. 39085224",
+					"signals": [
+						"newscontent"
+					],
+					"headline": "Spain: Madrid Open Tennis 2022 - Djokovic vs Monfils",
+					"description_creditline": "Sipa USA via AP",
+					"copyrightnotice": "Sipa USA",
+					"usageterms": [
+						"This content is intended for editorial use only. For other uses, additional clearances may be required.",
+						"No Use In Europe",
+						"No Use in France",
+						"No Use in Japan",
+						"No Use in Germany"
+					],
+					"provider": "AP",
+					"infosource": [
+						{
+							"name": "SIPAPRE",
+							"type": "ThirdParty"
+						}
+					],
+					"description_caption": "Novak Djokovic, Serbia, during Madrid Open Tennis 2022 match. in Madrid, Spain on May 3, 2022.(Photo by Acero/Alter Photos/Sipa USA)(Sipa via AP Images)",
+					"renditions": {
+						"main": {
+							"title": "Full Resolution (JPG)",
+							"rel": "Main",
+							"format": "JPEG Baseline",
+							"type": "picture",
+							"contentid": "19b66f479bcd45c894ad3544667049bb",
+							"digest": "ed2cb6d3102bdffd000ab7a8b12eacd8",
+							"href": "https://api.ap.org/media/v/content/29fc77498e93404e89d0e20f54438283.0/download?role=main&qt=KYjOxhQFyIF&cid=19b66f479bcd45c894ad3544667049bb&pt=NDU2NTZ8OTkxMDR8NnwzNXxVU0Q",
+							"orientation": "Vertical",
+							"sizeinbytes": 1087807,
+							"width": 2000,
+							"height": 3000,
+							"originalfilename": "Spain__Madrid_Open_Tennis_2022_-_Djokovic_vs_Monfils_21006.jpg",
+							"fileextension": "jpg",
+							"mimetype": "image/jpeg",
+							"priced": true,
+							"pricetag": "USD:35.00"
+						},
+						"preview": {
+							"title": "Preview (JPG)",
+							"rel": "Preview",
+							"format": "JPEG Baseline",
+							"type": "picture",
+							"contentid": "f2bc1b2110564ea49a0ab19ea9397cda",
+							"digest": "4ad9bd70a9f967b70fb4f8e92ef32c7a",
+							"href": "https://mapi.associatedpress.com/v1/items/29fc77498e93404e89d0e20f54438283.0/preview/preview.jpg?nfe=true&s=512&app=MPK&tag=iid~29fc77498e93404e89d0e20f54438283!rsn~0!cid~f2bc1b2110564ea49a0ab19ea9397cda!orgId~33098!qt~KYjOxhQFyIF!orgNm~ATLANTA%20JOURNAL-CONSTITUTION%20(Cox%20Group)!role~Preview!mt~photo!fmt~JPEG%20Baseline",
+							"orientation": "Vertical",
+							"sizeinbytes": 53451,
+							"width": 341,
+							"height": 512,
+							"originalfilename": "Spain__Madrid_Open_Tennis_2022_-_Djokovic_vs_Monfils_21006.jpg",
+							"fileextension": "jpg",
+							"mimetype": "image/jpeg"
+						},
+						"thumbnail": {
+							"title": "Thumbnail (JPG)",
+							"rel": "Thumbnail",
+							"format": "JPEG Baseline",
+							"type": "picture",
+							"contentid": "ec7877f130f346c4acbd77884546882d",
+							"digest": "b2a26e17c2de0b5b34984ca1d67820b5",
+							"href": "https://mapi.associatedpress.com/v1/items/29fc77498e93404e89d0e20f54438283.0/thumbnail/thumbnail.jpg?nfe=true&app=MPK&tag=iid~29fc77498e93404e89d0e20f54438283!rsn~0!cid~ec7877f130f346c4acbd77884546882d!orgId~33098!qt~KYjOxhQFyIF!orgNm~ATLANTA%20JOURNAL-CONSTITUTION%20(Cox%20Group)!role~Thumbnail!mt~photo!fmt~JPEG%20Baseline",
+							"orientation": "Vertical",
+							"sizeinbytes": 10931,
+							"width": 83,
+							"height": 125,
+							"originalfilename": "Spain__Madrid_Open_Tennis_2022_-_Djokovic_vs_Monfils_21006.jpg",
+							"fileextension": "jpg",
+							"mimetype": "image/jpeg"
+						},
+						"caption_nitf": {
+							"title": "NITF Caption Download",
+							"rel": "Caption",
+							"format": "IIM",
+							"type": "text",
+							"mimetype": "text/xml",
+							"fileextension": "xml",
+							"words": 23,
+							"contentid": "29fc77498e93404e89d0e20f54438283",
+							"href": "https://api.ap.org/media/v/content/29fc77498e93404e89d0e20f54438283.0/download?qt=KYjOxhQFyIF&type=text&format=nitf&text=caption&et=0a1aza3c0"
+						}
+					}
+				}
+			},
+			{
+				"meta": {},
+				"item": {
+					"uri": "https://api.ap.org/media/v/content/89bc2b1b5e21445c980636ec0131fd12?qt=KYjOxhQFyIF&et=0a1aza3c0",
+					"altids": {
+						"itemid": "89bc2b1b5e21445c980636ec0131fd12",
+						"etag": "89bc2b1b5e21445c980636ec0131fd12_0a1aza3c0",
+						"friendlykey": "22124572561680"
+					},
+					"version": 0,
+					"type": "picture",
+					"firstcreated": "2022-05-04T15:54:16Z",
+					"pubstatus": "usable",
+					"ednote": "*** France, Germany, Japan, and Spain OUT *** *** May not be licensed in Europe *** Minimum Rate Applies *** For editorial use only. Please contact your AP representative for commercial use. 39085595",
+					"signals": [
+						"newscontent"
+					],
+					"headline": "Spain: Madrid Open Tennis 2022 - Tiafoe vs Garin",
+					"description_creditline": "Sipa USA via AP",
+					"copyrightnotice": "Sipa USA",
+					"usageterms": [
+						"This content is intended for editorial use only. For other uses, additional clearances may be required.",
+						"No Use In Europe",
+						"No Use in France",
+						"No Use in Japan",
+						"No Use in Germany"
+					],
+					"provider": "AP",
+					"infosource": [
+						{
+							"name": "SIPAPRE",
+							"type": "ThirdParty"
+						}
+					],
+					"description_caption": "Cristian Garin, Chile, during Madrid Open Tennis 2022 match. in Madrid, Spain on May 3, 2022.(Photo by Acero/Alter Photos/Sipa USA)(Sipa via AP Images)",
+					"renditions": {
+						"main": {
+							"title": "Full Resolution (JPG)",
+							"rel": "Main",
+							"format": "JPEG Baseline",
+							"type": "picture",
+							"contentid": "44a5bd6bdad141f7a772dc0d946e3943",
+							"digest": "fd1b19d1a7a43d8a658a9ba8c41b4259",
+							"href": "https://api.ap.org/media/v/content/89bc2b1b5e21445c980636ec0131fd12.0/download?role=main&qt=KYjOxhQFyIF&cid=44a5bd6bdad141f7a772dc0d946e3943&pt=NDU2NTZ8OTkxMDR8NnwzNXxVU0Q",
+							"orientation": "Horizontal",
+							"sizeinbytes": 882990,
+							"width": 3000,
+							"height": 2000,
+							"originalfilename": "Spain__Madrid_Open_Tennis_2022_-_Tiafoe_vs_Garin_61680.jpg",
+							"fileextension": "jpg",
+							"mimetype": "image/jpeg",
+							"priced": true,
+							"pricetag": "USD:35.00"
+						},
+						"preview": {
+							"title": "Preview (JPG)",
+							"rel": "Preview",
+							"format": "JPEG Baseline",
+							"type": "picture",
+							"contentid": "68b39c6b34b240eb9dbce36c3add4663",
+							"digest": "090177f21c4ca5186581ff90bf61fc2a",
+							"href": "https://mapi.associatedpress.com/v1/items/89bc2b1b5e21445c980636ec0131fd12.0/preview/preview.jpg?nfe=true&s=512&app=MPK&tag=iid~89bc2b1b5e21445c980636ec0131fd12!rsn~0!cid~68b39c6b34b240eb9dbce36c3add4663!orgId~33098!qt~KYjOxhQFyIF!orgNm~ATLANTA%20JOURNAL-CONSTITUTION%20(Cox%20Group)!role~Preview!mt~photo!fmt~JPEG%20Baseline",
+							"orientation": "Horizontal",
+							"sizeinbytes": 43037,
+							"width": 512,
+							"height": 341,
+							"originalfilename": "Spain__Madrid_Open_Tennis_2022_-_Tiafoe_vs_Garin_61680.jpg",
+							"fileextension": "jpg",
+							"mimetype": "image/jpeg"
+						},
+						"thumbnail": {
+							"title": "Thumbnail (JPG)",
+							"rel": "Thumbnail",
+							"format": "JPEG Baseline",
+							"type": "picture",
+							"contentid": "42af8ec511e8497f9a103a2f0fc0af0d",
+							"digest": "7483b4ce7924f62a0b78e3df96992a00",
+							"href": "https://mapi.associatedpress.com/v1/items/89bc2b1b5e21445c980636ec0131fd12.0/thumbnail/thumbnail.jpg?nfe=true&app=MPK&tag=iid~89bc2b1b5e21445c980636ec0131fd12!rsn~0!cid~42af8ec511e8497f9a103a2f0fc0af0d!orgId~33098!qt~KYjOxhQFyIF!orgNm~ATLANTA%20JOURNAL-CONSTITUTION%20(Cox%20Group)!role~Thumbnail!mt~photo!fmt~JPEG%20Baseline",
+							"orientation": "Horizontal",
+							"sizeinbytes": 10415,
+							"width": 125,
+							"height": 83,
+							"originalfilename": "Spain__Madrid_Open_Tennis_2022_-_Tiafoe_vs_Garin_61680.jpg",
+							"fileextension": "jpg",
+							"mimetype": "image/jpeg"
+						},
+						"caption_nitf": {
+							"title": "NITF Caption Download",
+							"rel": "Caption",
+							"format": "IIM",
+							"type": "text",
+							"mimetype": "text/xml",
+							"fileextension": "xml",
+							"words": 23,
+							"contentid": "89bc2b1b5e21445c980636ec0131fd12",
+							"href": "https://api.ap.org/media/v/content/89bc2b1b5e21445c980636ec0131fd12.0/download?qt=KYjOxhQFyIF&type=text&format=nitf&text=caption&et=0a1aza3c0"
+						}
+					}
+				}
+			},
+			{
+				"meta": {},
+				"item": {
+					"uri": "https://api.ap.org/media/v/content/57bfa64747b54298af060840cc4dd5d4?qt=KYjOxhQFyIF&et=0a1aza3c0",
+					"altids": {
+						"itemid": "57bfa64747b54298af060840cc4dd5d4",
+						"etag": "57bfa64747b54298af060840cc4dd5d4_0a1aza3c0",
+						"friendlykey": "22124572653376"
+					},
+					"version": 0,
+					"type": "picture",
+					"firstcreated": "2022-05-04T15:54:25Z",
+					"pubstatus": "usable",
+					"ednote": "*** France, Germany, Japan, and Spain OUT *** *** May not be licensed in Europe *** Minimum Rate Applies *** For editorial use only. Please contact your AP representative for commercial use. 39085618",
+					"signals": [
+						"newscontent"
+					],
+					"headline": "Spain: Madrid Open Tennis 2022 - Tiafoe vs Garin",
+					"description_creditline": "Sipa USA via AP",
+					"copyrightnotice": "Sipa USA",
+					"usageterms": [
+						"This content is intended for editorial use only. For other uses, additional clearances may be required.",
+						"No Use In Europe",
+						"No Use in France",
+						"No Use in Japan",
+						"No Use in Germany"
+					],
+					"provider": "AP",
+					"infosource": [
+						{
+							"name": "SIPAPRE",
+							"type": "ThirdParty"
+						}
+					],
+					"description_caption": "Cristian Garin, Chile, during Madrid Open Tennis 2022 match. in Madrid, Spain on May 3, 2022.(Photo by Acero/Alter Photos/Sipa USA)(Sipa via AP Images)",
+					"renditions": {
+						"main": {
+							"title": "Full Resolution (JPG)",
+							"rel": "Main",
+							"format": "JPEG Baseline",
+							"type": "picture",
+							"contentid": "926685ef51a9444a9c41d2dbe6f375c1",
+							"digest": "6a3b65ed1b8430c075c2f3bacf0f274c",
+							"href": "https://api.ap.org/media/v/content/57bfa64747b54298af060840cc4dd5d4.0/download?role=main&qt=KYjOxhQFyIF&cid=926685ef51a9444a9c41d2dbe6f375c1&pt=NDU2NTZ8OTkxMDR8NnwzNXxVU0Q",
+							"orientation": "Horizontal",
+							"sizeinbytes": 1013606,
+							"width": 3000,
+							"height": 2001,
+							"originalfilename": "Spain__Madrid_Open_Tennis_2022_-_Tiafoe_vs_Garin_53376.jpg",
+							"fileextension": "jpg",
+							"mimetype": "image/jpeg",
+							"priced": true,
+							"pricetag": "USD:35.00"
+						},
+						"preview": {
+							"title": "Preview (JPG)",
+							"rel": "Preview",
+							"format": "JPEG Baseline",
+							"type": "picture",
+							"contentid": "9adbcf793bc74214ad73344bc3503397",
+							"digest": "1a088bab57fc5b90ea6a6ce3b111f854",
+							"href": "https://mapi.associatedpress.com/v1/items/57bfa64747b54298af060840cc4dd5d4.0/preview/preview.jpg?nfe=true&s=512&app=MPK&tag=iid~57bfa64747b54298af060840cc4dd5d4!rsn~0!cid~9adbcf793bc74214ad73344bc3503397!orgId~33098!qt~KYjOxhQFyIF!orgNm~ATLANTA%20JOURNAL-CONSTITUTION%20(Cox%20Group)!role~Preview!mt~photo!fmt~JPEG%20Baseline",
+							"orientation": "Horizontal",
+							"sizeinbytes": 38887,
+							"width": 512,
+							"height": 342,
+							"originalfilename": "Spain__Madrid_Open_Tennis_2022_-_Tiafoe_vs_Garin_53376.jpg",
+							"fileextension": "jpg",
+							"mimetype": "image/jpeg"
+						},
+						"thumbnail": {
+							"title": "Thumbnail (JPG)",
+							"rel": "Thumbnail",
+							"format": "JPEG Baseline",
+							"type": "picture",
+							"contentid": "d6f818320bc74af391597d67b7762e36",
+							"digest": "e41031c5d43e5a910f8d23381c181438",
+							"href": "https://mapi.associatedpress.com/v1/items/57bfa64747b54298af060840cc4dd5d4.0/thumbnail/thumbnail.jpg?nfe=true&app=MPK&tag=iid~57bfa64747b54298af060840cc4dd5d4!rsn~0!cid~d6f818320bc74af391597d67b7762e36!orgId~33098!qt~KYjOxhQFyIF!orgNm~ATLANTA%20JOURNAL-CONSTITUTION%20(Cox%20Group)!role~Thumbnail!mt~photo!fmt~JPEG%20Baseline",
+							"orientation": "Horizontal",
+							"sizeinbytes": 9423,
+							"width": 125,
+							"height": 83,
+							"originalfilename": "Spain__Madrid_Open_Tennis_2022_-_Tiafoe_vs_Garin_53376.jpg",
+							"fileextension": "jpg",
+							"mimetype": "image/jpeg"
+						},
+						"caption_nitf": {
+							"title": "NITF Caption Download",
+							"rel": "Caption",
+							"format": "IIM",
+							"type": "text",
+							"mimetype": "text/xml",
+							"fileextension": "xml",
+							"words": 23,
+							"contentid": "57bfa64747b54298af060840cc4dd5d4",
+							"href": "https://api.ap.org/media/v/content/57bfa64747b54298af060840cc4dd5d4.0/download?qt=KYjOxhQFyIF&type=text&format=nitf&text=caption&et=0a1aza3c0"
+						}
+					}
+				}
+			}
+		]
+	}
+}

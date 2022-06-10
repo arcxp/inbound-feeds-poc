@@ -130,3 +130,9 @@ dmypy.json
 
 # Pycharm stuff
 *.idea*
+
+# Environment
+.env
+
+# can be safely removed from gitignore
+pyproject.toml

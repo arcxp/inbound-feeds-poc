@@ -1,0 +1,29 @@
+{
+  "version": "0.10.7",
+  "_id": "W3O2WV7YDGNJO7CFNSBDQDBPHA",
+  "type": "image",
+  "owner": {
+    "id": "sandbox.stagingmultisitelarge"
+  },
+  "publish_date": "2022-05-18T17:59:22Z",
+  "display_date": "2022-05-18T17:59:22Z",
+  "distributor": {
+    "category": "wires",
+    "name": "Associated Press",
+    "mode": "custom"
+  },
+  "source": {
+    "name": "Associated Press",
+    "system": "Associated Press",
+    "source_id": "6b438ae40687428189d42d4db43fb24c"
+  },
+  "additional_properties": {
+    "originalName": "France_Cannes_2022_Top_Gun__Maverick_Red_Carpet_69618.jpg",
+    "originalUrl": "https://api.ap.org/media/v/content/e1cad26421914477bb26c1ba328d2c81.0/download?role=main&qt=a9alW-UtkmF&cid=6b438ae40687428189d42d4db43fb24c&pt=NDQyMTd8OTkxNjZ8MXwwfC0&apikey=3iq6ipqa8ag5fmt3cdy6ukxaby",
+    "ap_item_url": "https://api.ap.org/media/v/content/e1cad26421914477bb26c1ba328d2c81?qt=a9alW-UtkmF&et=0a1aza3c0",
+    "expiration_date": "2022-07-17T00:00:00Z",
+    "sha1": "0a157f102c7ce566f4e7a35d80f8fddbc1b3217c"
+  },
+  "caption": "Jerry Bruckheimer poses for photographers upon arrival at the premiere of the film 'Top Gun: Maverick' at the 75th international film festival, Cannes, southern France, Wednesday, May 18, 2022. (Photo by Joel C Ryan/Invision/AP)",
+  "subtitle": "France Cannes 2022 Top Gun: Maverick Red Carpet"
+}
