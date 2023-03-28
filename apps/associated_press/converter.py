@@ -213,6 +213,7 @@ class APStoryConverter(AssociatedPressBaseConverter):
                     "referent_properties": {"additional_properties": {"original": {"source_id": id}}},
                 },
                 "type": "reference",
+                "id": self.get_arc_id(id),
             }
             for id in ids
         ]

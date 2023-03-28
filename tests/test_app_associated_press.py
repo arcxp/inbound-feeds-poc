@@ -230,6 +230,7 @@ def test_story_converter(test_content):
                 "referent_properties": {"additional_properties": {"original": {"source_id": "d110254bbaf54b2098e36e3ced474862"}}},
             },
             "type": "reference",
+            "id": "5WAHGB4GUQEDL5NXO2YQNKELZY"
         },
         {
             "referent": {
@@ -238,6 +239,7 @@ def test_story_converter(test_content):
                 "referent_properties": {"additional_properties": {"original": {"source_id": "15667ba3019843fc89c922cc822ffb4b"}}},
             },
             "type": "reference",
+            "id": "ZL7AOJH4MLAS4AHT4K5RYU6Q3A",
         },
         {
             "referent": {
@@ -246,6 +248,7 @@ def test_story_converter(test_content):
                 "referent_properties": {"additional_properties": {"original": {"source_id": "bf1096954ea44abdabcd1bd204991983"}}},
             },
             "type": "reference",
+            "id": "YMWMWCQE47HXC5UDJKJEIWD3LY",
         },
     ]
     assert ans.get("related_content").get("basic") == associations

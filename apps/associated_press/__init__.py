@@ -108,7 +108,18 @@ def bearer_token():
         token = config("ARC_TOKEN_SANDBOX")
     else:
         token = config("ARC_TOKEN_PRODUCTION")
-    return {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
+
+    # Draft API requests require Arc-Priority header to route traffic to appropriate lane
+    # request header Arc-Priority: ingestion ... events routed with lower priority.
+    #    stories do not show up in the Websked Arc application.
+    #    large volumes can be ingested with the ingestion priority safely.
+    # request header Arc-Priority: standard ...  events routed with higher priority.
+    #    stories do show up in Websked.
+    #    take extra precautions with standard priority to not abuse with heavy and frequent traffic,
+    #    or the traffic will cause instability and may be subjected to additional throttling by Arc
+    priority_header = "ingestion"
+
+    return {"Authorization": f"Bearer {token}", "Content-Type": "application/json", "Arc-Priority": priority_header}
 
 
 @sleep_and_retry
