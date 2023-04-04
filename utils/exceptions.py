@@ -9,7 +9,7 @@ class IncompleteWireStoryException(Exception):
 
 
 class IncompleteWirePhotoException(Exception):
-    def __init__(self, message="Wire photo cannot be sent to Draft API without ans data"):
+    def __init__(self, message="Wire photo cannot be sent to Photo API without ans data"):
         self.message = message
         super().__init__(self.message)
 

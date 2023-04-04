@@ -132,8 +132,9 @@ def process_wire_story(converter: APStoryConverter, count: str, conn: connect):
     # without circulating to a section, you can still filter in Composer for the only stories belonging to the wire
     # by using the distributor values. this POC will demonstrate sending a simple circulation to a single section.
     circulation = None
-    # an operation is not required, but this POC will demonstrate how to send a future publishing operation,
-    # in this case the future publishing operation we are sending will delete the wire content once it has aged and become stale
+    # stories ingested by this POC will be unpublished, as is best practice for the ingestion of inbound wires.
+    # a content operation is not required, but this POC will demonstrate how to send a future publishing operation
+    # the content operation we are sending will delete the wire content once it has aged and become stale
     operation = None
     org = config("ARC_ORG_ID")
     logger.info("GENERATE ANS & CIRCULATION & OPERATION")
