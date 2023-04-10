@@ -457,7 +457,7 @@ def test_process_wire_story_happy_path(mock_converter, mock_post, mock_put, mock
 def test_process_wire_photo_incomplete(mock_converter, mock_connect):
     # note: is affected by the mock_decorator function at top of test file.
     mock_converter.convert_ans.return_value = None
-    assert process_wire_photo(mock_converter, "0 of 0", mock_connect) == "Wire photo cannot be sent to Draft API without ans data"
+    assert process_wire_photo(mock_converter, "0 of 0", mock_connect) == "Wire photo cannot be sent to Photo API without ans data"
 
 
 @mock.patch("utils.inventory.select_inventory_by_sha1")

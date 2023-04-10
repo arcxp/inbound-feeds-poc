@@ -166,11 +166,12 @@ def process_wire_story(converter: APStoryConverter, count: str, conn: connect):
         res.raise_for_status()
     except Exception as e:
         # POSTing to an existing arc id in Draft API causes an error, you have to PUT instead.
-        res_error_msg = res.json().get("error_message")
-        logger.warning(res_error_msg, extra=extra)
+        if "res" in locals():
+            res_error_msg = res.json().get("error_message")
+            logger.warning(res_error_msg, extra=extra)
 
         # Draft API throws specific exception if you POST to a story that already exists: "{Arc Id} is already in-use"
-        if "is already in-use" in res_error_msg:
+        if "res" in locals() and "is already in-use" in res_error_msg:
 
             try:
                 logger.info("UPDATE DRAFT API")
@@ -187,12 +188,14 @@ def process_wire_story(converter: APStoryConverter, count: str, conn: connect):
             except Exception as ex:
                 # If still errors, report on the error
                 logger.error(ex, extra=extra)
-                logger.error(res.json().get("error_message"), extra=extra)
+                if "res" in locals():
+                    logger.error(res.json().get("error_message"), extra=extra)
                 return str(ex)
 
         else:
             logger.error(e, extra=extra)
-            logger.error(res.json().get("error_message"), extra=extra)
+            if "res" in locals():
+                logger.error(res.json().get("error_message"), extra=extra)
             return str(e)
 
     logger.info("SEND OPERATION")
@@ -201,7 +204,8 @@ def process_wire_story(converter: APStoryConverter, count: str, conn: connect):
         res.raise_for_status()
     except Exception as e:
         logger.error(e, extra=extra)
-        logger.error(res.json().get("error"), extra=extra)
+        if "res" in locals():
+            logger.error(res.json().get("error"), extra=extra)
         return str(e)
 
     logger.info("SEND CIRCULATION")
@@ -214,7 +218,8 @@ def process_wire_story(converter: APStoryConverter, count: str, conn: connect):
         res.raise_for_status()
     except Exception as e:
         logger.error(e, extra=extra)
-        logger.error(res.json().get("error_message"), extra=extra)
+        if "res" in locals():
+            logger.error(res.json().get("error_message"), extra=extra)
         return str(e)
 
     logger.info("SAVE INVENTORY")
@@ -292,12 +297,14 @@ def process_wire_photo(converter: APPhotoConverter, count: str, conn: connect):
             except Exception as ex:
                 # If still errors, report on the error
                 logger.error(ex, extra=extra)
-                logger.error(res.json().get("error_message"), extra=extra)
+                if "res" in locals():
+                    logger.error(res.json().get("error_message"), extra=extra)
                 return str(ex)
 
         else:
             logger.error(e, extra=extra)
-            logger.error(res.json().get("message"), extra=extra)
+            if "res" in locals():
+                logger.error(res.json().get("message"), extra=extra)
             return str(e)
 
     logger.info("SAVE INVENTORY")
