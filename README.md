@@ -1,4 +1,4 @@
-# inbound-feeds-poc
+# inbound-feeds-poc 
 
 **_inbound-feeds-poc_** is a proof of concept application, developed as a demonstration of pulling wire content, transforming the wire content into ANS format, then sending the transformed ANS into Arc. Read on ALC about the process of pulling external content into Arc via building an [Inbound Feeds Adapter](https://redirector.arcpublishing.com/alc/arc-products/arcwide/user-docs/self-onboarding-inbound-wires-adapter/).
 
