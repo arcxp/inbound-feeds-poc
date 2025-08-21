@@ -1,6 +1,6 @@
-# inbound-feeds-poc 
+# inbound-feeds-poc
 
-**_inbound-feeds-poc_** is a proof of concept application, developed as a demonstration of pulling wire content, transforming the wire content into ANS format, then sending the transformed ANS into Arc XP. Read on Arc Learning Center about the process of pulling external content into Arc via building an [Inbound Feeds Adapter](https://docs.arcxp.com/alc?sys_kb_id=397e19e4478ea150a87626c2846d4392&id=kb_article_view).
+**_inbound-feeds-poc_** is a proof of concept application, developed as a demonstration of pulling wire content, transforming the wire content into ANS format, then sending the transformed ANS into Arc. Read on ALC about the process of pulling external content into Arc via building an [Inbound Feeds Adapter](https://docs.arcxp.com/en/products/publishing-platform/how-to-ingest-wire-content-using-an-inbound-wires-adapter.html).
 
 This POC is not designed for use in a production environment.  It is provided as a simple example of the general concepts and suggestions described in the ALC article:
 
@@ -15,7 +15,7 @@ This POC is not designed for use in a production environment.  It is provided as
 
 This application does not model scheduling itself to run repeatedly on a timed cycle.
 
-The wire service this POC pulls from is the Associated Press.  In order to run the POC you will need access to a valid AP API token. You will also need an Arc XP provisioned organization and access to Arc XP's Composer, Photo Center and Site Service applications.
+The wire service this POC pulls from is the Associated Press.  In order to run the POC you will need access to a valid AP API token. You will also need an Arc provisioned organization and access to Arc's Composer, Photo Center and Site Service applications.
 
 ## Installation
 
