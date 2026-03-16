@@ -27,10 +27,14 @@ from utils.logger import get_logger
 
 logger = get_logger()
 
+def ap_headers():
+    # AP Media API docs recommend using x-api-key header
+    return {"x-api-key": config("AP_API_KEY")}
+
 
 def fetch_feed(next_page: Optional[str] = None):
     url = "https://api.ap.org/media/v/content/feed"
-    params = {"apikey": config("AP_API_KEY")}
+    params = {}
     q = config("AP_QUERY", None)
     items = None
     if next_page:
@@ -38,7 +42,11 @@ def fetch_feed(next_page: Optional[str] = None):
     elif q:
         params["q"] = q
         logger.info("Associated Press Query Param", extra={"q": q})
-    res = requests.get(url, params=params)
+    if next_page:
+        # next_page URL already contains the necessary query params
+        res = requests.get(url, headers=ap_headers())
+    else:
+        res = requests.get(url, params=params, headers=ap_headers())
     if res.ok:
         data = res.json()
         next_page = search("data.next_page", data) or None
@@ -80,8 +88,7 @@ def fetch_feed(next_page: Optional[str] = None):
 def fetch_story_item(url: str, item: dict):
     # AP story text is in XML. The converter will parse the XML to into Ans content elements.
     # Also Convert the XML to JSON and add to source data. Will use this to compute the sha1.
-    params = {"apikey": config("AP_API_KEY")}
-    res = requests.get(url, params=params)
+    res = requests.get(url, headers=ap_headers())
     if res.ok:
         data = parse(res.content).get("nitf", {})
         data = json.loads(json.dumps(data))

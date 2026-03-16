@@ -17,6 +17,8 @@ This application does not model scheduling itself to run repeatedly on a timed c
 
 The wire service this POC pulls from is the Associated Press.  In order to run the POC you will need access to a valid AP API token. You will also need an Arc provisioned organization and access to Arc's Composer, Photo Center and Site Service applications.
 
+Note: AP feed requests in this POC send the API key using the `x-api-key` request header (per AP Media API docs), sourced from `AP_API_KEY` in your `.env`.
+
 ## Installation
 
 > WARNING: This is a proof-of-concept application. Do not use it in a production deployment. Develop a production application instead.

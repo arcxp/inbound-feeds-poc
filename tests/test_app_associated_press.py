@@ -490,8 +490,17 @@ def test_process_wire_photo_error_photoapi(mock_converter, mock_post, mock_conne
 
 @mock.patch("apps.associated_press.process_wires")
 @mock.patch("apps.associated_press.fetch_feed")
-def test_run_ap_ingest_wires(mock_fetch_feed, mock_process_wires, test_content):
+def test_run_ap_ingest_wires(mock_fetch_feed, mock_process_wires, test_content, monkeypatch):
     mock_fetch_feed.return_value = test_content.get_content("ap_feed_items.json")
+
+    # run_ap_ingest_wires() calls fetch_story_item() for text items, which fetches story XML.
+    # Avoid real network calls by mocking requests.get for the story download URL.
+    def mock_get(*args, **kwargs):
+        content = test_content.get_content("ap_text_story_Election_2022.xml")
+        return MockResponse(content=content)
+
+    monkeypatch.setattr(requests, "get", mock_get)
+
     wires = run_ap_ingest_wires()
     assert len(wires) == 20
     for wire in wires:
