@@ -10,6 +10,8 @@ OPERATIONS_URL = "https://api.{org}.arcpublishing.com/contentops/v1/delete"
 
 PHOTO_API_URL = "https://api.{org}.arcpublishing.com/photo/api/v2/photos/{arc_id}"
 
+MIGRATION_CENTER_ANS_URL = "https://api.{org}.arcpublishing.com/migrations/v3/content/ans"
+
 # This example inbound wires adapter is not using the Draft API PUBLISH endpoint, following the best practice of
 # importing wire content as unpublished only.  Wire content would then be selected by the newsroom and published
 # as needed. This conserves the Draft API rate limit and protects from unnecessary calls to the Draft API publish endpoint.

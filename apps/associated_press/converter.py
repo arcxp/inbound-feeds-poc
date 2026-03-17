@@ -35,6 +35,7 @@ class AssociatedPressBaseConverter:
                 "source_id": self.source_data.get("source_id"),
                 "headline": self.source_data.get("headline"),
                 "firstcreated": self.source_data.get("firstcreated"),
+                "download_url": self.source_data.get("download_url")
             },
         )
         self.converted_ans.update(
@@ -141,9 +142,12 @@ class APStoryConverter(AssociatedPressBaseConverter):
         """The payload needed to post to the Content Operations API to delete this item x days in future"""
         scheduled_delete = {
             "type": "story_operation",
-            "story_id": self.get_arc_id(self.source_data.get("source_id")),
+            # "story_id": self.get_arc_id(self.source_data.get("source_id")),
+            "_id": self.get_arc_id(self.source_data.get("source_id")),
             "operation": "delete",
+            "endpoint": "/delete",
             "date": self.get_expiration_date(),
+            "organization_id": self.org_name,
         }
         logger.info(
             "story delete operation",
