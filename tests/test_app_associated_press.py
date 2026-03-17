@@ -210,9 +210,10 @@ def test_story_converter(test_content):
 
     delete_operation = converter.get_scheduled_delete_operation()
     assert delete_operation.get("type") == "story_operation"
-    assert delete_operation.get("story_id") == "WTMJO4FHXDCGIFKCYNKGZE3UKY"
+    assert delete_operation.get("_id") == "WTMJO4FHXDCGIFKCYNKGZE3UKY"
     assert delete_operation.get("operation") == "delete"
     assert delete_operation.get("date") == "2022-01-04T00:00:00Z"
+    assert delete_operation.get("organization_id") == "myorg"
 
     associations_urls = converter.get_photo_associations_urls()
     assert associations_urls == [
@@ -368,6 +369,35 @@ def test_process_wire_story_error_migration_center(mock_converter, mock_connect,
 
     assert process_wire_story(mock_converter, "0 of 0", mock_connect) == "Response not OK!"
     assert mock_connect.called == False
+
+
+@mock.patch("utils.inventory.select_inventory_by_sha1")
+@mock.patch("sqlite3.connect")
+@mock.patch("requests.post")
+@mock.patch("apps.associated_press.converter.APStoryConverter")
+def test_process_wire_story_migration_center_error(mock_converter, mock_post, mock_connect, mock_select, monkeypatch):
+    # simulate a failure response from Migration Center
+    def failing_post(*args, **kwargs):
+        return MockResponse(
+            json_data={"error_message": "it messed up"},
+            status_code=400,
+            ok=False,
+            raise_for_status=requests.exceptions.RequestException("Response not OK!"),
+        )
+
+    monkeypatch.setattr(requests, "post", failing_post)
+    mock_converter.get_circulation.return_value = {}
+    mock_converter.convert_ans.return_value = {
+        "_id": "123",
+        "source": {"source_id": "abc"},
+        "headlines": {"basic": "stuff"},
+        "additional_properties": {"sha1": "123"},
+    }
+    mock_converter.get_scheduled_delete_operation.return_value = {}
+    mock_select.return_value = False
+
+    assert process_wire_story(mock_converter, "0 of 0", mock_connect) == "Response not OK!"
+    assert mock_connect.called is False
 
 
 @mock.patch("utils.inventory.select_inventory_by_sha1")
