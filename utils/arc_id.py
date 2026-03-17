@@ -3,8 +3,6 @@ import hashlib
 import json
 import uuid
 
-import six
-
 
 def generate_arc_id(*args, **kwargs):
     r"""from_hash(*args, *, as_uuid=False, **kwargs)
@@ -29,4 +27,5 @@ def generate_arc_id(*args, **kwargs):
             digest_size=16,
         ).digest()
     )
-    return six.text_type(base64.b32encode(uuid_object.bytes), encoding="utf-8").replace("=", "")  # to remove padding
+    # base32-encode the UUID bytes, decode to str, and strip padding
+    return base64.b32encode(uuid_object.bytes).decode("utf-8").replace("=", "")

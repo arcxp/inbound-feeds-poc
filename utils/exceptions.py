@@ -3,13 +3,13 @@ class MismatchedContentTypeException(Exception):
 
 
 class IncompleteWireStoryException(Exception):
-    def __init__(self, message="Wire story cannot be sent to Draft API without ans and circulation and operations data"):
+    def __init__(self, message="Wire story cannot be sent to Migration Center API without ans and circulation and operations data"):
         self.message = message
         super().__init__(self.message)
 
 
 class IncompleteWirePhotoException(Exception):
-    def __init__(self, message="Wire photo cannot be sent to Photo API without ans data"):
+    def __init__(self, message="Wire photo cannot be sent to Migration Center API without ans data"):
         self.message = message
         super().__init__(self.message)
 

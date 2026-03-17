@@ -12,7 +12,6 @@ requests==2.27.1
 python-slugify==6.1.2
 python-json-logger==2.0.2
 jmespath==1.0.0
-jmespath-terminal==0.2.1
 jupyter==1.0.0
 python-decouple==3.6
 pytest==7.1.2
